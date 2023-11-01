@@ -1,0 +1,50 @@
+{{#partial "titulo-css" }}
+    <title>Cerrar incidente</title>
+    <link rel="stylesheet" href="/css/styles_registroComunidad.css">
+{{/partial}}
+
+
+
+{{#partial "contenido" }}
+<div class="container">
+    <h1 class="center-label">Cierre de incidentes</h1>
+    <form id="comunidadForm" method="POST" action="/incidentes/cerrar">
+
+        <div class="input-container">
+            <label for="comunidad-incidente"><b>Comunidad</b></label>
+            <select id="comunidad-incidente" name="comunidad-incidente" class="custom-select">
+
+                <option value="" disabled selected>Seleccione la comunidad a la que desea informar del incidente</option>
+
+                {{#each comunidades}}
+                    <option value="{{this.idComunidad}}">{{this.nombre}}</option>
+                {{/each}}
+
+            </select>
+        </div>
+
+        <div class="input-container">
+            <label for="incidente"><b>Incidente</b></label>
+            <select id="incidente" name="incidente" class="custom-select">
+
+                <!--Aca condicionamos esto en base a la comunidad que eligio -->
+
+                <option value="" disabled selected>Seleccione el incidente que desea cerrar</option>
+
+
+            </select>
+        </div>
+
+        <button type="submit">Cerrar incidente</button>
+    </form>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/script_cierreIncidente.js"></script>
+{{/partial}}
+
+
+
+
+{{> templates/navbar }}

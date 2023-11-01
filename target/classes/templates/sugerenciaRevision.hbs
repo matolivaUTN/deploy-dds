@@ -1,0 +1,24 @@
+{{#partial "titulo-css" }}
+    <title>Sugerencia de revisión de incidente</title>
+    <link rel="stylesheet" href="/public/css/styles_sugerenciaRevision.css">
+{{/partial}}
+
+
+
+{{#partial "contenido" }}
+<div id="consulta" class="tabcontent">
+    <form id="incidenteForm">
+        <h1 class="center-label">Consulta por Estado</h1>
+        <p>ID del Incidente: <span id="incidenteInfo">Incidente123</span></p>
+        <p>Descripción: <span id="descripcionIncidente">Descripción del incidente.</span></p>
+        <button onclick="cambiarEstadoIncidente()">Cambiar Estado</button>
+        <p id="estadoActual">Estado Actual: Pendiente</p>
+    </form>
+</div>
+
+{{/partial}}
+
+
+
+
+{{> templates/navbar }}

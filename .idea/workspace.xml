@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d374df30-b7d2-48bc-b19e-6401d2baea99" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../API/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../API/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/FactoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/FactoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Main/PersistidorInicial.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Main/PersistidorInicial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioComunidades.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioComunidades.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioDepartamentos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioDepartamentos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioEntidades.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioEntidades.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioEstablecimientos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioEstablecimientos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioEstadosPorComunidad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioEstadosPorComunidad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioIncidentes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioIncidentes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioLocalizaciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioLocalizaciones.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioMiembros.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioMiembros.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioMunicipios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioMunicipios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioNotificacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioNotificacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioOrganismos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioOrganismos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioPrestaciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioPrestaciones.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioPrestacionesDeServicios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioPrestacionesDeServicios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioPrestadoras.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioPrestadoras.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioProvincias.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioProvincias.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/Router.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Router.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controllers/FactoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/FactoryController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controllers/LocalizacionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/LocalizacionController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controllers/MiembrosController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/MiembrosController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/models/Main/PersistidorInicial.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/Main/PersistidorInicial.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/models/entities/EjemploDeUso.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioComunidades.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioComunidades.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioDepartamentos.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioDepartamentos.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioEntidades.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioEntidades.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioEstablecimientos.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioEstablecimientos.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioEstadosPorComunidad.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioEstadosPorComunidad.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioIncidentes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioIncidentes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioLocalizaciones.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioLocalizaciones.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioMiembros.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioMiembros.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioMunicipios.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioMunicipios.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioNotificacion.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioNotificacion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioOrganismos.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioOrganismos.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioPrestaciones.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioPrestaciones.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioPrestacionesDeServicios.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioPrestacionesDeServicios.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioPrestadoras.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioPrestadoras.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioProvincias.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioProvincias.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/Router.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/Router.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/Server.class" afterDir="false" />
+    </list>
+    <list id="06ca09e1-47b5-4372-be24-b7c9284655dd" name="Changes by agus" comment="" />
+    <list id="1fd348d9-ea01-4946-aea8-ca325f5c7325" name="Changes by Joaco" comment="" />
+    <list id="9f783d2d-e150-441d-ac8a-4e655cd22e01" name="Changes by mati" comment="" />
+    <list id="7c41f28d-9ac4-4450-855f-dafd5a01fedb" name="Changes by matias oliva" comment="" />
+    <list id="f5df4670-a480-4b6c-8755-4d48eea7a7a1" name="Changes by oliva" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="JavaScript File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2QkydLLs42qvy63bK5sXrQ0IEYL" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "TODO_SCOPE": "All Places",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/oliva/OneDrive/Desktop/UTN/3TercerA(2023)/Diseno/TP/2023-tpa-mino-grupo-14/ProyectoBase",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="server.exceptions" />
+      <recent name="models.repositories" />
+      <recent name="Localizacion" />
+      <recent name="Incidente" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Franco\Desktop\2023-tpa-mino-grupo-14\ProyectoBase\src\main\resources\public\css" />
+      <recent name="C:\Users\Franco\Desktop\2023-tpa-mino-grupo-14\ProyectoBase\src\main\resources\templates" />
+      <recent name="C:\Users\Franco\Desktop\2023-tpa-mino-grupo-14\ProyectoBase\src\main\resources\public\js" />
+      <recent name="A:\Universidad\Tercer año\DdS\2023-tpa-mino-grupo-14\ProyectoBase\src\main\resources\public\css" />
+      <recent name="A:\Universidad\Tercer año\DdS\2023-tpa-mino-grupo-14\ProyectoBase\src\main\resources\public\js" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Franco\Desktop\2023-tpa-mino-grupo-14\ProyectoBase\src\main\java\server\session\sessions" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="models.repositories" />
+      <recent name="controllers" />
+      <recent name="server.handlers" />
+      <recent name="server.middlewares" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.App">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="hibernate.hbm2ddl.auto" value="create" />
+        <env name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+        <env name="javax.persistence.jdbc.password" value="1234" />
+        <env name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/dds" />
+        <env name="javax.persistence.jdbc.user" value="postgres" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="server.App" />
+      <module name="untitled" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EjemploDeUso" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="models.entities.EjemploDeUso" />
+      <module name="untitled" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="models.entities.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PersistidorDeGeoref" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="models.entities.georef.PersistidorDeGeoref" />
+      <module name="untitled" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="models.entities.georef.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PersistidorInicial" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="hibernate.hbm2ddl.auto" value="create" />
+        <env name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+        <env name="javax.persistence.jdbc.password" value="1234" />
+        <env name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/dds" />
+        <env name="javax.persistence.jdbc.user" value="postgres" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="models.Main.PersistidorInicial" />
+      <module name="untitled" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="models.Main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Servicio2Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="untitled" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example" />
+      <option name="MAIN_CLASS_NAME" value="org.example.Servicio2Test" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.EjemploDeUso" />
+      <item itemvalue="Application.PersistidorDeGeoref" />
+      <item itemvalue="Application.PersistidorInicial" />
+      <item itemvalue="Application.App" />
+      <item itemvalue="JUnit.Servicio2Test" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.App" />
+        <item itemvalue="Application.PersistidorInicial" />
+        <item itemvalue="Application.PersistidorDeGeoref" />
+        <item itemvalue="Application.EjemploDeUso" />
+        <item itemvalue="JUnit.Servicio2Test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d374df30-b7d2-48bc-b19e-6401d2baea99" name="Changes" comment="" />
+      <created>1685911966867</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1685911966867</updated>
+      <workItem from="1689031560064" duration="160000" />
+      <workItem from="1696294310702" duration="1137000" />
+      <workItem from="1696342856103" duration="4000" />
+      <workItem from="1696447150114" duration="273000" />
+      <workItem from="1696612605401" duration="7717000" />
+      <workItem from="1696877541127" duration="1567000" />
+      <workItem from="1696879688906" duration="21712000" />
+      <workItem from="1696982089341" duration="13074000" />
+      <workItem from="1696997084942" duration="899000" />
+      <workItem from="1696998150911" duration="4011000" />
+      <workItem from="1697048472298" duration="23257000" />
+      <workItem from="1697104029873" duration="1782000" />
+      <workItem from="1697145107387" duration="11069000" />
+      <workItem from="1697287543536" duration="6751000" />
+      <workItem from="1697318240311" duration="27764000" />
+      <workItem from="1697405826680" duration="18942000" />
+      <workItem from="1697470349403" duration="3038000" />
+      <workItem from="1697491266108" duration="17409000" />
+      <workItem from="1697546238550" duration="13765000" />
+      <workItem from="1697579815443" duration="336000" />
+      <workItem from="1697672024539" duration="10000" />
+      <workItem from="1697672184220" duration="7404000" />
+      <workItem from="1697729752177" duration="125000" />
+      <workItem from="1698699487194" duration="13000" />
+      <workItem from="1698699526922" duration="3474000" />
+      <workItem from="1698776567363" duration="10000" />
+      <workItem from="1698786931836" duration="32872000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.hbs" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

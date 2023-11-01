@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/imagenes/check.ico" type="image/x-icon">
+    {{#block "titulo-css"}}
+    {{/block}}
+
+</head>
+<body>
+
+<div class="navbar">
+    <div class="navbar-logo">
+        <img src="/imagenes/logo_blanco.png" alt="logo-img">
+    </div>
+    <ul>
+        <li>
+            <a href="/home">Inicio</a>
+        </li>
+        <li>
+            <a href="#">Carga de datos</a>
+            <div class="dropdown-menu">
+                <a href="/carga-prestadoras-organismos">Entidades prestadoras y Organismos de control</a>
+                <a href="/carga-entidades-establecimientos">Entidades y prestaciones</a>
+                <a href="/entidades/crear">Crear entidad</a>
+                <a href="/establecimientos/crear">Crear establecimiento</a>
+            </div>
+        </li>
+        <li>
+            <a href="#">Incidentes</a>
+            <div class="dropdown-menu">|
+                <a href="/incidentes/abrir">Abrir</a>
+                <a href="/incidentes/cerrar">Cerrar</a>
+                <a href="/incidentes">Consultar incidentes</a>
+                <a href="/rankings">Rankings</a>
+            </div>
+        </li>
+        <li>
+            <a href="#">Comunidades</a>
+            <div class="dropdown-menu">
+                <a href="/comunidades/crear">Crear</a>
+                <a href="/comunidades/unirse">Unirse</a>
+                <a href="/comunidades/mis-comunidades">Mis comunidades</a>
+            </div>
+        </li>
+        <li>
+            <img src="/imagenes/user.png" alt="logo-img" style="width: 30px; height: 30px">
+            <a href="#"></a>
+            <div class="dropdown-menu">
+                <a href="/miembro/eliminar">Borrar cuenta</a>
+                <a href="/logout">Log out</a>
+            </div>
+        </li>
+        <li>
+            <!-- Botón de modo oscuro -->
+            <div class="mode-toggle" id="modo-oscuro"></div>
+        </li>
+    </ul>
+</div>
+
+{{#block "contenido"}}
+{{/block}}
+
+<script src="/js/script_modoOscuro.js"></script>
+
+</body>
+</html>

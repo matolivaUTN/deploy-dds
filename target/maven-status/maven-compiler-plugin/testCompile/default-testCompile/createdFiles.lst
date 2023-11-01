@@ -1,0 +1,7 @@
+org\example\LectorCSVTest.class
+org\example\NotificadorTest.class
+org\example\Servicio2Test.class
+db\ContextTest.class
+org\example\Servicio1Test.class
+org\example\AppTest.class
+org\example\ValidadorContraseniasTest.class

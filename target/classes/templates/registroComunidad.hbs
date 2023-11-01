@@ -1,0 +1,50 @@
+{{#partial "titulo-css" }}
+    <title>Crear comunidad</title>
+    <link rel="stylesheet" href="/css/styles_registroComunidad.css">
+{{/partial}}
+
+
+{{#partial "contenido" }}
+<div class="container">
+    <h1 class="center-label">{{#if comunidad}}Editar comunidad{{else}}Creación de comunidades{{/if}}</h1>
+    <form id="comunidadForm" method="POST" {{#if comunidad}} action="/comunidades/editar/{{comunidad.idComunidad}}" {{else}} action="/comunidades" {{/if}}>
+
+            <div class="input-container">
+                <label for="nombre">Nombre</label>
+                <input
+                        type="text"
+                        name="nombre"
+                        placeholder="Ingrese el nombre de la comunidad"
+                        {{#if comunidad}}
+                            value="{{comunidad.nombre}}"
+                        {{/if}}
+                        id="nombre"
+                        required
+                />
+            </div>
+
+            <div class="input-container">
+                <label for="descripcion">Descripción</label>
+                <textarea
+                    id="descripcion"
+                    name="descripcion"
+                    rows="4"
+                    placeholder="Ingrese la descripción aquí"
+                >{{#if comunidad}}{{comunidad.descripcion}}{{/if}}</textarea>
+            </div>
+
+
+        {{#if comunidad}}
+            <button type="submit">Guardar cambios</button>
+        {{else}}
+            <button type="submit">Crear comunidad</button>
+        {{/if}}
+    </form>
+
+</div>
+
+{{/partial}}
+
+
+
+{{> templates/navbar }}

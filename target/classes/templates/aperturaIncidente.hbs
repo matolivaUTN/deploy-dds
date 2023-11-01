@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apertura de Incidente</title>
+    <link rel="icon" href="/imagenes/check.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles_aperturaIncidente.css">
+
+</head>
+<body>
+
+<div class="navbar">
+    <div class="navbar-logo">
+        <img src="/imagenes/logo_blanco.png" alt="logo-img">
+    </div>
+    <ul>
+        <li><a href="/home">Inicio</a></li>
+        <li>
+            <a href="#">Incidentes</a>
+            <!-- Menú desplegable -->
+            <div class="dropdown-menu">
+                <a href="/incidentes/abrir">Abrir</a>
+                <a href="../cierreIncidente/cierreIncidente.html">Cerrar</a>
+                <a href="/incidentes">Consultar incidentes</a>
+                <a href="../cargaMasiva/cargaMasiva.html">Carga masiva</a>
+                <a href="../sugerenciaRevision/sugerenciaRevision.html">Consulta por estado</a>
+                <a href="../rankings/rankings.html">Rankings</a>
+            </div>
+        </li>
+        <li><a href="/logout">Log out</a></li>
+        <li>
+            <!-- Botón de modo oscuro -->
+            <div class="mode-toggle" id="modo-oscuro"></div>
+        </li>
+    </ul>
+</div>
+
+<div class="center-form">
+
+    <form id="incidenteForm" method="POST" action="/incidentes">
+        <div class="form-group">
+            <label for="descripcion">Descripcion</label>
+            <input name="descripcion" placeholder="Descripcion">
+
+            <label for="observaciones">Observaciones</label>
+            <input name="observaciones" placeholder="Observaciones">
+
+        </div>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+
+    <!--<form id="incidenteForm">
+      <h1 class="center-label">Apertura de Incidente</h1>
+      <label for="establecimiento">Establecimiento:</label>
+      <select id="establecimiento" name="establecimiento">
+        <option value="" disabled selected>Seleccionar Establecimiento</option>
+        <option value="Estacion Medrano">Estacion Medrano</option>
+        <option value="Estacion Caseros">Estacion Caseros</option>
+      </select>
+
+      <label for="prestacion">Prestación:</label>
+      <select id="prestacion" name="prestacion" disabled>
+        <option value="" disabled selected>Seleccionar Prestación</option>
+        <option value="Baño">Baño</option>
+        <option value="Escalera mecanica">Escalera mecanica</option>
+      </select>
+
+      <label for="observaciones">Observaciones:</label>
+      <textarea
+        id="observaciones"
+        name="observaciones"
+        rows="4"
+        placeholder="Ingrese sus observaciones aquí"
+      ></textarea>
+
+      <button type="submit">Enviar</button>
+    </form>-->
+
+    <p id="verificacion" class="hidden verificacion">¡Formulario enviado correctamente!</p>
+</div>
+
+<script src="/js/script_aperturaIncidente.js"></script>
+</body>
+</html>

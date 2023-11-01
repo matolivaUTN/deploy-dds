@@ -1,0 +1,102 @@
+{{#partial "titulo-css" }}
+    <title>Abrir incidente</title>
+    <link rel="stylesheet" href="/css/styles_registroComunidad.css">
+{{/partial}}
+
+
+
+{{#partial "contenido" }}
+<div class="container">
+    <h1 class="center-label">Apertura de incidentes</h1>
+    <form id="comunidadForm" method="POST" action="/incidentes">
+
+        <div class="input-container">
+                <label for="descripcion">Descripción</label>
+                <input
+                        type="text"
+                        name="descripcion"
+                        placeholder="Ingrese el descripcion del incidente"
+                        name="descripcion"
+                        id="descripcion"
+                        required
+                />
+        </div>
+
+        <div class="input-container">
+
+            <label for="observaciones">Observaciones</label>
+            <textarea
+                id="observaciones"
+                name="observaciones"
+                rows="4"
+                placeholder="Ingrese las observaciones aquí"
+            ></textarea>
+        </div>
+
+        <div class="input-container">
+            <label for="entidad"><b>Entidad</b></label>
+            <select id="entidad" name="entidad" class="custom-select">
+
+                <!--Aca la idea es traernos las opciones del back para mostrar-->
+
+                <option value="" disabled selected>Seleccione una entidad</option>
+
+                {{#each entidades}}
+                    <option value="{{this.idEntidad}}">{{this.nombre}}</option>
+                {{/each}}
+
+            </select>
+        </div>
+
+        <div class="input-container">
+            <label for="establecimiento"><b>Establecimiento</b></label>
+            <select id="establecimiento" name="establecimiento" class="custom-select">
+
+                <!--Aca la idea es traernos las opciones del back para mostrar-->
+
+                <option value="" disabled selected>Seleccione una establecimiento</option>
+
+            </select>
+        </div>
+
+        <div class="input-container">
+            <label for="prestacion-afectada"><b>Prestación afectada</b></label>
+            <select id="prestacion-afectada" name="prestacion-afectada" class="custom-select">
+
+                <!--Aca la idea es traernos las opciones del back para mostrar-->
+
+                <option value="" disabled selected>Seleccione una prestación</option>
+                <!-- TODO: debería haber un each -->
+                <option value="Baño">Baño</option>
+                <option value="Escalera mecánica">Escalera mecanica</option>
+            </select>
+        </div>
+
+        <div class="input-container">
+            <label for="comunidad-incidente"><b>Comunidad</b></label>
+            <select id="comunidad-incidente" name="comunidad-incidente" class="custom-select">
+
+                <!--Aca la idea es traernos las opciones del back para mostrar-->
+
+                <option value="" disabled selected>Seleccione la comunidad a la que desea informar del incidente</option>
+
+                {{#each comunidades}}
+                    <option value="{{this.idComunidad}}">{{this.nombre}}</option> <!-- Esto sirve para instanciar un estado x comunidad -->
+                {{/each}}
+
+            </select>
+        </div>
+
+        <button type="submit">Crear incidente</button>
+    </form>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/script_aperturaIncidente.js"></script>
+{{/partial}}
+
+
+
+
+{{> templates/navbar }}

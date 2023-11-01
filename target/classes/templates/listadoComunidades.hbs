@@ -1,0 +1,60 @@
+{{#partial "titulo-css" }}
+    <title>Listado de comunidades</title>
+    <link rel="stylesheet" href="/css/styles_listadoComunidades.css">
+{{/partial}}
+
+
+
+{{#partial "contenido" }}
+<div class="table-container">
+
+    <table class="content-table">
+        <h1>Comunidades</h1>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Acción</th>
+        </tr>
+        <tbody>
+        {{#each comunidades}}
+        <tr>
+            <td>{{this.nombre}}</td>
+            <td>{{this.descripcion}}</td>
+            <td>
+                {{#if formaParte}}
+                    <form method="POST" action="/comunidades/abandonar" class="button-form">
+                        <input type="hidden" name="id" value="{{this.idComunidad}}">
+                        <button id="leave" class="table-button" type="submit">
+                            <img src="/imagenes/leave.png" alt="Leave Button">
+                        </button>
+                    </form>
+                    <form method="GET" action="/comunidades/editar/{{this.idComunidad}}" class="button-form">
+                        <input type="hidden" name="id" value="{{this.idComunidad}}">
+                        <button id="edit" class="table-button" type="submit">
+                            <img src="/imagenes/edit.png" alt="Edit Button">
+                        </button>
+                    </form>
+                    <form method="POST" action="/comunidades/eliminar" class="button-form">
+                        <input type="hidden" name="id" value="{{this.idComunidad}}">
+                        <button id="delete" class="table-button" type="submit">
+                            <img src="/imagenes/delete.png" alt="Delete Button">
+                        </button>
+                    </form>
+                {{else}}
+                    <form method="POST" action="/comunidades/unirse" class="button-form">
+                        <input type="hidden" name="id" value="{{this.idComunidad}}">
+                        <button id="join" class="table-button" type="submit">
+                            <img src="/imagenes/join.png" alt="Join Button">
+                        </button>
+                    </form>
+                {{/if}}
+            </td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>
+{{/partial}}
+
+
+{{> templates/navbar }}

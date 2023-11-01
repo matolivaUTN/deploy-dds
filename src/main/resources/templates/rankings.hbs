@@ -1,0 +1,51 @@
+{{#partial "titulo-css" }}
+    <title>Rankings de incidentes</title>
+    <link rel="stylesheet" href="/css/styles_rankings.css">
+{{/partial}}
+
+
+{{#partial "contenido" }}
+
+<div class="container">
+    <h1 class="center-label">Rankings de incidentes</h1>
+    <div class="input-container">
+        <form id="rankingIncidentesForm" method="GET" action="/rankings-incidentes">
+            <label for="ranking-incidente"><b>Rankings disponibles</b></label>
+            <select id="ranking-incidente" name="ranking-incidente" class="custom-select" required>
+
+                <option value="" disabled selected>Seleccione el ranking que desea visualizar</option>
+
+                <!-- Aca mostramos los rankings (ver como los traemos aca) -->
+                {{#each criterios}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+            </select>
+
+            <button type="submit">Seleccionar</button>
+        </form>
+    </div>
+</div>
+
+    <!-- Aca mostramos la informacion releante de los rankings -->
+    {{#if entidades}}
+        <div class="table-container">
+            <table class="content-table">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                </tr>
+                <tbody>
+                {{#each entidades}}
+                    <tr>
+                        <td>{{this.nombre}}</td>
+                        <td>{{this.descripcion}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    {{/if}}
+{{/partial}}
+
+
+{{> templates/navbar }}

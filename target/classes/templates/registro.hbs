@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="icon" href="/imagenes/check.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles_registro.css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="/imagenes/logo.png" alt="Logo de tu sitio" class="logo">
+        </div>
+        <form id="comunidadForm" method="POST" action="/sign-up">
+
+            <div class="input-container">
+                    <label for="descripcion">Nombre</label>
+                    <input
+                            type="text"
+                            name="descripcion"
+                            placeholder="Ingrese su nombre"
+                            name="descripcion"
+                            id="descripcion"
+                            required
+                    />
+            </div>
+
+            <div class="input-container">
+                <label for="apellido"><b>Apellido</b></label>
+                <input
+                        type="text"
+                        placeholder="Ingrese su apellido"
+                        name="apellido"
+                        id="apellido"
+                        required
+                />
+            </div>
+
+            <div class="input-container">
+                <label for="email"><b>Email</b></label>
+                <input
+                        type="text"
+                        placeholder="Ingrese su email"
+                        name="email"
+                        id="email"
+                        required
+                />
+            </div>
+
+            <div class="input-container">
+                <label for="usuario"><b>Usuario</b></label>
+                <input
+                        type="text"
+                        placeholder="Ingrese su usuario"
+                        name="usuario"
+                        id="usuario"
+                        required
+                />
+                <div class="error-message" id="error-message">{{errorUsuario}}</div>
+            </div>
+
+            <div class="input-container">
+                <label for="contrasena"><b>Contraseña</b></label>
+                <input
+                        type="password"
+                        placeholder="Ingrese su contraseña"
+                        name="contrasena"
+                        id="contrasena"
+                        required
+                />
+
+                <div class="requerimientos">
+                    <label for="requerimientos">La contraseña debe cumplir con los siguientes requerimientos:</label>
+                    <ul>
+                        <li>Tener más de 8 caracteres</li>
+                        <li>No tener caracteres consecutivos</li>
+                        <li>No debe coincidir con el nombre de usuario</li>
+                    </ul>
+
+                    <div class="error-message" id="error-message">{{error}}</div>
+                </div>
+            </div>
+
+
+
+            <div class="input-container">
+                <label for="localizacion"><b>Localizacion</b></label>
+                <select id="localizacion" name="localizacion" class="custom-select">
+
+                    <!--Aca la idea es traernos las opciones del back para mostrar-->
+
+                    <option value="" disabled selected>Seleccione la localización</option>
+                    <option value="provincia">Provincia</option>
+                    <option value="departamento">Departamento</option>
+                    <option value="municipio">Municipio</option>
+
+                </select>
+            </div>
+
+                <div class="input-container" id="provincia-container">
+                    <label for="provincia"><b>Provincia</b></label>
+                    <select id="provincia" name="provincia" class="custom-select">
+
+                        <!--Aca la idea es traernos las opciones del back para mostrar-->
+
+                        <option value="" disabled selected>Seleccione su provincia</option>
+
+                        {{#each provincias}}
+                            <option value="{{this.id}}">{{this.nombre}}</option>
+                        {{/each}}
+
+                    </select>
+                </div>
+
+                <div class="input-container" id="departamento-container">
+                    <label for="departamento"><b>Departamento</b></label>
+                    <select id="departamento" name="departamento" class="custom-select">
+
+                        <!--Aca la idea es traernos las opciones del back para mostrar-->
+
+                        <option value="" disabled selected>Seleccione su departamento</option>
+
+                    </select>
+                </div>
+
+
+
+                <div class="input-container" id="municipio-container">
+                    <label for="municipio"><b>Municipio</b></label>
+                    <select id="municipio" name="municipio" class="custom-select">
+
+                        <!--Aca la idea es traernos las opciones del back para mostrar-->
+
+                        <option value="" disabled selected>Seleccione su municipio</option>
+
+                    </select>
+                </div>
+
+            <div class="input-container">
+                <label for="estrategia-aviso"><b>Estrategia de notificación de incidentes</b></label>
+                <select id="estrategia-aviso" name="estrategia-aviso" class="custom-select">
+
+                    <!--Aca la idea es traernos las opciones del back para mostrar-->
+
+                    <option value="" disabled selected>Seleccione una opción</option>
+                    <option value="Cuando suceden">Cuando suceden</option>
+                    <option value="Sin apuros">Sin apuros</option>
+                </select>
+
+                <div class="requerimientos">
+                    <ul>
+                        <li><b>Cuando suceden:</b> se le notificará en el momento en que sucede el hecho</li>
+                        <li><b>Sin apuros:</b> usted puede configurar uno o varios horarios en los que desea recibir notificaciones</li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+
+            <div class="input-container">
+                <label for="medio-notificacion"><b>Medio de notificacion favorito</b></label>
+                <select id="medio-notificacion" name="medio-notificacion" class="custom-select">
+
+                    <!--Aca la idea es traernos las opciones del back para mostrar-->
+
+                    <option value="" disabled selected>Seleccione una opción</option>
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="email">Email</option>
+                </select>
+            </div>
+
+
+            <button type="submit">Registrarse</button>
+        </form>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/script_registro.js"></script>
+</body>
+</html>
+
+<script>
+    const localizacionDropdown = document.getElementById("localizacion");
+    const provinciaContainer = document.getElementById("provincia-container");
+    const departamentoContainer = document.getElementById("departamento-container");
+    const municipioContainer = document.getElementById("municipio-container");
+
+    localizacionDropdown.addEventListener("change", function () {
+
+        provinciaContainer.style.display = "block";
+
+        const selectedOption = localizacionDropdown.value;
+
+
+        if (selectedOption === "departamento") {
+            departamentoContainer.style.display = "block";
+            municipioContainer.style.display = "none";
+        } else if (selectedOption === "municipio") {
+            municipioContainer.style.display = "block";
+            departamentoContainer.style.display = "none";
+        }
+        else {
+            departamentoContainer.style.display = "none";
+            municipioContainer.style.display = "none";
+        }
+    });
+</script>

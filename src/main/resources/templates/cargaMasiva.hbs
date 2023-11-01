@@ -1,0 +1,25 @@
+{{#partial "titulo-css" }}
+    <title>Carga de Entidades prestadoras y Organismos de control</title>
+    <link rel="stylesheet" href="/css/styles_cargaMasiva.css">
+{{/partial}}
+
+
+{{#partial "contenido" }}
+<div class="center-container" >
+<div class="container">
+
+    <h1 class="center-label">Carga de Entidades prestadoras y Organismos de control</h1>
+    <form id="cargaMasivaForm" action="/carga-prestadoras-organismos" method="POST" enctype="multipart/form-data">
+        <label for="fileInput" class="custom-file-upload">
+          <span id="fileNameLabel">Seleccione un archivo CSV</span>
+          <input type="file" id="fileInput" name="fileInput" accept=".csv" required />
+        </label>
+        <button type="submit" id="cargarButton">Cargar</button>
+      </form>
+        
+</div>
+</div>
+{{/partial}}
+
+
+{{> templates/navbar }}

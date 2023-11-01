@@ -1,0 +1,60 @@
+{{#partial "titulo-css" }}
+    <title>Listado y Consulta de Incidentes</title>
+    <link rel="stylesheet" href="/css/styles_listadoIncidentes.css">
+{{/partial}}
+
+
+{{#partial "contenido" }}
+
+<div class="container">
+    <h1 class="center-label">Consulta de incidentes</h1>
+    <div class="input-container">
+        <form id="comunidadIncidenteForm" method="GET" action="/incidentes-de-comunidad">
+            <label for="comunidad-incidente"><b>Comunidad</b></label>
+            <select id="incidente-comunidad" name="incidente-comunidad" class="custom-select" required>
+
+                <option value="" disabled selected>Seleccione la comunidad de la que desea consultar los incidentes</option>
+
+                {{#each comunidades}}
+                    <option value="{{this.idComunidad}}">{{this.nombre}}</option>
+                {{/each}}
+            </select>
+
+            <button type="submit">Seleccionar</button>
+        </form>
+    </div>
+</div>
+
+
+    {{#if hayQueMostrarIncidentes}}
+        <div class="table-container">
+            <table class="content-table">
+                <tr>
+                    <th>Descripcion</th>
+                    <th>Observaciones</th>
+                    <th>Fecha de alta</th>
+                    <th>Fecha de cierre</th>
+                    <th>Miembro creador</th>
+                    <th>Miembro cerrador</th>
+                    <th>Estado</th>
+                </tr>
+                <tbody>
+                {{#each incidentesConEstado}}
+                    <tr>
+                        <td>{{this.incidente.descripcion}}</td>
+                        <td>{{this.incidente.observaciones}}</td>
+                        <td>{{this.incidente.getTiempoInicial.toLocalDate}}</td>
+                        <td>{{#if this.estado.getFechaDeCierre.toLocalDate}}{{this.estado.getFechaDeCierre.toLocalDate}}{{else}}-{{/if}}</td>
+                        <td>{{this.incidente.miembroCreador.getNombre}}</td>
+                        <td>{{#if this.estado.getCerrador.getNombre}}{{this.estado.getCerrador.getNombre}}{{else}}-{{/if}}</td>
+                        <td>{{#if this.estado.estaAbierto}}Abierto{{else}}Cerrado{{/if}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    {{/if}}
+{{/partial}}
+
+
+{{> templates/navbar }}
