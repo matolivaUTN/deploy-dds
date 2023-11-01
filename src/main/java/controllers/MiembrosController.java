@@ -154,8 +154,12 @@ public class MiembrosController implements ICrudViewsHandler, WithSimplePersiste
         // Con un formParam levantamos los parámetros de un formulario (tenemos que especificar el nombre del form)
         if(!Objects.equals(context.formParam("signUpForm"), "")) {
 
-
-            long idProvincia = Long.parseLong(context.formParam("provincia"));
+            long idProvincia;
+            if(context.formParam("provincia") == null){
+                idProvincia = 10;
+            }else{
+                idProvincia = Long.parseLong(context.formParam("provincia"));
+            }
             long idDepartamento = Long.parseLong(context.formParam("departamento") == null ? "-1" : context.formParam("departamento"));
             long idMunicipio = Long.parseLong(context.formParam("municipio") == null ? "-1" : context.formParam("municipio"));
 

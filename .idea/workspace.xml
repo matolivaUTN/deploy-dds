@@ -10,6 +10,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controllers/FactoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/FactoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/MiembrosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/MiembrosController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/Main/PersistidorInicial.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Main/PersistidorInicial.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioComunidades.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioComunidades.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioDepartamentos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioDepartamentos.java" afterDir="false" />
@@ -26,6 +27,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioPrestacionesDeServicios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioPrestacionesDeServicios.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioPrestadoras.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioPrestadoras.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioProvincias.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioProvincias.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/Router.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Router.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
