@@ -27,7 +27,7 @@ public class Organismo {
   private String nombre;
 
   @OneToMany(mappedBy = "organismo", cascade = CascadeType.ALL)
-  private List<Prestadora> prestadoras;
+  private List<Prestadora> prestadoras = new ArrayList<>();
   public Organismo(){}
   public Organismo(String nuevoOrganismo) {
     nombre = nuevoOrganismo;

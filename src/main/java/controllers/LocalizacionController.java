@@ -2,6 +2,8 @@ package controllers;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import io.javalin.http.Context;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import io.javalin.http.HttpStatus;
 import models.entities.Comunidad.Comunidad;
 import models.entities.Comunidad.Miembro;
@@ -57,9 +59,12 @@ public class LocalizacionController implements WithSimplePersistenceUnit {
         // Buscamos los establecimientos que pertenezcan a esa entidad
         List<Municipio> municipios = this.repositorioMunicipios.buscarMunicipiosDeProvincia(provincia);
 
+
         for (Municipio municipio : municipios) {
             response.append("<option value='").append(municipio.getIdMunicipio()).append("'>").append(municipio.getNombre()).append("</option>");
         }
+
+
 
         // COMMIT HBS
         context.result(response.toString());
@@ -87,9 +92,13 @@ public class LocalizacionController implements WithSimplePersistenceUnit {
             response.append("<option value='").append(departamento.getIdDepartamento()).append("'>").append(departamento.getNombre()).append("</option>");
         }
 
+
+
         context.result(response.toString());
         context.contentType("text/html");
     }
+
+
 
 }
 

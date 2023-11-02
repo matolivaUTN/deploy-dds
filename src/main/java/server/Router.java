@@ -17,10 +17,7 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class Router {
 
-    public static void init() {
-        EntityManagerFactory entityMan = createEntityManagerFactory();
-        EntityManager entityManager = entityMan.createEntityManager();
-
+    public static void init(EntityManager entityManager) {
 
         Server.app().routes(() -> {
 
@@ -181,31 +178,6 @@ public class Router {
             get("obtener-departamentos-provincia", ((LocalizacionController) FactoryController.controller("Localizacion", entityManager))::obtenerDepartamentosProvincia);
 
 
-
-
-
         });
-    }
-
-    public static EntityManagerFactory createEntityManagerFactory() {
-        // https://stackoverflow.com/questions/8836834/read-environment-variables-in-persistence-xml-file
-        Map<String, String> env = System.getenv();
-        Map<String, Object> configOverrides = new HashMap<String, Object>();
-
-        String[] keys = new String[] { "javax.persistence.jdbc.url", "javax.persistence.jdbc.user",
-                "javax.persistence.jdbc.password", "javax.persistence.jdbc.driver", "hibernate.hbm2ddl.auto",
-                "hibernate.connection.pool_size", "hibernate.show_sql" };
-
-        for (String key : keys) {
-            if (env.containsKey(key)) {
-
-                String value = env.get(key);
-                configOverrides.put(key, value);
-
-            }
-        }
-
-        return Persistence.createEntityManagerFactory("db", configOverrides);
-
     }
 }

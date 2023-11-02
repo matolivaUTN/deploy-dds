@@ -3,6 +3,7 @@ package models.entities.georef.entities;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +14,7 @@ public class ListadoDeProvincias {
   private int total;
   private int inicio;
   private Parametro parametros;
-  private List<Provincia> provincias;
+  private List<Provincia> provincias = new ArrayList<>();
 
   public Optional<Provincia> provinciaDeId(int id) {
     return this.provincias.stream()

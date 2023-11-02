@@ -130,11 +130,12 @@ public class ComunidadesController implements WithSimplePersistenceUnit {
             Miembro miembro = this.repositorioMiembros.buscarPorId(id_creador);
 
             // Aca guardamos en la tabla de admins x comunidad
-            EntityTransaction tx = entityManager().getTransaction();
-            tx.begin();
+
             comunidad.agregarAdmin(miembro);
             comunidad.agregarMiembros(miembro);
-            tx.commit();
+
+            this.repositorioComunidades.agregar(comunidad);
+
         }
     }
 

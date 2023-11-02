@@ -37,7 +37,7 @@ public class Prestadora {
     private Organismo organismo;
 
     @OneToMany(mappedBy = "prestadora")
-    private List<Entidad> entidades;
+    private List<Entidad> entidades = new ArrayList<>();
 
 
     public Prestadora(){}

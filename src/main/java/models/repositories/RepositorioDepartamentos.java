@@ -1,6 +1,8 @@
 package models.repositories;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+
+import java.util.Collections;
 import java.util.Comparator;
 import models.entities.Comunidad.Comunidad;
 import models.entities.georef.entities.Departamento;
@@ -62,12 +64,32 @@ public class RepositorioDepartamentos implements WithSimplePersistenceUnit {
         return departamentos.stream().sorted(Comparator.comparing(Departamento::getNombre)).toList();
     }
 
+    /*
+    public List<Departamento> buscarDepartamentosDeProvincia(Provincia provincia) {
+        try{
+            List<Departamento> departamentos = this.entityManager
+                    .createQuery("from " + Departamento.class.getName() + " where provincia = :provincia ")
+                    .setParameter("provincia", provincia)
+                    .getResultList();
+            return departamentos.stream().sorted(Comparator.comparing(Departamento::getNombre)).toList();
+        }catch (Exception e) {
+            System.out.println(e);
+            return Collections.emptyList();
+        }
+
+    }
+
+     */
 
     public List<Departamento> buscarDepartamentosDeProvincia(Provincia provincia) {
-        List<Departamento> departamentos = this.entityManager
-                .createQuery("from " + Departamento.class.getName() + " where provincia = :provincia ")
-                .setParameter("provincia", provincia)
-                .getResultList();
-        return departamentos.stream().sorted(Comparator.comparing(Departamento::getNombre)).toList();
+        try {
+            return entityManager.createQuery("from Departamento d where d.provincia = :provincia", Departamento.class)
+                    .setParameter("provincia", provincia)
+                    .getResultList();
+        } catch (Exception e) {
+            System.out.println(e);
+            return Collections.emptyList();
+        }
     }
+
 }

@@ -5,57 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d374df30-b7d2-48bc-b19e-6401d2baea99" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../API/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../API/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/FactoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/FactoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/MiembrosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/MiembrosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Main/PersistidorInicial.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Main/PersistidorInicial.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioComunidades.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioComunidades.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/LocalizacionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/LocalizacionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/entities/ServicioPublico/Entidad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/entities/ServicioPublico/Entidad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/entities/ServicioPublico/Establecimiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/entities/ServicioPublico/Establecimiento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/entities/ServicioPublico/Organismo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/entities/ServicioPublico/Organismo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/entities/ServicioPublico/Prestadora.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/entities/ServicioPublico/Prestadora.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/entities/georef/entities/ListadoDeDepartamentos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/entities/georef/entities/ListadoDeDepartamentos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/entities/georef/entities/ListadoDeMunicipios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/entities/georef/entities/ListadoDeMunicipios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/entities/georef/entities/ListadoDeProvincias.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/entities/georef/entities/ListadoDeProvincias.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioDepartamentos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioDepartamentos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioEntidades.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioEntidades.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioEstablecimientos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioEstablecimientos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioEstadosPorComunidad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioEstadosPorComunidad.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioIncidentes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioIncidentes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioLocalizaciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioLocalizaciones.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioMiembros.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioMiembros.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioMunicipios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioMunicipios.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioNotificacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioNotificacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioOrganismos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioOrganismos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioPrestaciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioPrestaciones.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioPrestacionesDeServicios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioPrestacionesDeServicios.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioPrestadoras.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioPrestadoras.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioProvincias.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/repositories/RepositorioProvincias.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/Router.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Router.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/FactoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/FactoryController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/LocalizacionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/LocalizacionController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controllers/MiembrosController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controllers/MiembrosController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/models/Main/PersistidorInicial.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/Main/PersistidorInicial.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/models/entities/EjemploDeUso.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioComunidades.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioComunidades.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioDepartamentos.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioDepartamentos.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioEntidades.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioEntidades.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioEstablecimientos.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioEstablecimientos.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioEstadosPorComunidad.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioEstadosPorComunidad.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioIncidentes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioIncidentes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioLocalizaciones.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioLocalizaciones.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioMiembros.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioMiembros.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioMunicipios.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioMunicipios.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioNotificacion.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioNotificacion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioOrganismos.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioOrganismos.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioPrestaciones.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioPrestaciones.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioPrestacionesDeServicios.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioPrestacionesDeServicios.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioPrestadoras.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioPrestadoras.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioProvincias.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/models/repositories/RepositorioProvincias.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/Router.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/Router.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/public/js/script_registro.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/public/js/script_registro.js" afterDir="false" />
     </list>
     <list id="06ca09e1-47b5-4372-be24-b7c9284655dd" name="Changes by agus" comment="" />
+    <list id="e3cd014d-6834-4764-9f15-a3808e4da3b8" name="Changes by Franco" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/LocalizacionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/LocalizacionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/Router.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Router.java" afterDir="false" />
+    </list>
     <list id="1fd348d9-ea01-4946-aea8-ca325f5c7325" name="Changes by Joaco" comment="" />
     <list id="9f783d2d-e150-441d-ac8a-4e655cd22e01" name="Changes by mati" comment="" />
     <list id="7c41f28d-9ac4-4450-855f-dafd5a01fedb" name="Changes by matias oliva" comment="" />
@@ -77,6 +46,17 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/main/java/controllers/LocalizacionController.java">
+      <ranges>
+        <range start1="4" end1="4" start2="4" end2="6" changelist="e3cd014d-6834-4764-9f15-a3808e4da3b8" />
+        <range start1="59" end1="59" start2="61" end2="62" changelist="d374df30-b7d2-48bc-b19e-6401d2baea99" />
+        <range start1="63" end1="63" start2="66" end2="68" changelist="d374df30-b7d2-48bc-b19e-6401d2baea99" />
+        <range start1="89" end1="89" start2="94" end2="96" changelist="d374df30-b7d2-48bc-b19e-6401d2baea99" />
+        <range start1="93" end1="93" start2="100" end2="102" changelist="e3cd014d-6834-4764-9f15-a3808e4da3b8" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />

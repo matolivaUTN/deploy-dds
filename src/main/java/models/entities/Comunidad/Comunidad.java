@@ -42,7 +42,7 @@ public class Comunidad {
   @Transient
   private List<PrestacionDeServicio> prestaciones = new ArrayList<>();
 
-  @ManyToMany
+  @ManyToMany(cascade = {CascadeType.ALL})
   @JoinTable(
       name = "miembroPorComunidad",
       joinColumns = @JoinColumn(name = "idComunidad"),
@@ -50,7 +50,7 @@ public class Comunidad {
   )
   private List<Miembro> miembros = new ArrayList<>();
 
-  @ManyToMany
+  @ManyToMany(cascade = {CascadeType.ALL})
   @JoinTable(
       name = "adminPorComunidad",
       joinColumns = @JoinColumn(name = "idComunidad"),

@@ -1,6 +1,8 @@
 package models.repositories;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+
+import java.util.Collections;
 import java.util.Comparator;
 import models.entities.Comunidad.Comunidad;
 import models.entities.Incidente.Incidente;
@@ -64,11 +66,32 @@ public class RepositorioMunicipios implements WithSimplePersistenceUnit {
         return municipios.stream().sorted(Comparator.comparing(Municipio::getNombre)).toList();
     }
 
+    /*
     public List<Municipio> buscarMunicipiosDeProvincia(Provincia provincia) {
-        List<Municipio> municipios = this.entityManager
-                .createQuery("from " + Municipio.class.getName() + " where provincia = :provincia ")
-                .setParameter("provincia", provincia)
-                .getResultList();
-        return municipios.stream().sorted(Comparator.comparing(Municipio::getNombre)).toList();
+        try{
+            List<Municipio> municipios = this.entityManager
+                    .createQuery("from " + Municipio.class.getName() + " where provincia = :provincia ")
+                    .setParameter("provincia", provincia)
+                    .getResultList();
+            return municipios.stream().sorted(Comparator.comparing(Municipio::getNombre)).toList();
+        }catch (Exception e) {
+            System.out.println(e);
+            return Collections.emptyList();
+        }
+
     }
+
+     */
+
+    public List<Municipio> buscarMunicipiosDeProvincia(Provincia provincia) {
+        try {
+            return entityManager.createQuery("from Municipio m where m.provincia = :provincia", Municipio.class)
+                    .setParameter("provincia", provincia)
+                    .getResultList();
+        } catch (Exception e) {
+            System.out.println(e);
+            return Collections.emptyList();
+        }
+    }
+
 }

@@ -26,10 +26,10 @@ public class Establecimiento {
     @Column(name = "nombre")
     private String nombre;
 
-    @OneToMany(mappedBy = "establecimiento")
-    private List<PrestacionDeServicio> prestaciones;
+    @OneToMany(mappedBy = "establecimiento", cascade = {CascadeType.ALL})
+    private List<PrestacionDeServicio> prestaciones = new ArrayList<>();
 
-    @ManyToOne // Agregar esta anotación
+    @ManyToOne(cascade = {CascadeType.ALL}) // Agregar esta anotación
     @JoinColumn(name = "idEntidad", referencedColumnName = "idEntidad")
     private Entidad entidad;
 

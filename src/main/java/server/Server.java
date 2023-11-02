@@ -9,6 +9,7 @@ import io.javalin.rendering.JavalinRenderer;
 import server.handlers.AppHandlers;
 import server.middlewares.AuthMiddleware;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.io.IOException;
@@ -27,13 +28,13 @@ public class Server {
     }
 
 
-    public static void init() {
+    public static void init(EntityManager entityManager) {
         if(app == null) {
             Integer port = Integer.parseInt(System.getProperty("port", "8080"));
             app = Javalin.create(config()).start(port);
             initTemplateEngine();
             AppHandlers.applyHandlers(app);
-            Router.init();
+            Router.init(entityManager);
         }
     }
 
