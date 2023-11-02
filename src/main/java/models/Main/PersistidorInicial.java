@@ -40,37 +40,55 @@ public class PersistidorInicial implements WithSimplePersistenceUnit {
     ListadoDeProvincias provinciasArgentinas = servicioGeoref.provincias();
 
     for(Provincia provincia : provinciasArgentinas.getProvincias()) {
-      this.repositorioProvincias.agregar(provincia);
+      try{
+        this.repositorioProvincias.agregar(provincia);
+
+      }catch (Exception e){
+
+      }
+
     }
   }
 
 
   private void persistirDepartamentos(EntityManager entityManager) throws IOException {
-    ServicioGeoref servicioGeoref = ServicioGeoref.instancia();
-    ListadoDeProvincias provinciasArgentinas = servicioGeoref.provincias();
+    try{
+      ServicioGeoref servicioGeoref = ServicioGeoref.instancia();
+      ListadoDeProvincias provinciasArgentinas = servicioGeoref.provincias();
 
-    for(Provincia provincia : provinciasArgentinas.getProvincias()) {
-      ListadoDeDepartamentos departamentos = servicioGeoref.departamentosDeProvincia(provincia);
+      for(Provincia provincia : provinciasArgentinas.getProvincias()) {
+        ListadoDeDepartamentos departamentos = servicioGeoref.departamentosDeProvincia(provincia);
 
-      for(Departamento departamento : departamentos.getDepartamentos()) {
-        departamento.setProvincia(provincia);
-        this.repositorioDepartamentos.agregar(departamento);
+        for(Departamento departamento : departamentos.getDepartamentos()) {
+          departamento.setProvincia(provincia);
+          this.repositorioDepartamentos.agregar(departamento);
+        }
       }
+    }catch (Exception e){
+
     }
+
   }
 
   private void persistirMunicipios(EntityManager entityManager) throws IOException {
-    ServicioGeoref servicioGeoref = ServicioGeoref.instancia();
-    ListadoDeProvincias provinciasArgentinas = servicioGeoref.provincias();
+    try{
+      ServicioGeoref servicioGeoref = ServicioGeoref.instancia();
+      ListadoDeProvincias provinciasArgentinas = servicioGeoref.provincias();
 
-    for(Provincia provincia : provinciasArgentinas.getProvincias()) {
-      ListadoDeMunicipios municipios = servicioGeoref.municipiosDeProvincia(provincia);
+      for(Provincia provincia : provinciasArgentinas.getProvincias()) {
+        ListadoDeMunicipios municipios = servicioGeoref.municipiosDeProvincia(provincia);
 
-      for(Municipio municipio : municipios.getMunicipios()) {
-        municipio.setProvincia(provincia);
-        this.repositorioMunicipios.agregar(municipio);
+        for(Municipio municipio : municipios.getMunicipios()) {
+          municipio.setProvincia(provincia);
+          this.repositorioMunicipios.agregar(municipio);
+        }
       }
+
+    }catch (Exception e){
+
     }
+
+
   }
 
 }
