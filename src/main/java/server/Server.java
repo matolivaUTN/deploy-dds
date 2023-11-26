@@ -46,7 +46,6 @@ public class Server {
             });
             AuthMiddleware.apply(config);
 
-            //TODO: ver esto de las sesiones
 
         };
     }

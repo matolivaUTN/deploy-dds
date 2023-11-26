@@ -19,10 +19,14 @@ public class RepositorioProvincias implements WithSimplePersistenceUnit {
     }
 
     public void agregar(Provincia unaProvincia) {
-        EntityTransaction tx = this.entityManager.getTransaction();
-        tx.begin();
-        this.entityManager.persist(unaProvincia);
-        tx.commit();
+        try {
+            EntityTransaction tx = this.entityManager.getTransaction();
+            tx.begin();
+            this.entityManager.persist(unaProvincia);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("HAY UN ERROR LCDTM: " + e.getMessage());
+        }
     }
 
     public void eliminar(Provincia unaProvincia) {

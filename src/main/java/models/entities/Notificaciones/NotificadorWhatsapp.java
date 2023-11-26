@@ -2,7 +2,8 @@ package models.entities.Notificaciones;
 
 import models.entities.Comunidad.Miembro;
 
-public class NotificadorWhatsapp implements Notificador{
+
+public class NotificadorWhatsapp implements MedioDeNotificacion {
   private AdapterWhatsapp adapter;
 
   public NotificadorWhatsapp(AdapterWhatsapp adapter){

@@ -23,10 +23,14 @@ public class RepositorioMunicipios implements WithSimplePersistenceUnit {
     }
 
     public void agregar(Municipio unMunicipio) {
-        EntityTransaction tx = this.entityManager.getTransaction();
-        tx.begin();
-        this.entityManager.persist(unMunicipio);
-        tx.commit();
+        try {
+            EntityTransaction tx = this.entityManager.getTransaction();
+            tx.begin();
+            this.entityManager.persist(unMunicipio);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("ERROR");
+        }
     }
 
     public void eliminar(Municipio unMunicipio) {
@@ -65,23 +69,6 @@ public class RepositorioMunicipios implements WithSimplePersistenceUnit {
         List<Municipio> municipios = this.entityManager.createQuery("from " + Municipio.class.getName()).getResultList();
         return municipios.stream().sorted(Comparator.comparing(Municipio::getNombre)).toList();
     }
-
-    /*
-    public List<Municipio> buscarMunicipiosDeProvincia(Provincia provincia) {
-        try{
-            List<Municipio> municipios = this.entityManager
-                    .createQuery("from " + Municipio.class.getName() + " where provincia = :provincia ")
-                    .setParameter("provincia", provincia)
-                    .getResultList();
-            return municipios.stream().sorted(Comparator.comparing(Municipio::getNombre)).toList();
-        }catch (Exception e) {
-            System.out.println(e);
-            return Collections.emptyList();
-        }
-
-    }
-
-     */
 
     public List<Municipio> buscarMunicipiosDeProvincia(Provincia provincia) {
         try {

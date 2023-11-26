@@ -22,18 +22,25 @@
             <a href="#">Carga de datos</a>
             <div class="dropdown-menu">
                 <a href="/carga-prestadoras-organismos">Entidades prestadoras y Organismos de control</a>
-                <a href="/carga-entidades-establecimientos">Entidades y prestaciones</a>
                 <a href="/entidades/crear">Crear entidad</a>
                 <a href="/establecimientos/crear">Crear establecimiento</a>
+                <a href="/servicios/crear">Crear servicio</a>
             </div>
         </li>
         <li>
             <a href="#">Incidentes</a>
-            <div class="dropdown-menu">|
+            <div class="dropdown-menu">
                 <a href="/incidentes/abrir">Abrir</a>
                 <a href="/incidentes/cerrar">Cerrar</a>
                 <a href="/incidentes">Consultar incidentes</a>
                 <a href="/rankings">Rankings</a>
+            </div>
+        </li>
+        <li>
+            <a href="/servicios">Servicios</a>
+            <div class="dropdown-menu">
+                <a href="/servicios">Listado de servicios</a>
+                <a href="/servicios/mis-servicios">Mis servicios de interés</a>
             </div>
         </li>
         <li>
@@ -50,6 +57,8 @@
             <div class="dropdown-menu">
                 <a href="/miembro/eliminar">Borrar cuenta</a>
                 <a href="/logout">Log out</a>
+                <a href="#" id="editar-perfil">Editar perfil</a>
+
             </div>
         </li>
         <li>
@@ -62,7 +71,39 @@
 {{#block "contenido"}}
 {{/block}}
 
-<script src="/js/script_modoOscuro.js"></script>
-
 </body>
 </html>
+
+<script src="/js/script_modoOscuro.js"></script>
+
+<script>
+
+    document.getElementById("editar-perfil").addEventListener("click", function() {
+        // Obtener el ID del miembro desde el atributo de datos
+        var idMiembro = findCookieByName("id_miembro");
+
+
+        console.log(idMiembro);
+
+        // Construir la URL dinámicamente
+        var url = "/miembro/editar/" + idMiembro;
+
+        // Redirigir al usuario a la URL construida
+        window.location.href = url;
+    });
+
+
+
+    // Función para buscar una cookie por nombre
+    function findCookieByName(name) {
+        const cookies = document.cookie.split('; ');
+
+        const cookie = cookies.find(cookie => {
+            const [cookieName] = cookie.split('=');
+            return cookieName === name;
+        });
+
+        return cookie ? cookie.split('=')[1] : null;
+    }
+
+</script>

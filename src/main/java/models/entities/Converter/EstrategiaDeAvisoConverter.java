@@ -8,13 +8,14 @@ import models.entities.Notificaciones.EstrategiaDeAviso;
 
 @Converter(autoApply = true)
 public class EstrategiaDeAvisoConverter implements AttributeConverter<EstrategiaDeAviso, String> {
+
   @Override
   public String convertToDatabaseColumn(EstrategiaDeAviso estrategiaDeAviso) {
 
     if (estrategiaDeAviso instanceof SinApuros) {
-      return "sinApuros";
+      return "Sin apuros";
     } else if (estrategiaDeAviso instanceof CuandoSuceden) {
-      return "cuandoSuceden";
+      return "Cuando suceden";
     } else {
       // Manejar otros casos si es necesario
       return null;
@@ -23,9 +24,10 @@ public class EstrategiaDeAvisoConverter implements AttributeConverter<Estrategia
 
   @Override
   public EstrategiaDeAviso convertToEntityAttribute(String s) {
-    if ("sinApuros".equals(s)) {
+    if ("Sin apuros".equals(s)) {
       return new SinApuros();
-    } else if ("cuandoSuceden".equals(s)) {
+    }
+    else if ("Cuando suceden".equals(s)) {
       return new CuandoSuceden();
     } else {
       // Manejar otros casos si es necesario

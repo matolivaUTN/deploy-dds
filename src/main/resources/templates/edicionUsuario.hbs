@@ -1,0 +1,203 @@
+{{#partial "titulo-css" }}
+    <title>Editar usuario</title>
+    <link rel="stylesheet" href="/css/styles_edicionUsuario.css">
+{{/partial}}
+
+{{#partial "idMiembro"}}{{miembro.idMiembro}}{{/partial}}
+
+{{#partial "contenido"}}
+    <div class="container">
+
+        <h1 class="center-label">Editar perfil</h1>
+        <form id="comunidadForm" method="POST" action="/miembro/editar/{{miembro.idMiembro}}">
+
+            <div class="input-container">
+                <label for="email"><b>Email</b></label>
+                <input
+                        type="text"
+                        placeholder="Ingrese su email"
+                        name="email"
+                        id="email"
+                        {{#if miembro}}
+                            value="{{miembro.email}}"
+                        {{/if}}
+                        required
+                />
+            </div>
+
+
+            <div class="input-container">
+                <label for="telefono"><b>Teléfono</b></label>
+                <input
+                        type="text"
+                        placeholder="Ingrese su número de teléfono"
+                        name="telefono"
+                        id="telefono"
+                    {{#if miembro}}
+                        value="{{miembro.telefono}}"
+                    {{/if}}
+                        required
+                />
+            </div>
+
+
+
+            <div class="input-container">
+                <label for="localizacion"><b>Localizacion</b></label>
+                <select id="localizacion" name="localizacion" class="custom-select">
+
+
+                    {{#if miembro.getLocalizacion.getMunicipio}}
+                        <option value="municipio" selected>Municipio</option>
+                        <option value="provincia">Provincia</option>
+                        <option value="departamento">Departamento</option>
+                    {{else}}
+                        {{#if miembro.getLocalizacion.getDepartamento}}
+                            <option value="departamento" selected>Departamento</option>
+                            <option value="provincia">Provincia</option>
+                            <option value="municipio">Municipio</option>
+                        {{else}}
+                            <option value="provincia" selected>Provincia</option>
+                            <option value="departamento">Departamento</option>
+                            <option value="municipio">Municipio</option>
+                        {{/if}}
+                    {{/if}}
+
+                </select>
+            </div>
+
+                <div class="input-container" id="provincia-container">
+                    <label for="provincia"><b>Provincia</b></label>
+                    <select id="provincia" name="provincia" class="custom-select">
+
+                        <option value="{{miembro.getLocalizacion.getProvincia.id}}" selected>{{miembro.getLocalizacion.getProvincia.nombre}}</option>
+                        {{#each provincias}}
+                            <option value="{{this.id}}">{{this.nombre}}</option>
+                        {{/each}}
+
+                    </select>
+                </div>
+
+            <div class="input-container" id="departamento-container" {{#if miembro.getLocalizacion.getDepartamento}}style="display: block"{{/if}}>
+                    <label for="departamento"><b>Departamento</b></label>
+                    <select id="departamento" name="departamento" class="custom-select">
+
+                        {{#if miembro.getLocalizacion.getDepartamento}}
+                            <option value="{{miembro.getLocalizacion.getDepartamento.idDepartamento}}" selected>{{miembro.getLocalizacion.getDepartamento.nombre}}</option>
+                            {{#each departamentos}}
+                                <option value="{{this.idDepartamento}}">{{this.nombre}}</option>
+                            {{/each}}
+                        {{else}}
+                            <option value="" disabled selected>Seleccione su departamento</option>
+                        {{/if}}
+                    </select>
+                </div>
+
+
+
+                <div class="input-container" id="municipio-container" {{#if miembro.getLocalizacion.getMunicipio}}style="display: block"{{/if}}>
+                    <label for="municipio"><b>Municipio</b></label>
+                    <select id="municipio" name="municipio" class="custom-select">
+
+                        {{#if miembro.getLocalizacion.getMunicipio}}
+                            <option value="{{miembro.getLocalizacion.getMunicipio.idMunicipio}}" selected>{{miembro.getLocalizacion.getMunicipio.nombre}}</option>
+                            {{#each municipios}}
+                                <option value="{{this.idMunicipio}}">{{this.nombre}}</option>
+                            {{/each}}
+                        {{else}}
+                            <option value="" disabled selected>Seleccione su municipio</option>
+                        {{/if}}
+                    </select>
+                </div>
+
+
+
+
+            <div class="input-container">
+                <label for="estrategia-aviso"><b>Estrategia de notificación de incidentes</b></label>
+                <select id="estrategia-aviso" name="estrategia-aviso" class="custom-select">
+
+                    <!--Aca la idea es traernos las opciones del back para mostrar-->
+                    //TODO
+
+                    <option value="{{miembro.getEstrategiaDeAvisoAsString}}" selected>{{miembro.getEstrategiaDeAvisoAsString}}</option>
+
+                    {{#each estrategiasAviso}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+
+                </select>
+
+                <div class="requerimientos">
+                    <ul>
+                        <li><b>Cuando suceden:</b> se le notificará en el momento en que sucede el hecho</li>
+                        <li><b>Sin apuros:</b> usted puede configurar uno o varios horarios en los que desea recibir notificaciones</li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+            <div class="input-container">
+                <label for="medio-notificacion"><b>Medio de notificacion favorito</b></label>
+                <select id="medio-notificacion" name="medio-notificacion" class="custom-select">
+
+
+                    //TODO
+                    <!--Aca la idea es traernos las opciones del back para mostrar-->
+
+                    <option value="{{miembro.getNotificadorAsString}}" selected>{{miembro.getNotificadorAsString}}</option>
+                    {{#each mediosDeNotificacion}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+
+            <button type="submit">Guardar cambios</button>
+
+            {{#if edit-success}}
+                <div class="message" role="alert">
+                    Perfil editado con éxito!
+                </div>
+            {{/if}}
+
+        </form>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/script_registro.js"></script>
+
+
+<script>
+    const localizacionDropdown = document.getElementById("localizacion");
+    const provinciaContainer = document.getElementById("provincia-container");
+    const departamentoContainer = document.getElementById("departamento-container");
+    const municipioContainer = document.getElementById("municipio-container");
+
+    localizacionDropdown.addEventListener("change", function () {
+
+        const selectedOption = localizacionDropdown.value;
+
+
+        if (selectedOption === "departamento") {
+            departamentoContainer.style.display = "block";
+            municipioContainer.style.display = "none";
+        } else if (selectedOption === "municipio") {
+            municipioContainer.style.display = "block";
+            departamentoContainer.style.display = "none";
+        }
+        else {
+            departamentoContainer.style.display = "none";
+            municipioContainer.style.display = "none";
+        }
+    });
+</script>
+
+
+{{/partial}}
+
+
+
+{{> templates/navbar }}

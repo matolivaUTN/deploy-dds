@@ -41,6 +41,8 @@ public class Incidente {
     @Column(name = "observaciones")
     private String observaciones;
 
+
+    // Prestacion de servicio tiene una lista de incidentes pero realmente no la usamos para nada (no existen consultas de incidentes x prestacion)
     @ManyToOne
     @JoinColumn(name = "idPrestacion")
     private PrestacionDeServicio prestacionAfectada;

@@ -2,7 +2,7 @@ package models.entities.Notificaciones;
 
 import models.entities.Comunidad.Miembro;
 
-public class NotificadorEmail implements Notificador{
+public class NotificadorEmail implements MedioDeNotificacion {
 
   private AdapterEmail adapter;
 

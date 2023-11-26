@@ -1,0 +1,70 @@
+{{#partial "titulo-css" }}
+    <title>Crear establecimiento</title>
+    <link rel="stylesheet" href="/css/styles_registroComunidad.css">
+{{/partial}}
+
+
+{{#partial "contenido" }}
+<div class="container">
+
+    <h1 class="center-label">Creacion servicios</h1>
+    <form id="comunidadForm" method="POST" action="/servicios">
+
+        <div class="input-container">
+                <label for="nombre">Nombre</label>
+                <input
+                        type="text"
+                        name="nombre"
+                        placeholder="Ingrese el nombre del servicio"
+                        name="nombre"
+                        id="nombre"
+                        required
+                />
+        </div>
+
+        <div class="input-container">
+            <label for="establecimiento"><b>Establecimiento</b></label>
+            <select id="establecimiento" name="establecimiento" class="custom-select">
+
+                <!--Aca la idea es traernos las opciones del back para mostrar-->
+
+                <option value="" disabled selected>Seleccione el establecimiento donde se presta el servicio</option>
+
+                {{#each establecimientos}}
+                    <option value="{{this.idEstablecimiento}}">{{this.nombre}}</option>
+                {{/each}}
+
+            </select>
+        </div>
+
+        <div class="input-container">
+            <label for="tipo-servicio"><b>Tipo de servicio</b></label>
+            <select id="tipo-servicio" name="tipo-servicio" class="custom-select">
+
+                <!--Aca la idea es traernos las opciones del back para mostrar-->
+
+                <option value="" disabled selected>Seleccione el tipo de servicio</option>
+
+                <option value="Banio">Baño</option>
+                <option value="MedioDeElevacion">Medio de Elevación</option>
+            </select>
+        </div>
+
+        <!--Aca agregamos informacion extra depenidendo de que tipo de servicio se eligio-->
+
+
+
+
+
+
+
+        <button type="submit">Crear servicio</button>
+    </form>
+
+</div>
+{{/partial}}
+
+
+
+
+{{> templates/navbar }}

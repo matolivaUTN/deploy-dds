@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.ServicioPublico.Establecimiento;
+import models.entities.ServicioPublico.Prestadora;
+import models.entities.ServicioPublico.Entidad;
 
 @Getter
 @Setter
@@ -25,18 +27,28 @@ public abstract class Servicio {
   @Id
   @GeneratedValue
   private Long idServicio;
+
   @Column(name = "nombre")
   String nombre;
 
+
+  // Un servicio pertenece a un establecimiento, ese establecimiento pertenece a una entidad y esa entidad a una prestadora
   @ManyToOne
   @JoinColumn(name = "idEstablecimiento")
   private Establecimiento establecimiento;
 
-  // Resto de tus atributos y métodos...
 
-  public void darInformacion() {
-    // Implementación
+  // Podriamos guardarnos como columna la entidad y la prestadora del servicio pero mejor hacemos una consulta que haga JOIN
+
+
+  public Servicio(String nombre) {
+    this.nombre = nombre;
   }
+
+  public Servicio() {
+
+  }
+
 
   public float cantidadIncidentes() {
     // Implementación

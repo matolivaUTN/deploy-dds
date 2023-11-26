@@ -3,6 +3,7 @@ package models.repositories;
 import models.entities.Servicio.PrestacionDeServicio;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import models.entities.Servicio.Servicio;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -29,7 +30,14 @@ public class RepositorioPrestacionesDeServicios implements WithSimplePersistence
         tx.commit();
     }
 
-    public PrestacionDeServicio buscarPorId(Integer id) {
+    public void actualizar(PrestacionDeServicio unaPrestacionDeServicio) {
+        EntityTransaction tx = this.entityManager.getTransaction();
+        tx.begin();
+        this.entityManager.merge(unaPrestacionDeServicio);
+        tx.commit();
+    }
+
+    public PrestacionDeServicio buscarPorId(long id) {
         return this.entityManager.find(PrestacionDeServicio.class, id);
     }
 

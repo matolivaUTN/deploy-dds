@@ -4,8 +4,10 @@ import models.entities.Comunidad.Comunidad;
 import models.entities.Comunidad.Miembro;
 import models.entities.Incidente.EstadoPorComunidad;
 import models.entities.Incidente.Incidente;
+import models.entities.Servicio.PrestacionDeServicio;
 import models.entities.ServicioPublico.Entidad;
 import models.entities.ServicioPublico.Establecimiento;
+import models.entities.ServicioPublico.Prestadora;
 import models.repositories.*;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
@@ -19,24 +21,27 @@ public class IncidentesController implements WithSimplePersistenceUnit {
     private RepositorioComunidades repositorioComunidades;
     private RepositorioEstadosPorComunidad repositorioEstadosPorComunidad;
     private RepositorioEntidades repositorioEntidades;
+    private RepositorioPrestacionesDeServicios repositorioPrestacionesDeServicios;
+    private RepositorioEstablecimientos repositorioEstablecimientos;
 
-
-    public IncidentesController(RepositorioIncidentes repositorioIncidentes, RepositorioMiembros repositorioMiembros, RepositorioComunidades repositorioComunidades, RepositorioEstadosPorComunidad repositorioEstadosPorComunidad, RepositorioEntidades repositorioEntidades) {
+    public IncidentesController(RepositorioIncidentes repositorioIncidentes, RepositorioMiembros repositorioMiembros, RepositorioComunidades repositorioComunidades, RepositorioEstadosPorComunidad repositorioEstadosPorComunidad, RepositorioEntidades repositorioEntidades, RepositorioPrestacionesDeServicios repositorioPrestacionesDeServicios, RepositorioEstablecimientos repositorioEstablecimientos) {
         this.repositorioIncidentes = repositorioIncidentes;
         this.repositorioMiembros = repositorioMiembros;
         this.repositorioComunidades = repositorioComunidades;
         this.repositorioEstadosPorComunidad = repositorioEstadosPorComunidad;
         this.repositorioEntidades = repositorioEntidades;
+        this.repositorioPrestacionesDeServicios = repositorioPrestacionesDeServicios;
+        this.repositorioEstablecimientos = repositorioEstablecimientos;
+
     }
 
     public void index(Context context) {
-        //Aca hay que mostrar los incidentes en general y hacer alguna especie de IF para permitir que los muestre por estado
+        //Listado de incidentes
 
         Map<String, Object> model = new HashMap<>();
 
-        //TODO: Aca llamamos a la API de listado de servicios
 
-        Miembro miembro = this.repositorioMiembros.buscarPorId(context.sessionAttribute("id_usuario"));
+        Miembro miembro = this.repositorioMiembros.buscarPorId(Long.parseLong(context.cookie("id_miembro")));
         List<Comunidad> comunidades = miembro.getComunidadesDeLasQueFormaParte();
         model.put("comunidades", comunidades);
         context.render("listadoIncidentes.hbs", model);
@@ -44,7 +49,7 @@ public class IncidentesController implements WithSimplePersistenceUnit {
 
     public void incidentesComunidad(Context context) {
 
-        Miembro miembro = this.repositorioMiembros.buscarPorId(context.sessionAttribute("id_usuario"));
+        Miembro miembro = this.repositorioMiembros.buscarPorId(Long.parseLong(context.cookie("id_miembro")));
         List<Comunidad> comunidades = miembro.getComunidadesDeLasQueFormaParte();
 
 
@@ -80,25 +85,31 @@ public class IncidentesController implements WithSimplePersistenceUnit {
         // Pantalla de creacion de incidentes
 
         Map<String, Object> model = new HashMap<>();
-        Miembro creador = this.repositorioMiembros.buscarPorId(context.sessionAttribute("id_usuario"));
+
+        Miembro creador = this.repositorioMiembros.buscarPorId(Long.parseLong(context.cookie("id_miembro")));
 
 
         List<Comunidad> comunidadesCreador = creador.getComunidadesDeLasQueFormaParte();
 
+
+
         model.put("comunidades", comunidadesCreador);
 
 
-        // Agregamos las entidades
+        // Agregamos las entidades y prestaciones
         List<Entidad> entidades = this.repositorioEntidades.buscarTodos();
 
+        //TODO: Aca AJAX QUERY para condicionar las prestaciones de servicio en base al establecimiento seleccionado
+
+
         model.put("entidades", entidades);
-
-
         context.render("registroIncidente.hbs", model);
     }
 
     public void save(Context context) {
         // Guardamos un incidente en la base de datos
+
+        // TODO: agregar la logica de cambiar el estado del servicio cuando se abre un incidente
 
         Incidente incidente = new Incidente();
         this.asignarParametros(incidente, context);
@@ -109,17 +120,14 @@ public class IncidentesController implements WithSimplePersistenceUnit {
         Comunidad comunidad = this.repositorioComunidades.buscarPorId(Long.parseLong(context.formParam("comunidad-incidente")));
 
 
-
         estadoIncidente.setIncidente(incidente);
         estadoIncidente.setComunidad(comunidad);
         estadoIncidente.setEstaAbierto(true);
-
         incidente.agregarEstado(estadoIncidente);
 
 
 
         this.repositorioIncidentes.agregar(incidente);
-
         this.repositorioEstadosPorComunidad.agregar(estadoIncidente);
 
 
@@ -132,13 +140,56 @@ public class IncidentesController implements WithSimplePersistenceUnit {
             nuevoIncidente.agregarEstado(unEstado);
         });*/
 
-        context.redirect("/incidentes");
+
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("apertura_incidente", "apertura_incidente");
+        context.render("confirmacion.hbs", model);
     }
 
     public void edit(Context context) {
 
     }
 
+
+    public void obtenerPrestacionesEstablecimiento(Context context) {
+
+        // ID establecimineto
+        String valorCampo1 = context.queryParam("valor");
+
+        Establecimiento establecimiento = this.repositorioEstablecimientos.buscarPorId(Long.parseLong(valorCampo1));
+
+        System.out.println("EL ESTABLECIMIENTO ES: " + establecimiento.getNombre());
+
+        // TODO: HACER ESTO PRIMERO
+        // Buscamos las prestaciones que se den en ese establecimiento y QUE ESTEN DISPONIBLES (NO TIENE SENTIDO ABRIR INCIDENTE SOBRE ALGO QUE YA NO ANDA)
+        List<PrestacionDeServicio> prestacionesDeEstablecimiento = establecimiento.getPrestaciones();
+
+        // Filtramos por aquellas prestaciones que estan disponibles
+        List<PrestacionDeServicio> prestacionesDeEstablecimientoDisponibles = new ArrayList<>();
+
+        for(PrestacionDeServicio prestacion : prestacionesDeEstablecimiento) {
+            if(prestacion.getEstaDisponible()) {
+                prestacionesDeEstablecimientoDisponibles.add(prestacion);
+            }
+        }
+
+
+
+        // Crear una respuesta HTML o texto plano
+        StringBuilder response = new StringBuilder();
+        response.append("<option value='' disabled selected>Seleccione la prestación afectada</option>");
+
+
+        for (PrestacionDeServicio prestacion : prestacionesDeEstablecimientoDisponibles) {
+            response.append("<option value='").append(prestacion.getIdPrestacion()).append("'>").append(prestacion.getServicio().getNombre()).append("</option>");
+        }
+
+        context.result(response.toString());
+        context.contentType("text/html"); // Cambia el tipo de contenido según tus necesidades
+
+
+    }
 
     public void obtenerEstablecimientosIncidente(Context context) {
 
@@ -174,9 +225,9 @@ public class IncidentesController implements WithSimplePersistenceUnit {
 
         // Buscamos el id del incidente a cerrar y el miembro que lo cierra
         long idIncidenteACerrar = Long.parseLong(context.formParam("incidente"));
-        Miembro cerrador = this.repositorioMiembros.buscarPorId(context.sessionAttribute("id_usuario"));
+        Miembro cerrador = this.repositorioMiembros.buscarPorId(Long.parseLong(context.cookie("id_miembro")));
 
-        System.out.println("EL ID DEL INCIDENTE QUE HAY QUE CERRAR ES: " + idIncidenteACerrar);
+
 
         // Buscamos el registro en el repositorio de estados por coumunidad y cambiamos el estado a cerrado
         EstadoPorComunidad incidenteACerrar = this.repositorioEstadosPorComunidad.buscarPorIdIncidente(idIncidenteACerrar);
@@ -187,10 +238,25 @@ public class IncidentesController implements WithSimplePersistenceUnit {
         incidenteACerrar.setEstaAierto(false);
         incidenteACerrar.setCerrador(cerrador);
 
+        PrestacionDeServicio prestacionAfectada = incidenteACerrar.getIncidente().getPrestacionAfectada();
+
+        prestacionAfectada.setEstaDisponible(true);
+
+
+
+        // Cuando se cierra el incidente, la prestacion afectada vuelve a estar disponible
+        this.repositorioPrestacionesDeServicios.actualizar(prestacionAfectada);
+
+
+        // Tambien se elimina el incidente involucrado en la lista
+
+
         this.repositorioEstadosPorComunidad.actualizar(incidenteACerrar);
 
 
-        context.redirect("/home");
+        Map<String, Object> model = new HashMap<>();
+        model.put("cierre_incidente", "cierre_incidente");
+        context.render("confirmacion.hbs", model);
 
     }
 
@@ -199,7 +265,7 @@ public class IncidentesController implements WithSimplePersistenceUnit {
         // Mostramos el formulario de cierre de incidentes
 
         Map<String, Object> model = new HashMap<>();
-        Miembro cerrador = this.repositorioMiembros.buscarPorId(context.sessionAttribute("id_usuario"));
+        Miembro cerrador = this.repositorioMiembros.buscarPorId(Long.parseLong(context.cookie("id_miembro")));
         List<Comunidad> comunidadesCerrador = cerrador.getComunidadesDeLasQueFormaParte();
 
         model.put("comunidades", comunidadesCerrador);
@@ -213,7 +279,7 @@ public class IncidentesController implements WithSimplePersistenceUnit {
         // Con un formParam levantamos los parámetros de un formulario (tenemos que especificar el nombre del form)
         if(!Objects.equals(context.formParam("incidenteForm"), "")) {
 
-            Miembro miembro = this.repositorioMiembros.buscarPorId(context.sessionAttribute("id_usuario"));
+            Miembro miembro = this.repositorioMiembros.buscarPorId(Long.parseLong(context.cookie("id_miembro")));
 
             incidente.setDescripcion(context.formParam("descripcion"));
             incidente.setObservaciones(context.formParam("observaciones"));
@@ -221,8 +287,14 @@ public class IncidentesController implements WithSimplePersistenceUnit {
             incidente.setTiempoInicial(LocalDateTime.now());
             incidente.setEstados(new ArrayList<EstadoPorComunidad>());
 
-            //TODO: incidente.setPrestacionAfectada(context.formParam("prestacionAfectada"));
+            PrestacionDeServicio prestacionDeServicio = this.repositorioPrestacionesDeServicios.buscarPorId(Long.parseLong(context.formParam("prestacion-afectada")));
 
+
+            // Cuando abrimos un incidente informamos que deja de estar disponible un servicio porque el mismo no funciona
+            prestacionDeServicio.setEstaDisponible(false);
+            this.repositorioPrestacionesDeServicios.actualizar(prestacionDeServicio);
+
+            incidente.setPrestacionAfectada(prestacionDeServicio);
         }
     }
 

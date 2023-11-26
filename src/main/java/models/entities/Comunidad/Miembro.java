@@ -1,11 +1,9 @@
 package models.entities.Comunidad;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import models.entities.Localizacion.Localizacion;
-import models.entities.Notificaciones.EstrategiaDeAviso;
-import models.entities.Notificaciones.Notificador;
+import models.entities.Notificaciones.*;
 import models.entities.Servicio.PrestacionDeServicio;
-import models.entities.Incidente.Incidente;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -14,9 +12,7 @@ import models.entities.Converter.MedioDeNotificacionConverter;
 import models.entities.Converter.EstrategiaDeAvisoConverter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import models.entities.Incidente.EstadoPorComunidad;
 import javax.persistence.*;
 
 @Getter
@@ -46,11 +42,14 @@ public class Miembro {
   @Column(name = "puntaje")
   private Double puntaje;
 
+  @Column(name = "telefono")
+  private Long telefono;
+
   @Convert(converter = MedioDeNotificacionConverter.class)
   @Column(name = "medioNotificacion")
-  private Notificador notificador;
+  private MedioDeNotificacion notificador;
 
-  @Convert(converter = EstrategiaDeAvisoConverter.class) // Aplica el convertidor aquí
+  @Convert(converter = EstrategiaDeAvisoConverter.class)
   @Column(name = "estrategia_aviso")
   private EstrategiaDeAviso estrategiaDeAviso;
 
@@ -58,9 +57,10 @@ public class Miembro {
   @JoinColumn(name = "idLocalizacion")
   private Localizacion localizacion;
 
-  @ManyToMany(mappedBy = "miembros")
-  @JsonBackReference
+  @ManyToMany(mappedBy = "miembros", cascade = {CascadeType.ALL})
   private List<Comunidad> comunidadesDeLasQueFormaParte;
+
+
 
   //Dudoso
   @Transient
@@ -69,17 +69,6 @@ public class Miembro {
   public Miembro() {
     this.rolesPorPrestacion = new ArrayList<>();
     this.comunidadesDeLasQueFormaParte = new ArrayList<>();
-  }
-
-  public void darDeBajaComunidad(Comunidad comunidad){
-    if(comunidad.esAdmin(this)) {
-      //Eliminar comunidad
-    }
-  }
-
-  public void setUbicacion(Float lat, Float lon){
-    //this.latitud = lat;
-    //this.longitud = lon;
   }
 
 
@@ -99,9 +88,6 @@ public class Miembro {
     return true;
   }
 
-  public void asignarRol(PrestacionDeServicio prestacion, Boolean estado){
-
-  }
 
   public void noEstaInteresadoEn(PrestacionDeServicio prestacion) {
 
@@ -115,39 +101,11 @@ public class Miembro {
     prestacion.eliminarMiembroInteresado(this);
   }
 
-  public void solicitarAltaDeComunidad(Miembro miembro, String nombreComunidad, String descripcionComunidad) {
 
-  }
 
-  public void cerrarIncidente(Incidente incidente) {
-    /*
-    for comunidad in comunidades
-      estado = find indicente.comunidad == comunidad
-      estado.cerrar
 
-     */
-    List<EstadoPorComunidad> estados = incidente.getEstados();
-    for(Comunidad comunidad: this.comunidadesDeLasQueFormaParte) {
-      for (EstadoPorComunidad estado : estados) {
-        if (estado.getComunidad() == comunidad) {
-          estado.setEstaAierto(false);
-        }
-      }
-    }
-  }
-/*
-  public List<Incidente> consultarIncidentesReportados(Comunidad comunidad, Boolean estado) {
 
-    List<Incidente> incidentesFiltrados = new ArrayList<>();
 
-    if(comunidad.esMiembro(this)) {
-      incidentesFiltrados = comunidad.mostrarIncidentesSegunEstado(estado);
-    }
-
-    // Retornamos la lista filtrada de incidentes para los tests
-    return incidentesFiltrados;
-  }
-*/
   public void enviarNotificacion(String mensaje) {
       this.notificador.enviarNotificacion(this, mensaje);
   }
@@ -155,5 +113,31 @@ public class Miembro {
   public void setLocalizacion(Localizacion localizacion){
     this.localizacion = localizacion;
     //TODO CHEQUEAR SI HAY QUE MANDAR SUGERENCIA. TODAVIA NO SABEMOS BIEN COMO HACERLO
+  }
+
+  public String getNotificadorAsString() {
+    MedioDeNotificacion medio = this.getNotificador();
+    String medioAsString = "";
+
+    if(medio instanceof NotificadorWhatsapp) {
+      medioAsString = "WhatsApp";
+    }
+    else if(medio instanceof NotificadorEmail) {
+      medioAsString = "Email";
+    }
+    return medioAsString;
+  }
+
+  public String getEstrategiaDeAvisoAsString() {
+    EstrategiaDeAviso estrategia = this.getEstrategiaDeAviso();
+    String estrategiaAsString = "";
+
+    if(estrategia instanceof CuandoSuceden) {
+      estrategiaAsString = "Cuando suceden";
+    }
+    else if(estrategia instanceof SinApuros) {
+      estrategiaAsString = "Sin apuros";
+    }
+    return estrategiaAsString;
   }
 }

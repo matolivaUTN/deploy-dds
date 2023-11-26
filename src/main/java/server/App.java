@@ -13,7 +13,7 @@ public class App {
     public static void main(String[] args) throws IOException {
         EntityManagerFactory entityMan = createEntityManagerFactory();
         EntityManager entityManager = entityMan.createEntityManager();
-        new PersistidorInicial().start(entityManager);
+        //new PersistidorInicial().start(entityManager);
         Server.init(entityManager);
     }
 

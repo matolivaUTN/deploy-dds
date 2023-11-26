@@ -1,0 +1,125 @@
+{{#partial "titulo-css" }}
+    <title>Confirmación</title>
+    <link rel="stylesheet" href="/css/styles_confirmacion.css">
+{{/partial}}
+
+{{#partial "contenido"}}
+    <div class="container">
+
+        <h1 class="center-label">Confirmación</h1>
+
+        <!--Esta es la pagina de confirmacion de: edicion/creacion/eliminacion de cosas de nuestro dominio-->
+        <!--La idea es hacer un if y segun lo que se haya editado/creado, le mostramos un mensajito y un boton para volver a la pestaña anterior-->
+        <!--Esto lo hacemos asi porque el "pop up" es medio un bardo con algunas vistas-->
+
+
+        {{#if edicion_miembro}}
+            <h2 class="texto">Perfil editado con éxito!</h2>
+            <button onclick="window.location.href='/home'">OK</button>
+        {{/if}}
+
+
+        <!-- ENTIDADES -->
+
+        {{#if creacion_entidad}}
+            <h2 class="texto">Entidad creada con éxito!</h2>
+            <button onclick="window.location.href='/home'">OK</button>
+        {{/if}}
+
+
+        <!-- ESTABLECIMIENTOS -->
+
+        {{#if creacion_establecimiento}}
+            <h2 class="texto">Establecimiento creado con éxito!</h2>
+            <button onclick="window.location.href='/home'">OK</button>
+        {{/if}}
+
+
+
+        <!--INCIDENTES-->
+
+        {{#if apertura_incidente}}
+            <h2 class="texto">Incidente abierto con éxito!</h2>
+            <button onclick="window.location.href='/incidentes'">OK</button>
+        {{/if}}
+
+        {{#if cierre_incidente}}
+            <h2 class="texto">Incidente cerrado con éxito!</h2>
+            <button onclick="window.location.href='/incidentes'">OK</button>
+        {{/if}}
+
+
+        <!--CARGA DE ENTIDADES PRESTADORAS Y ORGANISMOS DE CONTROL -->
+
+        {{#if carga_prestadoras_organismos}}
+            <h2 class="texto">Se cargaron las entidades prestadoras y organismos de control con éxito!</h2>
+            <button onclick="window.location.href='/home'">OK</button>
+        {{/if}}
+
+
+
+
+        <!--COMUNIDADES-->
+
+        {{#if creacion_comunidad}}
+            <h2 class="texto">Comunidad creada con éxito!</h2>
+            <button onclick="window.location.href='/comunidades/mis-comunidades'">OK</button>
+        {{/if}}
+
+        {{#if union_comunidad}}
+            <h2 class="texto">Te uniste a la comunidad {{comunidad.nombre}}!</h2>
+            <button onclick="window.location.href='/comunidades/mis-comunidades'">OK</button>
+        {{/if}}
+
+        {{#if edicion_comunidad}}
+            <h2 class="texto">Comunidad editada con éxito!</h2>
+            <button onclick="window.location.href='/comunidades/mis-comunidades'">OK</button>
+        {{/if}}
+
+        {{#if abandono_comunidad}}
+            <h2 class="texto">Abandonaste la comunidad {{comunidad.nombre}}</h2>
+            <button onclick="window.location.href='/comunidades/mis-comunidades'">OK</button>
+        {{/if}}
+
+        {{#if eliminacion_comunidad}}
+            <h2 class="texto">Eliminaste la comunidad {{comunidad.nombre}}</h2>
+            <button onclick="window.location.href='/home'">OK</button>
+        {{/if}}
+
+
+
+
+        <!--SERVICIOS-->
+
+        {{#if creacion_servicio}}
+            <h2 class="texto">Servicio creado con éxito!</h2>
+            <button onclick="window.location.href='/servicios/crear'">OK</button>
+        {{/if}}
+
+        {{#if follow_servicio}}
+            <h2 class="texto">Marcaste el servicio {{prestacion.getServicio.getNombre}} como servicio de interés</h2>
+            <button onclick="window.location.href='/servicios'">OK</button>
+        {{/if}}
+
+        {{#if unfollow_servicio}}
+            <h2 class="texto">Ya no estás interesado en el servicio {{prestacion.getServicio.getNombre}}</h2>
+            <button onclick="window.location.href='/servicios/mis-servicios'">OK</button>
+        {{/if}}
+
+
+
+
+
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/script_registro.js"></script>
+
+
+
+{{/partial}}
+
+
+
+{{> templates/navbar }}

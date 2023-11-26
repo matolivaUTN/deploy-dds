@@ -21,7 +21,6 @@ public class Router {
 
         Server.app().routes(() -> {
 
-
             /* ------------------------------------------------ SIGN UP / ELIMINAR CUENTA  ------------------------------------------------ */
 
             // Registro de miembros
@@ -29,6 +28,12 @@ public class Router {
 
             // Guardado de miembros en la base de datos luego de su registro
             post("sign-up", ((MiembrosController) FactoryController.controller("Miembros", entityManager))::save);
+
+
+            // Edicion de perfil
+            get("miembro/editar/{id}", ((MiembrosController) FactoryController.controller("Miembros", entityManager))::edit);
+
+            post("miembro/editar/{id}", ((MiembrosController) FactoryController.controller("Miembros", entityManager))::update);
 
 
             // Eliminar miembro de la base de datos
@@ -74,6 +79,7 @@ public class Router {
             post("comunidades/abandonar", ((ComunidadesController) FactoryController.controller("Comunidades", entityManager))::borrarMiembro);
 
 
+
             get("comunidades/editar/{id}", ((ComunidadesController) FactoryController.controller("Comunidades", entityManager))::edit);
 
             // Editar una comunidad
@@ -108,8 +114,12 @@ public class Router {
 
             get("obtenerIncidentesComunidad", ((IncidentesController) FactoryController.controller("Incidentes", entityManager))::obtenerIncidentes);
 
-
             get("obtenerEstablecimientosIncidente", ((IncidentesController) FactoryController.controller("Incidentes", entityManager))::obtenerEstablecimientosIncidente);
+
+
+            get("obtenerPrestacionesEstablecimiento",((IncidentesController) FactoryController.controller("Incidentes", entityManager))::obtenerPrestacionesEstablecimiento);
+
+
 
 
 
@@ -120,11 +130,7 @@ public class Router {
 
 
 
-            // Sugerencia de revision de incidentes
-
-
-
-
+            //TODO: Sugerencia de revision de incidentes
 
 
 
@@ -137,10 +143,8 @@ public class Router {
             post("carga-prestadoras-organismos", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::saveCargaPrestadorasYOrganismos);
 
 
-
-
             // Guardado
-            get("carga-entidades-establecimientos", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::showCargaEntidadesYEstablecimientos);
+            //get("carga-entidades-establecimientos", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::showCargaEntidadesYEstablecimientos);
 
             // Guardado de las entidades en la base de datos
             //post("carga-entidades-establecimientos", ((EntidadesController) FactoryController.controller("Entidades"))::saveCargaEntidadesYEstablecimientos);
@@ -151,6 +155,12 @@ public class Router {
             get("entidades/crear", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::create);
 
             post("entidades", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::save);
+
+
+            get("entidades/editar/{id}", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::edit);
+
+            // Editar una entidad
+            post("entidades/editar/{id}", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::update);
 
 
             /* ------------------------------------------------ ESTABLECIMIENTOS ------------------------------------------------ */
@@ -170,12 +180,57 @@ public class Router {
             get("rankings-incidentes", ((RankingsController) FactoryController.controller("Rankings", entityManager))::rankingSeleccionado);
 
 
-
             /* ------------------------------------------------ LOCALIZACION ------------------------------------------------ */
 
             get("obtener-municipios-provincia", ((LocalizacionController) FactoryController.controller("Localizacion", entityManager))::obtenerMunicipiosProvincia);
 
             get("obtener-departamentos-provincia", ((LocalizacionController) FactoryController.controller("Localizacion", entityManager))::obtenerDepartamentosProvincia);
+
+
+
+
+            /* ------------------------------------------------ SERVICIOS Y PRESTACIONES DE SERVICIOS ------------------------------------------------ */
+
+            // ADMINISTRADOR: ABM
+
+            // Creacion de servicios
+            get("servicios/crear", ((ServiciosController) FactoryController.controller("Servicios", entityManager))::create);
+
+            // Guardado de servicios en la base de datos luego de su registro
+            post("servicios", ((ServiciosController) FactoryController.controller("Servicios", entityManager))::save);
+
+
+
+
+
+
+            //get("comunidades/editar/{id}", ((ComunidadesController) FactoryController.controller("Comunidades", entityManager))::edit);
+
+            // Editar una comunidad
+            //post("comunidades/editar/{id}", ((ComunidadesController) FactoryController.controller("Comunidades", entityManager))::update);
+
+            // Eliminar una comunidad
+            //post("comunidades/eliminar", ((ComunidadesController) FactoryController.controller("Comunidades", entityManager))::delete);
+
+
+
+            // USUARIO
+
+            // Listado de servicios que NO son de interes
+            get("servicios", ((ServiciosController) FactoryController.controller("Servicios", entityManager))::listadoServicios);
+
+            // Listado de servicios de interes
+            get("servicios/mis-servicios", ((ServiciosController) FactoryController.controller("Servicios", entityManager))::serviciosDeInteres);
+
+
+            // Marcar servicio como de interes
+            post("servicios/follow", ((ServiciosController) FactoryController.controller("Servicios", entityManager))::marcarInteres);
+
+
+            // Marcar servicio como que ya no interesa mas
+            post("servicios/unfollow", ((ServiciosController) FactoryController.controller("Servicios", entityManager))::eliminarInteres);
+
+
 
 
         });

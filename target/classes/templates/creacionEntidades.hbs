@@ -1,70 +1,166 @@
 {{#partial "titulo-css" }}
     <title>Crear entidad</title>
-    <link rel="stylesheet" href="/css/styles_registroComunidad.css">
+    <link rel="stylesheet" href="/css/styles_creacionEntidades.css">
 {{/partial}}
 
 
 {{#partial "contenido" }}
-<div class="container">
+    <div class="container">
 
-    <h1 class="center-label">Creacion entidades</h1>
-    <form id="comunidadForm" method="POST" action="/entidades">
-
-        <div class="input-container">
+        <h1 class="center-label">{{#if entidad}}Editar entidad{{else}}Creación de entidades{{/if}}</h1>
+        <form id="comunidadForm" method="POST" {{#if entidad}} action="/entidades/editar/{{entidad.idEntidad}}" {{else}} action="/entidades" {{/if}}>
+            <div class="input-container">
                 <label for="nombre">Nombre</label>
                 <input
                         type="text"
                         name="nombre"
                         placeholder="Ingrese el nombre de la entidad"
+                        {{#if entidad}}
+                            value="{{entidad.nombre}}"
+                        {{/if}}
                         name="nombre"
                         id="nombre"
                         required
                 />
-        </div>
+            </div>
 
-        <div class="input-container">
+            <div class="input-container">
 
-            <label for="descripcion">Descripción</label>
-            <textarea
-                id="descripcion"
-                name="descripcion"
-                rows="4"
-                placeholder="Ingrese la descripción de la entidad"
-            ></textarea>
-        </div>
+                <label for="descripcion">Descripción</label>
+                <textarea
+                        id="descripcion"
+                        name="descripcion"
+                        rows="4"
+                        placeholder="Ingrese la descripción de la entidad"
+                        >{{#if entidad}}{{entidad.descripcion}}{{/if}}</textarea>
+            </div>
 
-        <div class="input-container">
-            <label for="prestadora"><b>Prestadora</b></label>
-            <select id="prestadora" name="prestadora" class="custom-select">
+            <div class="input-container">
+                <label for="prestadora"><b>Prestadora</b></label>
+                <select id="prestadora" name="prestadora" class="custom-select">
 
-                <!--Aca la idea es traernos las opciones del back para mostrar-->
 
-                <option value="" disabled selected>Seleccione la prestadora</option>
+                    {{#if entidad}}
+                        <option value="{{entidad.nombre}}" disabled selected>Seleccione la prestadora</option>
+                    {{else}}
+                        <option value="" disabled selected>Seleccione la prestadora</option>
+                    {{/if}}
 
-                {{#each prestadoras}}
-                    <option value="{{this.idPrestadora}}">{{this.nombre}}</option>
-                {{/each}}
 
-            </select>
-        </div>
+                    {{#each prestadoras}}
+                        <option value="{{this.idPrestadora}}">{{this.nombre}}</option>
+                    {{/each}}
 
-        <div class="input-container">
-            <label for="localizacion"><b>Localización</b></label>
-            <select id="localizacion" name="localizacion" class="custom-select">
+                </select>
+            </div>
 
-                <!--Aca la idea es traernos las opciones del back para mostrar-->
+            <div class="input-container">
+                <label for="localizacion"><b>Localizacion</b></label>
+                <select id="localizacion" name="localizacion" class="custom-select">
 
-                <option value="" disabled selected>Seleccione una establecimiento</option>
-                <!-- TODO: debería haber un each -->
-                <option value="Estación Medrano">Estacion Medrano</option>
-                <option value="Estación Caseros">Estacion Caseros</option>
-            </select>
-        </div>
+                    <!--Aca la idea es traernos las opciones del back para mostrar-->
 
-        <button type="submit">Crear entidad</button>
-    </form>
+                    <option value="" disabled selected>Seleccione la localización</option>
+                    <option value="provincia">Provincia</option>
+                    <option value="departamento">Departamento</option>
+                    <option value="municipio">Municipio</option>
 
-</div>
+                </select>
+            </div>
+
+
+            <div class="input-container" id="provincia-container">
+                <label for="provincia"><b>Provincia</b></label>
+                <select id="provincia" name="provincia" class="custom-select">
+
+                    <!--Aca la idea es traernos las opciones del back para mostrar-->
+
+                    <option value="" disabled selected>Seleccione su provincia</option>
+
+                    {{#each provincias}}
+                        <option value="{{this.id}}">{{this.nombre}}</option>
+                    {{/each}}
+
+                </select>
+            </div>
+
+            <div class="input-container" id="departamento-container">
+
+
+                <label for="departamento"><b>Departamento</b></label>
+                <select id="departamento" name="departamento" class="custom-select">
+
+                    <!--Aca la idea es traernos las opciones del back para mostrar-->
+
+                    <option value="" disabled selected>Seleccione su departamento</option>
+
+                </select>
+            </div>
+
+            <div class="input-container" id="municipio-container">
+                <label for="municipio"><b>Municipio</b></label>
+                <select id="municipio" name="municipio" class="custom-select">
+
+                    <!--Aca la idea es traernos las opciones del back para mostrar-->
+
+                    <option value="" disabled selected>Seleccione su municipio</option>
+
+                </select>
+            </div>
+
+
+            {{#if entidad}}
+                <button type="submit">Guardar cambios</button>
+            {{else}}
+                <button type="submit">Crear entidad</button>
+            {{/if}}
+
+            {{#if edit-success}}
+            <div class="message" role="alert">
+                La nueva entidad fue editada con éxito!
+            </div>
+            {{/if}}
+
+            {{#if add-success}}
+                <div class="message" role="alert">
+                    La nueva entidad fue dada de alta!
+                </div>
+            {{/if}}
+
+
+        </form>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/script_registro.js"></script>
+
+    <script>
+        const localizacionDropdown = document.getElementById("localizacion");
+        const provinciaContainer = document.getElementById("provincia-container");
+        const departamentoContainer = document.getElementById("departamento-container");
+        const municipioContainer = document.getElementById("municipio-container");
+
+        localizacionDropdown.addEventListener("change", function () {
+
+            provinciaContainer.style.display = "block";
+
+            const selectedOption = localizacionDropdown.value;
+
+
+            if (selectedOption === "departamento") {
+                departamentoContainer.style.display = "block";
+                municipioContainer.style.display = "none";
+            } else if (selectedOption === "municipio") {
+                municipioContainer.style.display = "block";
+                departamentoContainer.style.display = "none";
+            }
+            else {
+                departamentoContainer.style.display = "none";
+                municipioContainer.style.display = "none";
+            }
+        });
+    </script>
 {{/partial}}
 
 

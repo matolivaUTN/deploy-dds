@@ -8,16 +8,8 @@ import java.time.LocalDateTime;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.ServicioPublico.Establecimiento;
@@ -27,6 +19,7 @@ import models.entities.ServicioPublico.Establecimiento;
 @Setter
 @Getter
 public class PrestacionDeServicio {
+
     @Id
     @GeneratedValue
     private Long idPrestacion;
@@ -43,25 +36,26 @@ public class PrestacionDeServicio {
     )
     private List<Miembro> miembrosInteresados;
 
+
     @OneToMany(mappedBy = "prestacionAfectada")
     private List<Incidente> incidentes;
 
-    @ManyToMany
-    @JoinTable(
-        name = "prestacion_miembro_relacion",
-        joinColumns = @JoinColumn(name = "idPrestacion")
-    )
-    private List<Miembro> miembrosAfectados;
 
     @ManyToOne
     @JoinColumn(name = "idEstablecimiento", referencedColumnName = "idEstablecimiento")
     private Establecimiento establecimiento;
 
+
+    @Column(name = "esta_disponible")
+    private Boolean estaDisponible;
+
+
+
+
     public PrestacionDeServicio(Servicio servicio, Boolean estaDisponible) {
         this.servicio = servicio;
         this.miembrosInteresados = new ArrayList<>();
         this.incidentes = new ArrayList<>();
-        //this.miembrosAfectados = new ArrayList<>();
     }
 
     public PrestacionDeServicio() {}

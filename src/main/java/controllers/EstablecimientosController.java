@@ -45,7 +45,9 @@ public class EstablecimientosController {
 
     context.status(HttpStatus.CREATED);
 
-    context.redirect("/establecimientos/crear");
+    Map<String, Object> model = new HashMap<>();
+    model.put("creacion_establecimiento", "creacion_establecimiento");
+    context.render("confirmacion.hbs", model);
   }
 
   private void asignarParametros(Establecimiento establecimiento, Context context) {

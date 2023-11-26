@@ -20,10 +20,14 @@ public class RepositorioDepartamentos implements WithSimplePersistenceUnit {
     }
 
     public void agregar(Departamento unDepartamento) {
-        EntityTransaction tx = this.entityManager.getTransaction();
-        tx.begin();
-        this.entityManager.persist(unDepartamento);
-        tx.commit();
+        try {
+            EntityTransaction tx = this.entityManager.getTransaction();
+            tx.begin();
+            this.entityManager.persist(unDepartamento);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("HAY UN ERROR LCDTM: " + e.getMessage());
+        }
     }
 
     public void eliminar(Departamento unDepartamento) {
@@ -64,22 +68,6 @@ public class RepositorioDepartamentos implements WithSimplePersistenceUnit {
         return departamentos.stream().sorted(Comparator.comparing(Departamento::getNombre)).toList();
     }
 
-    /*
-    public List<Departamento> buscarDepartamentosDeProvincia(Provincia provincia) {
-        try{
-            List<Departamento> departamentos = this.entityManager
-                    .createQuery("from " + Departamento.class.getName() + " where provincia = :provincia ")
-                    .setParameter("provincia", provincia)
-                    .getResultList();
-            return departamentos.stream().sorted(Comparator.comparing(Departamento::getNombre)).toList();
-        }catch (Exception e) {
-            System.out.println(e);
-            return Collections.emptyList();
-        }
-
-    }
-
-     */
 
     public List<Departamento> buscarDepartamentosDeProvincia(Provincia provincia) {
         try {

@@ -1,0 +1,64 @@
+{{#partial "titulo-css" }}
+    <title>Listado de servicios</title>
+    <link rel="stylesheet" href="/css/styles_listadoComunidades.css">
+{{/partial}}
+
+
+
+{{#partial "contenido" }}
+<div class="table-container">
+    <h1 class="comunidades-title">Servicios</h1>
+    <table class="content-table">
+
+        <tr>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Establecimiento</th>
+            <th>Entidad</th>
+            <th>Prestadora</th>
+            <th>Estado</th>
+            <th>Acción</th>
+        </tr>
+        <tbody>
+        {{#each prestaciones}}
+        <tr>
+            <td>{{this.getServicio.getNombre}}</td>
+            <td>{{this.getServicio.getDiscriminatorValue}}</td>
+            <td>{{this.getEstablecimiento.getNombre}}</td>
+            <td>{{this.getEstablecimiento.getEntidad.getNombre}}</td>
+            <td>{{this.getEstablecimiento.getEntidad.getPrestadora.getNombre}}</td>
+            <td>
+                {{#if this.estaDisponible}}
+                    <img src="/imagenes/ok.png" alt="OK" class="check-image">
+                {{else}}
+                    <img src="/imagenes/not_ok.png" alt="Not OK" class="check-image">
+                {{/if}}
+            </td>
+
+
+            <td> <!--acciones-->
+                {{#if estaInteresado}}
+                    <form method="POST" action="/servicios/unfollow" class="button-form">
+                        <input type="hidden" name="id" value="{{this.idPrestacion}}">
+                        <button id="delete" class="table-button" type="submit">
+                            <img src="/imagenes/turn_off_notifications.png" title="Desactivar notificaciones">
+                        </button>
+                    </form>
+                {{else}}
+                    <form method="POST" action="/servicios/follow" class="button-form">
+                        <input type="hidden" name="id" value="{{this.idPrestacion}}">
+                        <button id="join" class="table-button" type="submit">
+                            <img src="/imagenes/turn_on_notifications.png" title="Estoy interesado en recibir notificaciones del servicio">
+                        </button>
+                    </form>
+                {{/if}}
+            </td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>
+{{/partial}}
+
+
+{{> templates/navbar }}

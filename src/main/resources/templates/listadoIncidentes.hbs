@@ -32,6 +32,7 @@
                 <tr>
                     <th>Descripcion</th>
                     <th>Observaciones</th>
+                    <th>Prestación afectada</th>
                     <th>Fecha de alta</th>
                     <th>Fecha de cierre</th>
                     <th>Miembro creador</th>
@@ -43,6 +44,7 @@
                     <tr>
                         <td>{{this.incidente.descripcion}}</td>
                         <td>{{this.incidente.observaciones}}</td>
+                        <td>{{this.getIncidente.getPrestacionAfectada.getNombre}}</td>  <!--TODO: FALTA ESTO-->
                         <td>{{this.incidente.getTiempoInicial.toLocalDate}}</td>
                         <td>{{#if this.estado.getFechaDeCierre.toLocalDate}}{{this.estado.getFechaDeCierre.toLocalDate}}{{else}}-{{/if}}</td>
                         <td>{{this.incidente.miembroCreador.getNombre}}</td>

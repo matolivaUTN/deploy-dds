@@ -409,3 +409,12 @@ margin-top: 20px; /* Añadido para separar del botón de la pestaña */
 }
 
 
+body.modo-oscuro .comunidades-title {
+    color: white;
+}
+
+
+.check-image {
+    width: 30px; /* Adjust the width as needed */
+    height: 30px; /* Adjust the height as needed */
+}

@@ -3,6 +3,7 @@ package models.repositories;
 import models.entities.Comunidad.Comunidad;
 import models.entities.Comunidad.Miembro;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import models.entities.Localizacion.Localizacion;
 
 import javax.persistence.*;
 
@@ -55,7 +56,7 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit {
     public Comunidad buscarPorNombre(String nombre) {
         try {
             Comunidad unaComunidad = (Comunidad) this.entityManager
-                    .createQuery("from " + Comunidad.class.getName() + " where nombre = :nombre")
+                    .createQuery("from " + Comunidad.class.getName() + " where nombre = :nombre and estaHabilitada = 1")
                     .setParameter("nombre", nombre)
                     .getSingleResult();
 
@@ -70,6 +71,9 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit {
         return this.entityManager.createQuery("from " + Comunidad.class.getName()).getResultList();
     }
 
+
+
+
     /*public List<Miembro> miembrosDeComunidad(long comunidadId) {
         String jpql = "SELECT m FROM Miembro m WHERE m.comunidad = :comunidadId";
         TypedQuery<Miembro> query = this.entityManager.createQuery(jpql, Miembro.class);
@@ -77,11 +81,21 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit {
         return query.getResultList();
     }*/
 
-    public List<Comunidad> comunidadesDeLasQueFormaParte(long miembroId) {
-        // TODO: MAL!
-        String jpql = "SELECT c FROM Comunidad c JOIN c.miembros mxc ON mxc.idMiembro = :miembroId";
-        TypedQuery<Comunidad> query = this.entityManager.createQuery(jpql, Comunidad.class);
-        query.setParameter("miembroId", miembroId);
-        return query.getResultList();
-    }
+
+
+
+/*    public List<Comunidad> comunidadesDeLasQueFormaParte(long miembroId) {
+        try {
+            List<Comunidad> comunidadesMiembro = this.entityManager
+                    .createQuery("from " + Comunidad.class.getName() + " where nombre = :nombre")
+                    .setParameter("nombre", nombre)
+                    .getSingleResult();
+
+            return comunidadesMiembro;
+        }
+        catch (NoResultException e) {
+            return null;
+        }*/
+
+
 }

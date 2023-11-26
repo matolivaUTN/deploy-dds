@@ -19,10 +19,10 @@
                     <label for="descripcion">Nombre</label>
                     <input
                             type="text"
-                            name="descripcion"
+                            name="nombre"
                             placeholder="Ingrese su nombre"
-                            name="descripcion"
-                            id="descripcion"
+                            name="nombre"
+                            id="nombre"
                             required
                     />
             </div>
@@ -45,6 +45,17 @@
                         placeholder="Ingrese su email"
                         name="email"
                         id="email"
+                        required
+                />
+            </div>
+
+            <div class="input-container">
+                <label for="telefono"><b>Número de telefono</b></label>
+                <input
+                        type="number"
+                        placeholder="Ingrese su numero de teléfono"
+                        name="telefono"
+                        id="telefono"
                         required
                 />
             </div>
@@ -144,6 +155,8 @@
 
                     <!--Aca la idea es traernos las opciones del back para mostrar-->
 
+                    //TODO
+
                     <option value="" disabled selected>Seleccione una opción</option>
                     <option value="Cuando suceden">Cuando suceden</option>
                     <option value="Sin apuros">Sin apuros</option>
@@ -164,11 +177,13 @@
                 <label for="medio-notificacion"><b>Medio de notificacion favorito</b></label>
                 <select id="medio-notificacion" name="medio-notificacion" class="custom-select">
 
+
+                    //TODO
                     <!--Aca la idea es traernos las opciones del back para mostrar-->
 
                     <option value="" disabled selected>Seleccione una opción</option>
-                    <option value="whatsapp">WhatsApp</option>
-                    <option value="email">Email</option>
+                    <option value="WhatsApp">WhatsApp</option>
+                    <option value="Email">Email</option>
                 </select>
             </div>
 

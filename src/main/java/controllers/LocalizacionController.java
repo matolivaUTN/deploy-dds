@@ -25,28 +25,22 @@ public class LocalizacionController implements WithSimplePersistenceUnit {
     private RepositorioProvincias repositorioProvincias;
     private RepositorioMunicipios repositorioMunicipios;
     private RepositorioDepartamentos repositorioDepartamentos;
+    private RepositorioMiembros repositorioMiembros;
 
 
-    public LocalizacionController(RepositorioProvincias repositorioProvincias, RepositorioMunicipios repositorioMunicipios, RepositorioDepartamentos repositorioDepartamentos) {
+    public LocalizacionController(RepositorioProvincias repositorioProvincias, RepositorioMunicipios repositorioMunicipios, RepositorioDepartamentos repositorioDepartamentos, RepositorioMiembros repositorioMiembros) {
         this.repositorioProvincias = repositorioProvincias;
         this.repositorioMunicipios = repositorioMunicipios;
         this.repositorioDepartamentos = repositorioDepartamentos;
-    }
-
-
-    public void mostrar(Context context) {
-
-        Map<String, Object> model = new HashMap<>();
-
-        List<Provincia> provincias = this.repositorioProvincias.buscarTodos();
-        model.put("provincias", provincias);
-        context.render("registro.hbs", model);
-
+        this.repositorioMiembros = repositorioMiembros;
     }
 
 
     public void obtenerMunicipiosProvincia(Context context) {
         String valorCampo1 = context.queryParam("valor");
+
+        //long idMiembro = Long.parseLong(context.cookie("id_miembro"));
+        //Miembro miembro = this.repositorioMiembros.buscarPorId(idMiembro);
 
 
         Provincia provincia = this.repositorioProvincias.buscarPorId(Long.parseLong(valorCampo1));
@@ -56,15 +50,13 @@ public class LocalizacionController implements WithSimplePersistenceUnit {
 
         response.append("<option value='' disabled selected>Seleccione el municipio</option>");
 
-        // Buscamos los establecimientos que pertenezcan a esa entidad
+
         List<Municipio> municipios = this.repositorioMunicipios.buscarMunicipiosDeProvincia(provincia);
 
 
         for (Municipio municipio : municipios) {
             response.append("<option value='").append(municipio.getIdMunicipio()).append("'>").append(municipio.getNombre()).append("</option>");
         }
-
-
 
         // COMMIT HBS
         context.result(response.toString());
@@ -73,9 +65,13 @@ public class LocalizacionController implements WithSimplePersistenceUnit {
 
 
     public void obtenerDepartamentosProvincia(Context context) {
+
         // Id entidad
         String valorCampo1 = context.queryParam("valor");
 
+        //long idMiembro = Long.parseLong(context.cookie("id_miembro"));
+
+        //Miembro miembro = this.repositorioMiembros.buscarPorId(idMiembro);
 
         Provincia provincia = this.repositorioProvincias.buscarPorId(Long.parseLong(valorCampo1));
 
@@ -92,13 +88,9 @@ public class LocalizacionController implements WithSimplePersistenceUnit {
             response.append("<option value='").append(departamento.getIdDepartamento()).append("'>").append(departamento.getNombre()).append("</option>");
         }
 
-
-
         context.result(response.toString());
         context.contentType("text/html");
     }
-
-
 
 }
 

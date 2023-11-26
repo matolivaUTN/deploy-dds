@@ -41,26 +41,12 @@ public class LogInController {
         Miembro miembro = this.repositorioMiembros.buscarPorUsuarioYContrasenia(usuario, contrasenia);
 
         if (miembro != null) {
-            // Buscamos si existe una sesión donde se haya guardado el id del usuario previamente
-            long session = getSessionByID(miembro.getIdMiembro());
+            // Guardamos el id como un atributo de la sesión actual
 
-            if(session != -1) {
-                // Encontro una sesion en el sistema
+            context.cookie("id_miembro", miembro.getIdMiembro().toString());
 
-                // Guardamos el id como un atributo de la sesión actual
-                context.sessionAttribute("id_usuario", session);
+            System.out.println("Encontre una COOKIE con el id " +  context.cookie("id_miembro"));
 
-                System.out.println("Encontre una sesion con el id " + context.sessionAttribute("id_usuario"));
-
-            }
-            else {
-
-                // Si no encuentra una sesión, la creamos
-                System.out.println("Voy a crear la sesion");
-
-                createSessionFile(miembro, context);
-                
-            }
 
             // En cualquier caso, redirigimos a home una vez que se completó el log in del usuario
             context.redirect("/home");
@@ -74,55 +60,13 @@ public class LogInController {
     }
 
 
-    public static long getSessionByID(long numeroABuscar) {
-
-        // Recorre el directorio de sesiones y si encuentra una sesion donde este guardado el id del usuario que hizo login, lo devuelve
-        File carpeta = new File(System.getProperty("user.dir") + "\\src\\main\\java\\server\\session");
-
-        if (carpeta.exists() && carpeta.isDirectory()) {
-
-            File[] archivos = carpeta.listFiles();
-
-            for (File archivo : archivos) {
-                if (archivo.isFile()) {
-                    try {
-                        String contenido = new String(Files.readAllBytes(archivo.toPath()));
-                        if (contenido.contains("id_usuario=" + numeroABuscar)) {
-                            return numeroABuscar;
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-        return -1;
-    }
-
-
     public void logout(Context context) {
-        // Eliminamos el atributo de sesion y lo redirigimos a la pestaña de login
-        context.consumeSessionAttribute("id_usuario");
+        // Eliminamos la cookie y lo redirigimos a la pestaña de login
+        context.removeCookie("id_miembro");
 
         context.header("Cache-Control", "no-store");
         context.redirect("/login");
     }
-
-
-
-    private void createSessionFile(Miembro miembro, Context context) throws IOException {
-
-        // Guardamos el id del usuario como atributo de la sesión actual
-        context.sessionAttribute("id_usuario", miembro.getIdMiembro());
-
-
-        // Crea el archivo de sesión con el nombre único (puedes usar el formato que prefieras)
-        String sessionFileName = System.getProperty("user.dir") + "\\src\\main\\java\\server\\session\\session" + miembro.getIdMiembro().toString() + ".session";
-        FileWriter writer = new FileWriter(sessionFileName);
-        writer.write("id_usuario=" + miembro.getIdMiembro());
-        writer.close();
-    }
-
 
 }
 
