@@ -275,9 +275,7 @@ public class MiembrosController extends Controller implements ICrudViewsHandler 
         cargarRolesAModel(context, model);
         model.put("edicion_miembro", "edicion_miembro");
         context.render("confirmacion.hbs", model);
-
     }
-
 
     public void updateTime(Context context) {
 
@@ -370,7 +368,7 @@ public class MiembrosController extends Controller implements ICrudViewsHandler 
             // TODO: ver en que casos hay que setear un rol distinto (por ejemplo cuando se crea una comunidad y se vuelve admin)
 
             // Por default le seteamos el rol de usuario comun
-            Rol rolMiembro= this.repositorioRoles.buscarRolPorNombre("Miembro");
+            Rol rolMiembro = this.repositorioRoles.buscarRolPorNombre("Miembro");
             miembro.setRol(rolMiembro);
 
 

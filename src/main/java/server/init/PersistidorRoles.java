@@ -11,25 +11,15 @@ import javax.persistence.NoResultException;
 import java.io.IOException;
 
 public class PersistidorRoles implements WithSimplePersistenceUnit {
-
-    private EntityManager entityManager;
-
-    public PersistidorRoles(EntityManager entityManager) {
-      this.entityManager = entityManager;
-
-    }
-
-    public void start() throws IOException {
-
-      EntityTransaction tx = this.entityManager.getTransaction();
+    public void start(EntityManager entityManager) throws IOException {
+      EntityTransaction tx = entityManager.getTransaction();
       tx.begin();
-      persistirPermisos();
-      persistirRoles();
+      persistirPermisos(entityManager);
+      persistirRoles(entityManager);
       tx.commit();
     }
 
-    private void persistirPermisos() {
-
+    private void persistirPermisos(EntityManager entityManager) {
       String[][] permisos = {
               { "Eliminar comunidad", "eliminar_comunidad" },
               { "Editar comunidad", "editar_comunidad" }
@@ -39,13 +29,11 @@ public class PersistidorRoles implements WithSimplePersistenceUnit {
         Permiso permiso = new Permiso();
         permiso.setNombre(unPermiso[0]);
         permiso.setNombreInterno(unPermiso[1]);
-        this.entityManager.persist(permiso);
+        entityManager.persist(permiso);
       }
-
     }
 
-    public void persistirRoles() throws IOException {
-
+    public void persistirRoles(EntityManager entityManager) throws IOException {
       // Rol ADMINISTRADOR -> carga de datos
       Rol administrador = new Rol();
       administrador.setNombre("Administrador");
@@ -67,23 +55,19 @@ public class PersistidorRoles implements WithSimplePersistenceUnit {
       organismo.setNombre("Organismo");
       organismo.setTipo(TipoRol.EMPRESA);
       entityManager.persist(organismo);
-
     }
 
-  public Permiso buscarPermisoPorNombre(String nombre) {
-    try {
-      Permiso unPermiso = (Permiso) this.entityManager
-              .createQuery("from " + Permiso.class.getName() + " where nombreInterno = :nombre")
-              .setParameter("nombre", nombre)
-              .getSingleResult();
+    public Permiso buscarPermisoPorNombre(String nombre, EntityManager entityManager) {
+      try {
+        Permiso unPermiso = (Permiso) entityManager
+                .createQuery("from " + Permiso.class.getName() + " where nombreInterno = :nombre")
+                .setParameter("nombre", nombre)
+                .getSingleResult();
 
-      return unPermiso;
+        return unPermiso;
+      }
+      catch (NoResultException e) {
+        return null;
+      }
     }
-    catch (NoResultException e) {
-      return null;
-    }
-  }
-
 }
-
-

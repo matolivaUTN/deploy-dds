@@ -167,6 +167,16 @@ public class Router {
             post("establecimientos", ((EstablecimientosController) FactoryController.controller("Establecimientos", entityManager))::save, TipoRol.ADMINISTRADOR);
 
 
+            get("establecimientos", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::index, TipoRol.ADMINISTRADOR);
+
+            get("establecimientos/editar/{id}", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::edit, TipoRol.ADMINISTRADOR);
+
+            // Editar una entidad
+            post("establecimientos/editar/{id}", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::update, TipoRol.ADMINISTRADOR);
+
+
+
+
 
             /* ------------------------------------------------ SERVICIOS Y PRESTACIONES DE SERVICIOS ------------------------------------------------ */
 

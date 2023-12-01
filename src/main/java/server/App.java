@@ -3,8 +3,6 @@ package server;
 import models.entities.crontask.NotificadorCron;
 import org.quartz.SchedulerException;
 import server.init.PersistidorGeoref;
-import server.init.PersistidorRoles;
-import server.utils.PrettyProperties;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,22 +10,19 @@ import javax.persistence.Persistence;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import server.init.PersistidorRoles;
 
 public class App {
     private static EntityManager entityManager = null;
 
     public static void main(String[] args) throws IOException, SchedulerException {
-        new PersistidorGeoref().start(entityManager());
+        //new PersistidorGeoref().start(entityManager());
 
-        // Si estamos en dev mode persistimos los roles (esto del dev mode se cambia en el archivo config.properties
-	PersistidorRoles persistidorRoles = new PersistidorRoles(entityManager());
-           persistidorRoles.start();
-        if(Boolean.parseBoolean(PrettyProperties.getInstance().propertyFromName("dev_mode"))) {
-           
-        }
+        //new PersistidorRoles().start(entityManager());
 
         // Instanciamos todos los Cron Task
         new NotificadorCron().start();
+        //new RankingsCron().start();
 
         Server.init(entityManager());
     }

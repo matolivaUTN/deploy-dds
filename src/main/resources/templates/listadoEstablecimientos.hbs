@@ -1,0 +1,63 @@
+{{#partial "titulo-css" }}
+    <title>Listado de establecimientos</title>
+    <link rel="stylesheet" href="/css/styles_listadoComunidades.css">
+{{/partial}}
+
+
+
+{{#partial "contenido" }}
+<div class="table-container">
+    <h1 class="comunidades-title">Establecimientos</h1>
+    <table class="content-table">
+
+        <tr>
+            <th>Nombre</th>
+            <th>Entidad</th>
+            <th>Provincia</th>
+            <th>Municipio</th>
+            <th>Departamento</th>
+            <th>Acción</th>
+        </tr>
+        <tbody>
+        {{#each establecimientos}}
+        <tr>
+            <td>{{this.getNombre}}</td>
+            <td>{{this.getEntidad.getNombre}}</td>
+            <td>{{this.getLocalizacion.getProvincia.getNombre}}</td>
+            {{#if this.getLocalizacion.getMunicipio}}
+                <td>{{this.getLocalizacion.getMunicipio.getNombre}}</td>
+            {{else}}
+                <td>-</td>
+            {{/if}}
+
+            {{#if this.getLocalizacion.getDepartamento}}
+                <td>{{this.getLocalizacion.getDepartamento.getNombre}}</td>
+            {{else}}
+                <td>-</td>
+            {{/if}}
+
+
+            <td>
+            <form method="GET" action="/establecimientos/editar/{{this.getIdEstablecimiento}}" class="button-form">
+                <input type="hidden" name="id" value="{{this.getIdEntidad}}">
+                <button id="edit" class="table-button" type="submit">
+                    <img src="/imagenes/edit.png" alt="Edit Button">
+                </button>
+                </form>
+            <form method="POST" action="/comunidades/eliminar" class="button-form">             <!--TODO-->
+                <input type="hidden" name="id" value="{{this.getComunidad.getIdComunidad}}">
+                <button id="delete" class="table-button" type="submit">
+                    <img src="/imagenes/delete.png" alt="Delete Button">
+                </button>
+            </form>
+
+            </td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>
+{{/partial}}
+
+
+{{> templates/navbar }}
