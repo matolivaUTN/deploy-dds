@@ -16,9 +16,9 @@ public class App {
     private static EntityManager entityManager = null;
 
     public static void main(String[] args) throws IOException, SchedulerException {
-        //new PersistidorGeoref().start(entityManager());
+        new PersistidorGeoref().start(entityManager());
 
-        //new PersistidorRoles().start(entityManager());
+        new PersistidorRoles().start(entityManager());
 
         // Instanciamos todos los Cron Task
         new NotificadorCron().start();
