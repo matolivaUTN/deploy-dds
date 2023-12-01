@@ -64,6 +64,70 @@ public class ServiciosController extends Controller  {
         context.render("confirmacion.hbs", model);
     }
 
+    public void edit(Context context) {
+
+        // Pantalla de edicion del servicio y su prestacion asociada
+
+        long prestacionId = Long.parseLong(context.pathParam("id"));
+
+        PrestacionDeServicio prestacion = this.repositorioPrestacionesDeServicios.buscarPorId(prestacionId);
+
+        List<Establecimiento> establecimientos = this.repositorioEstablecimientos.buscarTodos();
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("establecimientos", establecimientos);
+
+        model.put("prestacion", prestacion);
+
+        cargarRolesAModel(context, model);
+        context.render("creacionServicios.hbs", model);
+    }
+
+
+    public void update(Context context) {
+
+
+        //TODO: FALLA ESTO
+
+        long prestacionId = Long.parseLong(context.pathParam("id"));
+        PrestacionDeServicio prestacion = this.repositorioPrestacionesDeServicios.buscarPorId(prestacionId);
+
+        System.out.println("AAAAAAAAAAAAAAAA" + prestacionId);
+
+        long establecimientoId = Long.parseLong(context.formParam("establecimiento"));
+        Establecimiento establecimiento = this.repositorioEstablecimientos.buscarPorId(establecimientoId);
+
+        establecimiento.agregarPrestacion(prestacion);
+
+
+        String tipoServicio = context.formParam("tipo-servicio");
+        Servicio servicio = FactoryServicio.servicio(tipoServicio, context, establecimiento);
+
+        // Actualizamos la tabla
+        this.repositorioServicios.actualizar(servicio);
+
+        prestacion.setServicio(servicio);
+        prestacion.setEstablecimiento(establecimiento);
+
+        //this.repositorioPrestacionesDeServicios.a(prestacion);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("edicion_servicio", "edicion_servicio");
+        cargarRolesAModel(context, model);
+        context.render("confirmacion.hbs", model);
+
+
+    }
+
+
+    public void delete(Context context) {
+
+    }
+
+
+
+
+
     public void listadoServicios(Context context) {
 
         // Listamos todos los servicios que el usuario NO marco como de interes
@@ -178,20 +242,7 @@ public class ServiciosController extends Controller  {
         context.render("confirmacion.hbs", model);
     }
 
-    public void show(Context context) {
 
-    }
-
-/*    public void edit(Context context) {
-        // Buscamos la comunidad en la DB
-        long comunidadId = Long.parseLong(context.pathParam("id"));
-
-        Comunidad comunidad = this.repositorioComunidades.buscarPorId(comunidadId);
-
-        Map<String, Object> model = new HashMap<>();
-        model.put("comunidad", comunidad);
-        context.render("registroComunidad.hbs", model);
-    }*/
 
     private void asignarParametros(PrestacionDeServicio prestacion, Context context) {
         if(!Objects.equals(context.formParam("signUpForm"), "")) {

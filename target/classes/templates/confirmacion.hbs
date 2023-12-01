@@ -37,6 +37,22 @@
         {{/if}}
 
 
+        {{#if eliminacion_entidad}}
+            <h2 class="texto">Eliminaste la entidad {{entidad.nombre}}</h2>
+            <button onclick="window.location.href='/entidades'">OK</button>
+        {{/if}}
+
+
+        <!-- ORGANISMO -->
+
+        {{#if eliminacion_organismo}}
+            <h2 class="texto">Eliminaste el organismo {{organismo.nombre}}</h2>
+            <button onclick="window.location.href='/organismos'">OK</button>
+        {{/if}}
+
+
+
+
 
 
         <!-- ESTABLECIMIENTOS -->
@@ -116,6 +132,11 @@
         {{#if unfollow_servicio}}
             <h2 class="texto">Ya no estás interesado en el servicio {{prestacion.getServicio.getNombre}}</h2>
             <button onclick="window.location.href='/servicios/mis-servicios'">OK</button>
+        {{/if}}
+
+        {{#if edicion_servicio}}
+            <h2 class="texto">Servicio editado con éxito!</h2>
+            <button onclick="window.location.href='/servicios'">OK</button>
         {{/if}}
 
 

@@ -1,0 +1,38 @@
+{{#partial "titulo-css" }}
+    <title>Listado de organismos</title>
+    <link rel="stylesheet" href="/css/styles_listadoComunidades.css">
+{{/partial}}
+
+
+
+{{#partial "contenido" }}
+<div class="table-container">
+    <h1 class="comunidades-title">Organismos</h1>
+    <table class="content-table">
+
+        <tr>
+            <th>Nombre</th>
+            <th>Acción</th>
+        </tr>
+        <tbody>
+        {{#each organismos}}
+        <tr>
+            <td>{{this.getNombre}}</td>
+            <td>
+            <form method="POST" action="/organismos/eliminar" class="button-form">
+                <input type="hidden" name="id" value="{{this.getIdOrganismo}}">
+                <button id="delete" class="table-button" type="submit">
+                    <img src="/imagenes/delete.png" alt="Delete Button">
+                </button>
+            </form>
+
+            </td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>
+{{/partial}}
+
+
+{{> templates/navbar }}

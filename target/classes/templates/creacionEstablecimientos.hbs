@@ -7,8 +7,8 @@
 {{#partial "contenido" }}
 <div class="container">
 
-    <h1 class="center-label">Creacion establecimientos</h1>
-    <form id="comunidadForm" method="POST" action="/establecimientos">
+    <h1 class="center-label">{{#if establecimiento}}Editar establecimiento{{else}}Creación de establecimientos{{/if}}</h1>
+    <form id="comunidadForm" method="POST" {{#if establecimiento}} action="/establecimientos/editar/{{establecimiento.idEstablecimiento}}" {{else}} action="/establecimientos" {{/if}}>
 
         <div class="input-container">
                 <label for="nombre">Nombre</label>
@@ -16,6 +16,9 @@
                         type="text"
                         name="nombre"
                         placeholder="Ingrese el nombre del establecimiento"
+                        {{#if establecimiento}}
+                            value="{{establecimiento.nombre}}"
+                        {{/if}}
                         name="nombre"
                         id="nombre"
                         required
@@ -38,7 +41,7 @@
 
         <div class="input-container" id="provincia-container">
             <label for="provincia"><b>Provincia</b></label>
-            <select id="provincia" name="provincia" class="custom-select">
+            <select id="provincia" name="provincia" class="custom-select" {{#if establecimiento}} value="{{this.getLocalizacion.getProvincia.getId}}"{{/if}} >
 
                 <!--aca va la opcion que nos traemos del back con el AJAX-->
 

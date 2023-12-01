@@ -33,7 +33,11 @@
             <li>
                 <a href="#">Administración</a>
                 <div class="dropdown-menu">
-                    <a href="/entidades">Entidades prestadoras</a>
+                    <a href="/entidades">Entidades</a>
+                    <a href="/establecimientos">Establecimientos</a>
+                    <a href="/organismos">Organismos de control</a>
+                    <a href="/servicios">Servicios</a>
+
                 </div>
             </li>
         {{/if}}
@@ -83,9 +87,14 @@
             <img src="/imagenes/user.png" alt="logo-img" style="width: 30px; height: 30px">
             <a href="#"></a>
             <div class="dropdown-menu">
-                <a href="/miembro/eliminar">Borrar cuenta</a>
                 <a href="/logout">Log out</a>
-                <a href="#" id="editar-perfil">Editar perfil</a>
+
+                {{#if (or (eq rol "ADMINISTRADOR") (eq rol "MIEMBRO"))}}
+
+                    <a href="/miembro/eliminar">Borrar cuenta</a>
+                    <a href="#" id="editar-perfil">Editar perfil</a>
+
+                {{/if}}
 
             </div>
         </li>

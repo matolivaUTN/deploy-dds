@@ -37,21 +37,40 @@
 
 
             <td> <!--acciones-->
-                {{#if estaInteresado}}
-                    <form method="POST" action="/servicios/unfollow" class="button-form">
+
+                {{#if (eq rol "MIEMBRO")}}
+                    {{#if estaInteresado}}
+                        <form method="POST" action="/servicios/unfollow" class="button-form">
+                            <input type="hidden" name="id" value="{{this.idPrestacion}}">
+                            <button id="delete" class="table-button" type="submit">
+                                <img src="/imagenes/turn_off_notifications.png" title="Desactivar notificaciones">
+                            </button>
+                        </form>
+                    {{else}}
+                        <form method="POST" action="/servicios/follow" class="button-form">
+                            <input type="hidden" name="id" value="{{this.idPrestacion}}">
+                            <button id="join" class="table-button" type="submit">
+                                <img src="/imagenes/turn_on_notifications.png" title="Estoy interesado en recibir notificaciones del servicio">
+                            </button>
+                        </form>
+                    {{/if}}
+                {{/if}}
+
+                {{#if (eq rol "ADMINISTRADOR")}}
+                    <form method="GET" action="/servicios/editar/{{this.idPrestacion}}" class="button-form">
                         <input type="hidden" name="id" value="{{this.idPrestacion}}">
-                        <button id="delete" class="table-button" type="submit">
-                            <img src="/imagenes/turn_off_notifications.png" title="Desactivar notificaciones">
+                        <button id="edit" class="table-button" type="submit">
+                            <img src="/imagenes/edit.png" alt="Edit Button">
                         </button>
                     </form>
-                {{else}}
-                    <form method="POST" action="/servicios/follow" class="button-form">
+                    <form method="POST" action="/servicios/eliminar" class="button-form">
                         <input type="hidden" name="id" value="{{this.idPrestacion}}">
-                        <button id="join" class="table-button" type="submit">
-                            <img src="/imagenes/turn_on_notifications.png" title="Estoy interesado en recibir notificaciones del servicio">
+                        <button id="delete" class="table-button" type="submit">
+                            <img src="/imagenes/delete.png" alt="Delete Button">
                         </button>
                     </form>
                 {{/if}}
+
             </td>
         </tr>
         {{/each}}

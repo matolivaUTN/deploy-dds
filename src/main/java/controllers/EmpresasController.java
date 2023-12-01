@@ -1,5 +1,6 @@
 package controllers;
 
+import com.opencsv.exceptions.CsvValidationException;
 import io.javalin.http.Context;
 import models.entities.ServicioPublico.Organismo;
 import models.entities.ServicioPublico.Prestadora;
@@ -8,9 +9,11 @@ import models.repositories.*;
 
 import server.utils.ICrudViewsHandler;
 
+import java.io.IOException;
 import java.util.*;
 
 public class EmpresasController extends Controller implements ICrudViewsHandler {
+
     private RepositorioPrestadoras repositorioPrestadoras;
     private RepositorioMiembros repositorioMiembros;
     private RepositorioOrganismos repositorioOrganismos;
@@ -50,6 +53,26 @@ public class EmpresasController extends Controller implements ICrudViewsHandler 
         context.render("designacionMiembros.hbs", model);
     }
 
+    @Override
+    public void create(Context context) {
+
+    }
+
+    @Override
+    public void save(Context context) throws CsvValidationException, IOException {
+
+    }
+
+    @Override
+    public void edit(Context context) {
+
+    }
+
+    @Override
+    public void update(Context context) {
+
+    }
+
     public void designar(Context context) {
         long idMiembroDesignado = Long.parseLong(context.formParam("miembro-designado"));
         Miembro miembroDesignado = repositorioMiembros.buscarPorId(idMiembroDesignado);
@@ -82,25 +105,49 @@ public class EmpresasController extends Controller implements ICrudViewsHandler 
     @Override
     public void index(Context context) {
 
-    }
+        List<Organismo> organismos = this.repositorioOrganismos.buscarTodos();
 
-    @Override
-    public void create(Context context) {
-    }
+        Map<String, Object> model = new HashMap<>();
 
-    @Override
-    public void save(Context context) {
-    }
-
-    @Override
-    public void edit(Context context) {
-    }
-
-    @Override
-    public void update(Context context) {
+        model.put("organismos", organismos);
+        cargarRolesAModel(context, model);
+        context.render("listadoOrganismos.hbs", model);
     }
 
     @Override
     public void delete(Context context) {
+
+        long organismoId = Long.parseLong(context.formParam("id"));
+
+        Organismo organismo = this.repositorioOrganismos.buscarPorId(organismoId);
+
+        // Tenemos que eliminar todas las prestadoras asociadas a este organismo
+
+        List<Prestadora> prestadoras = organismo.getPrestadoras();
+
+        prestadoras.forEach(prestadora -> prestadora.setDeleted(true));
+
+
+
+        // Eliminamos el organismo
+
+        organismo.setDeleted(true);
+
+        this.repositorioOrganismos.actualizar(organismo);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("eliminacion_organismo", "eliminacion_organismo");
+        model.put("organismo", organismo);
+
+        cargarRolesAModel(context, model);
+        context.render("confirmacion.hbs", model);
     }
+
+
+
+
+
+
+
+
 }

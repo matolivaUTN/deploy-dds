@@ -267,7 +267,7 @@ public class ComunidadesController extends Controller {
         comunidad.setDeleted(true);
         this.repositorioComunidades.actualizar(comunidad);
 
-        context.redirect("/comunidades/mis-comunidades");
+        //context.redirect("/comunidades/mis-comunidades");
 
         Map<String, Object> model = new HashMap<>();
         model.put("eliminacion_comunidad", "eliminacion_comunidad");

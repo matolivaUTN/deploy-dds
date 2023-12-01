@@ -1,5 +1,5 @@
 {{#partial "titulo-css" }}
-    <title>Crear establecimiento</title>
+    <title>Crear servicio</title>
     <link rel="stylesheet" href="/css/styles_registroComunidad.css">
 {{/partial}}
 
@@ -7,8 +7,8 @@
 {{#partial "contenido" }}
 <div class="container">
 
-    <h1 class="center-label">Creacion servicios</h1>
-    <form id="comunidadForm" method="POST" action="/servicios">
+    <h1 class="center-label">{{#if prestacion}}Editar servicio{{else}}Creación de servicios{{/if}}</h1>
+    <form id="comunidadForm" method="POST" {{#if prestacion}} action="/servicios/editar/{{prestacion.idPrestacion}}" {{else}} action="/servicios" {{/if}}>
 
         <div class="input-container">
                 <label for="nombre">Nombre</label>
@@ -16,6 +16,9 @@
                         type="text"
                         name="nombre"
                         placeholder="Ingrese el nombre del servicio"
+                        {{#if prestacion}}
+                            value="{{prestacion.getServicio.getNombre}}"
+                        {{/if}}
                         name="nombre"
                         id="nombre"
                         required
@@ -50,7 +53,10 @@
             </select>
         </div>
 
-        <!--Aca agregamos informacion extra depenidendo de que tipo de servicio se eligio-->
+
+
+
+        <!--Aca agregamos informacion extra depenidendo de que tipo de servicio se eligio--> <!--TODO-->
 
 
 

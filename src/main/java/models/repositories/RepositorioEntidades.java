@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import models.entities.ServicioPublico.Entidad;
+import models.entities.comunidad.Comunidad;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class RepositorioEntidades  implements WithSimplePersistenceUnit {
     }
 
   public List<Entidad> buscarTodos() {
-    return this.entityManager.createQuery("from " + Entidad.class.getName()).getResultList();
+    return this.entityManager.createQuery("from " + Entidad.class.getName() + " where deleted = false ").getResultList();
   }
 
   }

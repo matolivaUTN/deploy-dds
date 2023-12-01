@@ -7,7 +7,10 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 
 import models.entities.ServicioPublico.Organismo;
+import models.entities.comunidad.Comunidad;
 import org.mindrot.jbcrypt.BCrypt;
+
+import java.util.List;
 
 public class RepositorioOrganismos implements WithSimplePersistenceUnit {
 
@@ -61,4 +64,10 @@ public class RepositorioOrganismos implements WithSimplePersistenceUnit {
     }
     return null;
   }
+
+  public List<Organismo> buscarTodos() {
+    return this.entityManager.createQuery("from " + Organismo.class.getName() + " where deleted = false ").getResultList();
+  }
+
+
 }

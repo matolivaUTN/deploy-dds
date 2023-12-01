@@ -137,11 +137,22 @@ public class Router {
             post("carga-prestadoras-organismos", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::saveCargaPrestadorasYOrganismos, TipoRol.ADMINISTRADOR);
 
 
-            // Guardado
-            //get("carga-entidades-establecimientos", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::showCargaEntidadesYEstablecimientos);
+            /* ------------------------------------------------ ORGANISMOS DE CONTROL Y ENTIDADES ------------------------------------------------ */
 
-            // Guardado de las entidades en la base de datos
-            //post("carga-entidades-establecimientos", ((EntidadesController) FactoryController.controller("Entidades"))::saveCargaEntidadesYEstablecimientos);
+            // Listado / edicion / borrado de organismos de control y prestadoras
+
+            get("organismos", ((EmpresasController) FactoryController.controller("Empresas", entityManager))::index, TipoRol.ADMINISTRADOR);
+
+            post("organismos/eliminar", ((EmpresasController) FactoryController.controller("Empresas", entityManager))::delete, TipoRol.ADMINISTRADOR);
+
+
+
+
+
+
+
+
+
 
 
             /* ------------------------------------------------ ENTIDADES ------------------------------------------------ */
@@ -150,14 +161,15 @@ public class Router {
 
             post("entidades", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::save, TipoRol.ADMINISTRADOR);
 
-
+            // Listado / edicion / borrado de entidades
 
             get("entidades", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::index, TipoRol.ADMINISTRADOR);
 
             get("entidades/editar/{id}", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::edit, TipoRol.ADMINISTRADOR);
 
-            // Editar una entidad
             post("entidades/editar/{id}", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::update, TipoRol.ADMINISTRADOR);
+
+            post("entidades/eliminar", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::delete, TipoRol.ADMINISTRADOR);
 
 
             /* ------------------------------------------------ ESTABLECIMIENTOS ------------------------------------------------ */
@@ -167,12 +179,13 @@ public class Router {
             post("establecimientos", ((EstablecimientosController) FactoryController.controller("Establecimientos", entityManager))::save, TipoRol.ADMINISTRADOR);
 
 
-            get("establecimientos", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::index, TipoRol.ADMINISTRADOR);
+            // Listado / edicion / borrado de establecimientos
 
-            get("establecimientos/editar/{id}", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::edit, TipoRol.ADMINISTRADOR);
+            get("establecimientos", ((EstablecimientosController) FactoryController.controller("Establecimientos", entityManager))::index, TipoRol.ADMINISTRADOR);
 
-            // Editar una entidad
-            post("establecimientos/editar/{id}", ((EntidadesController) FactoryController.controller("Entidades", entityManager))::update, TipoRol.ADMINISTRADOR);
+            get("establecimientos/editar/{id}", ((EstablecimientosController) FactoryController.controller("Establecimientos", entityManager))::edit, TipoRol.ADMINISTRADOR);
+
+            post("establecimientos/editar/{id}", ((EstablecimientosController) FactoryController.controller("Establecimientos", entityManager))::update, TipoRol.ADMINISTRADOR);
 
 
 
@@ -190,14 +203,15 @@ public class Router {
 
 
 
+            // Edicion y borrado de servicios (y su prestacion asociada)
 
-            //get("comunidades/editar/{id}", ((ComunidadesController) FactoryController.controller("Comunidades", entityManager))::edit);
+            get("servicios/editar/{id}", ((ServiciosController) FactoryController.controller("Servicios", entityManager)):: edit, TipoRol.ADMINISTRADOR);
 
-            // Editar una comunidad
-            //post("comunidades/editar/{id}", ((ComunidadesController) FactoryController.controller("Comunidades", entityManager))::update);
+            post("servicios/editar/{id}", ((ServiciosController) FactoryController.controller("Servicios", entityManager))::update, TipoRol.ADMINISTRADOR);
 
-            // Eliminar una comunidad
-            //post("comunidades/eliminar", ((ComunidadesController) FactoryController.controller("Comunidades", entityManager))::delete);
+            post("servicios/eliminar", ((ServiciosController) FactoryController.controller("Servicios", entityManager))::delete, TipoRol.ADMINISTRADOR);
+
+
 
 
 
@@ -240,9 +254,14 @@ public class Router {
 
             /* ------------------------------------------------ DESIGNACION DE MIEMBRO PRESTADORA / ORGANISMO  ------------------------------------------------ */
 
-            get("miembro/designar", ((EmpresasController) FactoryController.controller("Prestadoras", entityManager))::show, TipoRol.EMPRESA);
+            get("miembro/designar", ((EmpresasController) FactoryController.controller("Empresas", entityManager))::show, TipoRol.EMPRESA);
 
-            post("miembro/designar", ((EmpresasController) FactoryController.controller("Prestadoras", entityManager))::designar, TipoRol.EMPRESA);
+            post("miembro/designar", ((EmpresasController) FactoryController.controller("Empresas", entityManager))::designar, TipoRol.EMPRESA);
+
+
+
+
+
 
 
 

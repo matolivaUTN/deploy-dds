@@ -5,12 +5,11 @@ import io.javalin.http.Context;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import io.javalin.http.HttpStatus;
+import models.entities.comunidad.Comunidad;
+import models.entities.comunidad.Miembro;
 import models.entities.csv.LectorCSV;
 import models.entities.localizacion.Localizacion;
 import models.entities.ServicioPublico.Entidad;
@@ -25,13 +24,10 @@ public class EntidadesController extends Controller {
   private RepositorioOrganismos repositorioOrganismos;
   private RepositorioEntidades repositorioEntidades;
   private RepositorioPrestadoras repositorioPrestadoras;
-
   private RepositorioProvincias repositorioProvincias;
   private RepositorioMunicipios repositorioMunicipios;
   private RepositorioDepartamentos repositorioDepartamentos;
-
   private RepositorioLocalizaciones repositorioLocalizaciones;
-
   private RepositorioRoles repositorioRoles;
 
   public EntidadesController(RepositorioEntidades repositorioEntidades, RepositorioOrganismos repositorioOrganismos, RepositorioPrestadoras repositorioPrestadoras, RepositorioProvincias repositorioProvincias, RepositorioMunicipios repositorioMunicipios, RepositorioDepartamentos repositorioDepartamentos, RepositorioLocalizaciones repositorioLocalizaciones, RepositorioRoles repositorioRoles) {
@@ -57,8 +53,6 @@ public class EntidadesController extends Controller {
     cargarRolesAModel(context, model);
     context.render("listadoEntidades.hbs", model);
   }
-
-
 
   public void create(Context context) {
     // Pantalla de creacion de entidades
@@ -183,6 +177,31 @@ public class EntidadesController extends Controller {
     model.put("edicion_entidad", "edicion_entidad");
     context.render("confirmacion.hbs", model);
   }
+
+
+  public void delete(Context context) {
+
+    // Eliminar la entidad de la base de datos
+
+    // Buscamos la entidad en la DB
+    long entidadId = Long.parseLong(context.formParam("id"));
+    Entidad entidad = this.repositorioEntidades.buscarPorId(entidadId);
+
+
+    entidad.setDeleted(true);
+
+    this.repositorioEntidades.actualizar(entidad);
+
+
+
+    Map<String, Object> model = new HashMap<>();
+    model.put("eliminacion_entidad", "eliminacion_entidad");
+    model.put("entidad", entidad);
+
+    cargarRolesAModel(context, model);
+    context.render("confirmacion.hbs", model);
+  }
+
 
   private void asignarParametros(Entidad entidad, Context context) {
     if(!Objects.equals(context.formParam("entidadesForm"), "")) {
