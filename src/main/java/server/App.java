@@ -17,7 +17,7 @@ public class App {
     private static EntityManager entityManager = null;
 
     public static void main(String[] args) throws IOException, SchedulerException {
-        //new PersistidorGeoref().start(entityManager());
+        new PersistidorGeoref().start(entityManager());
 
         // Si estamos en dev mode persistimos los roles (esto del dev mode se cambia en el archivo config.properties
         if(Boolean.parseBoolean(PrettyProperties.getInstance().propertyFromName("dev_mode"))) {
