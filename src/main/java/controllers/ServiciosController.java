@@ -4,9 +4,9 @@ import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import models.entities.comunidad.Miembro;
-import models.entities.servicio.FactoryServicio;
-import models.entities.servicio.PrestacionDeServicio;
-import models.entities.servicio.Servicio;
+import models.entities.georef.entities.Municipio;
+import models.entities.georef.entities.Provincia;
+import models.entities.servicio.*;
 import models.entities.ServicioPublico.Establecimiento;
 import models.repositories.*;
 import models.entities.incidente.Incidente;
@@ -44,6 +44,74 @@ public class ServiciosController extends Controller  {
         cargarRolesAModel(context, model);
         context.render("creacionServicios.hbs", model);
     }
+
+
+    public void mostrarCamposAdicionales(Context context) {
+
+        String tipoServicio = context.queryParam("valor");
+
+        // Crear una respuesta HTML o texto plano
+        StringBuilder response = new StringBuilder();
+
+        switch (tipoServicio) {
+            case "Banio": {
+
+                System.out.println(" ENTRE A BANIOOOO");
+
+                // Mostramos el campo genero
+
+                response.append("<div class=\"input-container\">\n");
+                response.append("    <label for=\"genero\"><b>Genero</b></label>\n");
+                response.append("    <input\n");
+                response.append("            type=\"text\"\n");
+                response.append("            placeholder=\"Ingrese el género\"\n");
+                response.append("            name=\"genero\"\n");
+                response.append("            id=\"genero\"\n");
+                response.append("            required\n");
+                response.append("    />\n");
+                response.append("</div>");
+
+                break;
+            }
+
+            case "MedioDeElevacion": {
+
+                // Mostramos los campos tramo incial y final
+
+                // Tramo inicial input container
+                response.append("<div class=\"input-container\">\n");
+                response.append("    <label for=\"tramo-inicial\"><b>Tramo inicial en mts</b></label>\n");
+                response.append("    <input\n");
+                response.append("            type=\"number\"\n");
+                response.append("            placeholder=\"Ingrese el tramo inicial\"\n");
+                response.append("            name=\"tramo-inicial\"\n");
+                response.append("            id=\"tramo-inicial\"\n");
+                response.append("            required\n");
+                response.append("    />\n");
+                response.append("</div>\n");
+
+                // Tramo final input container
+                response.append("<div class=\"input-container\">\n");
+                response.append("    <label for=\"tramo-final\"><b>Tramo final en mts</b></label>\n");
+                response.append("    <input\n");
+                response.append("            type=\"number\"\n");
+                response.append("            placeholder=\"Ingrese el tramo final\"\n");
+                response.append("            name=\"tramo-final\"\n");
+                response.append("            id=\"tramo-final\"\n");
+                response.append("            required\n");
+                response.append("    />\n");
+                response.append("</div>");
+
+                break;
+            }
+
+        }
+
+        context.result(response.toString());
+        context.contentType("text/html");
+    }
+
+
 
     public void save(Context context) {
         // Guardado de una prestacion de servicio en la base de datos
@@ -86,7 +154,6 @@ public class ServiciosController extends Controller  {
 
     public void update(Context context) {
 
-
         //TODO: FALLA ESTO
 
         long prestacionId = Long.parseLong(context.pathParam("id"));
@@ -97,7 +164,10 @@ public class ServiciosController extends Controller  {
         long establecimientoId = Long.parseLong(context.formParam("establecimiento"));
         Establecimiento establecimiento = this.repositorioEstablecimientos.buscarPorId(establecimientoId);
 
-        establecimiento.agregarPrestacion(prestacion);
+        List<PrestacionDeServicio> prestacionesEstablecimiento = establecimiento.getPrestaciones();
+
+        // Eliminamos la prestacion del establecimiento
+        prestacionesEstablecimiento.removeIf(prestacionABorrar -> Objects.equals(prestacionABorrar.getIdPrestacion(), prestacion.getIdPrestacion()));
 
 
         String tipoServicio = context.formParam("tipo-servicio");
@@ -108,6 +178,11 @@ public class ServiciosController extends Controller  {
 
         prestacion.setServicio(servicio);
         prestacion.setEstablecimiento(establecimiento);
+
+
+        // Agregamos la prestacion modificada
+        establecimiento.agregarPrestacion(prestacion);
+
 
         //this.repositorioPrestacionesDeServicios.a(prestacion);
 

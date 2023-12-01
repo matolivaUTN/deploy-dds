@@ -232,6 +232,11 @@ public class Router {
             post("servicios/unfollow", ((ServiciosController) FactoryController.controller("Servicios", entityManager))::eliminarInteres, TipoRol.MIEMBRO);
 
 
+
+            get("mostrarCamposAdicionales", ((ServiciosController) FactoryController.controller("Servicios", entityManager))::mostrarCamposAdicionales);
+
+
+
             /* ------------------------------------------------ RANKINGS ------------------------------------------------ */
 
             // Pantalla de rankings

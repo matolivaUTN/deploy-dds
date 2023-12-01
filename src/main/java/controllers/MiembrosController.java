@@ -14,6 +14,7 @@ import models.entities.roles.Rol;
 import models.repositories.*;
 
 import org.mindrot.jbcrypt.BCrypt;
+import server.App;
 import server.utils.ICrudViewsHandler;
 import java.time.LocalTime;
 import java.util.*;
@@ -39,7 +40,7 @@ public class MiembrosController extends Controller implements ICrudViewsHandler 
     public void index(Context context) {
         Map<String, Object> model = new HashMap<>();
 
-       cargarRolesAModel(context, model);
+        cargarRolesAModel(context, model);
 
 
         context.render("home.hbs", model);
@@ -230,6 +231,8 @@ public class MiembrosController extends Controller implements ICrudViewsHandler 
 
     @Override
     public void update(Context context) {
+
+        App.entityManager().clear();
 
         long miembroId = Long.parseLong(context.pathParam("id"));
         Miembro miembro = this.repositorioMiembros.buscarPorId(miembroId);

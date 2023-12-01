@@ -6,6 +6,8 @@ import models.entities.localizacion.Localizacion;
 import models.entities.incidente.Incidente;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Objects;
+
 import models.entities.servicio.PrestacionDeServicio;
 import lombok.Setter;
 import lombok.Getter;
@@ -63,4 +65,6 @@ public class Establecimiento {
 
         return cantidad;
     }
+
+
 }

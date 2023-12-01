@@ -94,6 +94,7 @@ public class LogInController extends Controller {
         // Eliminamos la cookie y lo redirigimos a la pestaña de login
         context.removeCookie("id_miembro");
         context.removeCookie("id_prestadora");
+        context.removeCookie("id_organismo");
 
         context.header("Cache-Control", "no-store");
         context.redirect("/login");

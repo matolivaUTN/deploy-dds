@@ -8,6 +8,7 @@ import models.entities.rankings.Ranking;
 import models.entities.ServicioPublico.Entidad;
 import models.repositories.RepositorioEntidades;
 import models.repositories.RepositorioIncidentes;
+import server.App;
 import server.utils.ICrudViewsHandler;
 
 import java.util.*;
@@ -41,6 +42,8 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
     }
 
     public void rankingSeleccionado(Context context) {
+        App.entityManager().clear();
+
         String rankingElegido = context.queryParam("ranking-incidente");
 
         CriterioRanking criterioElegido = FactoryCriterio.criterio(rankingElegido);

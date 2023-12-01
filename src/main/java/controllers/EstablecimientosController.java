@@ -11,6 +11,7 @@ import models.entities.georef.entities.Departamento;
 import models.entities.georef.entities.Municipio;
 import models.entities.georef.entities.Provincia;
 import models.repositories.*;
+import server.App;
 
 import java.util.*;
 
@@ -47,6 +48,8 @@ public class EstablecimientosController extends Controller {
   }
 
   public void create(Context context) {
+
+    App.entityManager().clear();
     // Pantalla de creacion de establecimientos
 
     // Mostrar las entidades posibles

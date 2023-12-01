@@ -67,8 +67,8 @@ public class RepositorioLocalizaciones implements WithSimplePersistenceUnit {
         try {
             Query query =  this.entityManager
                     .createQuery("from " + Localizacion.class.getName() + " where idprovincia = :provincia " +
-                            " and idmunicipio " + (municipio != null ? "= :municipio" : "is null") +
-                            " and iddepartamento " + (departamento != null ? "= :departamento" : "is null"))
+                            " and idmunicipio " + (municipio != null ? " = :municipio " : " is null ") +
+                            " and iddepartamento " + (departamento != null ? " = :departamento " : " is null "))
                     .setParameter("provincia", provincia);
             if (municipio != null) {
                 query.setParameter("municipio", municipio);
@@ -84,6 +84,8 @@ public class RepositorioLocalizaciones implements WithSimplePersistenceUnit {
         }
         catch (NoResultException e) {
             Localizacion localizacion = new Localizacion(provincia, departamento, municipio);
+
+            System.out.println("NO ENCONTRE LA LOCALIZACION, LA VOY A CREAR");
             agregar(localizacion);
             return localizacion;
         }
