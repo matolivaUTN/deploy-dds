@@ -1,6 +1,5 @@
 package org.example;
 
-import models.entities.CSV.LectorCSV;
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;

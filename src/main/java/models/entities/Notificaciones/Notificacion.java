@@ -1,16 +1,9 @@
-package models.entities.Notificaciones;
-
-import models.entities.Comunidad.Miembro;
-import models.entities.Incidente.Incidente;
+package models.entities.notificaciones;
 
 import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
+
 import lombok.Setter;
 import lombok.Getter;
 
@@ -20,30 +13,31 @@ import lombok.Getter;
 @Setter
 @Getter
 public class Notificacion {
+
     @Id
     @GeneratedValue
     private Long idNotificacion;
 
+    @Column(name = "contenido", columnDefinition = "TEXT")
+    private String contenido;
+
+    @Column(name = "asunto")
+    private String asunto;
+
     @Column(name = "fecha", columnDefinition = "DATE")
     private LocalDateTime fecha = LocalDateTime.now();
 
-    @Column(name = "fueLeida")
-    private Boolean fueLeida = false;
 
-    @Column(name = "fueEnviada")
-    private Boolean fueEnviada;
+    @OneToMany(mappedBy = "notificacion")
+    private List<NotificacionPorMiembro> notificacionesPorMiembros;
 
-    @ManyToOne
-    @JoinColumn(name = "idIncidente")
-    private Incidente incidente;
+    @Column(name = "deleted")
+    private Boolean deleted;
 
-    @ManyToOne
-    @JoinColumn(name = "idMiembro")
-    private Miembro miembro;
 
-    public Notificacion(Incidente unIncidente, Miembro unMiembro) {
-        this.incidente = unIncidente;
-        this.miembro = unMiembro;
-    }
     public Notificacion() {}
+
+    public void agregarNotificacionPorMiembro(NotificacionPorMiembro noti) {
+        this.notificacionesPorMiembros.add(noti);
+    }
 }

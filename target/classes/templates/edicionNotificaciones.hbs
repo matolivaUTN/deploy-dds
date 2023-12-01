@@ -1,0 +1,121 @@
+{{#partial "titulo-css" }}
+    <title>Configurar notificaciones</title>
+    <link rel="stylesheet" href="/css/styles_edicionNotificaciones.css">
+{{/partial}}
+
+{{#partial "idMiembro"}}{{miembro.idMiembro}}{{/partial}}
+
+{{#partial "contenido"}}
+    <div class="container">
+
+        <h1 class="center-label">Configurar notificaciones</h1>
+        <form id="comunidadForm" method="POST" action="/miembro/editar-notificaciones/{{miembro.idMiembro}}">
+
+            <div class="input-container">
+                <label for="medio-notificacion"><b>Medio de notificacion favorito</b></label>
+                <select id="medio-notificacion" name="medio-notificacion" class="custom-select">
+
+                    <option value="{{miembro.getNotificadorAsString}}" selected>{{miembro.getNotificadorAsString}}</option>
+                    {{#each mediosDeNotificacion}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+
+            <div class="input-container">
+                <label for="estrategia-aviso"><b>Estrategia de notificación de incidentes</b></label>
+                <select id="estrategia-aviso" name="estrategia-aviso" class="custom-select">
+
+                    <option value="{{miembro.getEstrategiaDeAvisoAsString}}" selected>{{miembro.getEstrategiaDeAvisoAsString}}</option>
+
+                    {{#each estrategiasAviso}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+
+                <div class="requerimientos">
+                    <ul>
+                        <li><b>Cuando suceden:</b> se le notificará en el momento en que sucede el hecho</li>
+                        <li><b>Sin apuros:</b> usted puede configurar uno o varios horarios en los que desea recibir notificaciones</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="horarios">
+                <h2 class="center-label">Horarios de preferencia para envío de notificaciones</h2>
+
+
+                {{#if tieneHorarios}}
+                    {{#each miembro.getHorariosDePreferencia}}
+                            <div class="input-container">
+                                <label for="horario-aviso-{{@index}}"><b>Horario {{@index}}</b></label>
+                                <input type="time" id="horario-aviso-{{@index}}" name="horario-aviso-{{@index}}" value="{{this}}">
+                            </div>
+                    {{/each}}
+
+                {{else}}
+                    <!-- TODO: sacar los required -->
+                    <div class="input-container">
+                        <label for="horario-aviso-0"><b>Horario 0</b></label>
+                        <input type="time" id="horario-aviso-0" name="horario-aviso-0" required>
+                    </div>
+
+                    <div class="input-container">
+                        <label for="horario-aviso-1"><b>Horario 1</b></label>
+                        <input type="time" id="horario-aviso-1" name="horario-aviso-1" required>
+                    </div>
+
+                    <div class="input-container">
+                        <label for="horario-aviso-2"><b>Horario 2</b></label>
+                        <input type="time" id="horario-aviso-2" name="horario-aviso-2" required>
+                    </div>
+                {{/if}}
+            </div>
+
+
+            <button type="submit">Guardar cambios</button>
+
+            {{#if edit-success}}
+                <div class="message" role="alert">
+                    Perfil editado con éxito!
+                </div>
+            {{/if}}
+
+        </form>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/script_registro.js"></script>
+
+
+<script>
+
+    const estrategia = document.getElementById("estrategia-aviso");
+    const horarios = document.getElementById("horarios");
+
+    if(estrategia.value === "Sin apuros") {
+        horarios.style.display = "block";
+    }
+
+    estrategia.addEventListener("change", function () {
+
+        const selectedOption = estrategia.value;
+
+        if (selectedOption === "Sin apuros") {
+            horarios.style.display = "block";
+        }
+        else {
+            horarios.style.display = "none";
+        }
+
+    });
+</script>
+
+
+{{/partial}}
+
+
+
+{{> templates/navbar }}

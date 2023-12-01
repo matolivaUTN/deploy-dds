@@ -4,8 +4,7 @@ import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import models.entities.Comunidad.Comunidad;
-import models.entities.Comunidad.Miembro;
+
 import models.entities.ServicioPublico.Entidad;
 
 import java.util.List;

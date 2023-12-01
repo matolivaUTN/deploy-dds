@@ -1,6 +1,6 @@
 {{#partial "titulo-css" }}
     <title>Crear establecimiento</title>
-    <link rel="stylesheet" href="/css/styles_registroComunidad.css">
+    <link rel="stylesheet" href="/css/styles_creacionEstablecimientos.css">
 {{/partial}}
 
 
@@ -26,8 +26,6 @@
             <label for="entidad"><b>Entidad</b></label>
             <select id="entidad" name="entidad" class="custom-select">
 
-                <!--Aca la idea es traernos las opciones del back para mostrar-->
-
                 <option value="" disabled selected>Seleccione la entidad</option>
 
                 {{#each entidades}}
@@ -37,10 +35,52 @@
             </select>
         </div>
 
+
+        <div class="input-container" id="provincia-container">
+            <label for="provincia"><b>Provincia</b></label>
+            <select id="provincia" name="provincia" class="custom-select">
+
+                <!--aca va la opcion que nos traemos del back con el AJAX-->
+
+            </select>
+        </div>
+
+        <div class="input-container" id="localizacion-container">
+        </div>
+
+
+        <div class="input-container" id="departamento-container">
+            <label for="departamento"><b>Departamento</b></label>
+            <select id="departamento" name="departamento" class="custom-select">
+                <option value="" disabled selected>Seleccione su departamento</option>
+            </select>
+        </div>
+
+        <div class="input-container" id="municipio-container">
+            <label for="municipio"><b>Municipio</b></label>
+            <select id="municipio" name="municipio" class="custom-select">
+                <option value="" disabled selected>Seleccione su municipio</option>
+            </select>
+        </div>
+
+
         <button type="submit">Crear establecimiento</button>
     </form>
 
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/script_creacionEstablecimientos.js"></script>
+
+<script>
+    const entidadDropdown = document.getElementById("entidad");
+    const provinciaContainer = document.getElementById("provincia-container");
+
+    entidadDropdown.addEventListener("change", function () {
+        provinciaContainer.style.display = "block";
+    });
+</script>
+
 {{/partial}}
 
 

@@ -1,10 +1,10 @@
-package models.entities.Converter;
+package models.entities.converter;
 
-import models.entities.Notificaciones.CuandoSuceden;
-import models.entities.Notificaciones.SinApuros;
+import models.entities.notificaciones.CuandoSuceden;
+import models.entities.notificaciones.SinApuros;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import models.entities.Notificaciones.EstrategiaDeAviso;
+import models.entities.notificaciones.EstrategiaDeAviso;
 
 @Converter(autoApply = true)
 public class EstrategiaDeAvisoConverter implements AttributeConverter<EstrategiaDeAviso, String> {

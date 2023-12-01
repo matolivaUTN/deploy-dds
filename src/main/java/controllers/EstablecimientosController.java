@@ -3,24 +3,32 @@ package controllers;
 
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
+import models.entities.localizacion.Localizacion;
 import models.entities.ServicioPublico.Entidad;
 import models.entities.ServicioPublico.Establecimiento;
-import models.repositories.RepositorioEntidades;
-import models.repositories.RepositorioEstablecimientos;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import models.entities.georef.entities.Departamento;
+import models.entities.georef.entities.Municipio;
+import models.entities.georef.entities.Provincia;
+import models.repositories.*;
 
-public class EstablecimientosController {
+import java.util.*;
+
+public class EstablecimientosController extends Controller {
 
   private RepositorioEntidades repositorioEntidades;
   private RepositorioEstablecimientos repositorioEstablecimientos;
+  private RepositorioLocalizaciones repositorioLocalizaciones;
+  private RepositorioProvincias repoProvincias;
+  private RepositorioDepartamentos repoDeptos;
+  private RepositorioMunicipios repoMunis;
 
-  public EstablecimientosController(RepositorioEntidades repositorioEntidades, RepositorioEstablecimientos repositorioEstablecimientos) {
+  public EstablecimientosController(RepositorioEntidades repositorioEntidades, RepositorioEstablecimientos repositorioEstablecimientos, RepositorioLocalizaciones repositorioLocalizaciones, RepositorioProvincias repoProvincias, RepositorioDepartamentos repoDeptos, RepositorioMunicipios repoMunis) {
     this.repositorioEntidades = repositorioEntidades;
     this.repositorioEstablecimientos = repositorioEstablecimientos;
-
+    this.repositorioLocalizaciones = repositorioLocalizaciones;
+    this.repoProvincias = repoProvincias;
+    this.repoDeptos = repoDeptos;
+    this.repoMunis = repoMunis;
   }
 
   public void create(Context context) {
@@ -29,12 +37,13 @@ public class EstablecimientosController {
     // Mostrar las entidades posibles
     List<Entidad> entidades = this.repositorioEntidades.buscarTodos();
 
+
     Map<String, Object> model = new HashMap<>();
     model.put("entidades", entidades);
 
+    cargarRolesAModel(context, model);
     context.render("creacionEstablecimientos.hbs", model);
   }
-
 
   public void save(Context context) {
 
@@ -47,6 +56,8 @@ public class EstablecimientosController {
 
     Map<String, Object> model = new HashMap<>();
     model.put("creacion_establecimiento", "creacion_establecimiento");
+
+    cargarRolesAModel(context, model);
     context.render("confirmacion.hbs", model);
   }
 
@@ -56,44 +67,35 @@ public class EstablecimientosController {
 
       establecimiento.setNombre(context.formParam("nombre"));
 
-      Long idEntidad = Long.parseLong(context.formParam("entidad"));
+      establecimiento.setPrestaciones(new ArrayList<>());
 
+      Long idEntidad = Long.parseLong(context.formParam("entidad"));
       Entidad entidad = this.repositorioEntidades.buscarPorId(idEntidad);
+      Localizacion localizacion = entidad.getLocalizacion();
+      Provincia provincia = localizacion.getProvincia();
+
+      Municipio muni = null;
+      Departamento depto = null;
+      if(localizacion.getMunicipio() != null) {
+        muni = localizacion.getMunicipio();
+      }
+      else if(localizacion.getDepartamento() != null) {
+        depto = localizacion.getDepartamento();
+      }
+      else if(context.formParam("municipio") != null) {
+        muni = repoMunis.buscarPorId(Long.parseLong(context.formParam("municipio")));
+      }
+      else if(context.formParam("departamento") != null) {
+        depto = repoDeptos.buscarPorId(Long.parseLong(context.formParam("departamento")));
+      }
+
+      Localizacion localizacionEstablecimiento = repositorioLocalizaciones.buscarPorCombinacion(provincia, muni, depto);
 
 
       establecimiento.setEntidad(entidad);
       entidad.addEstablecimiento(establecimiento);
-
+      establecimiento.setLocalizacion(localizacionEstablecimiento);
+      establecimiento.setDeleted(false);
     }
   }
 }
-
-
-
-  //@SuppressWarnings("unchecked")
-/*  public void saveCargaEntidadesYEstablecimientos(Context context) {
-    // Obtiene el nombre del archivo seleccionado
-    String fileName = context.uploadedFile("fileInput").filename();
-
-    // Obtiene el contenido del archivo cargado
-    InputStream fileContent = context.uploadedFile("fileInput").content();
-
-    LectorCSV lector = new LectorCSV();
-    List<Entidad> entidad;
-
-    // Procesa el contenido del archivo
-    try {
-      entidad = lector.leerCSVEntidadesYEstablecimientos(fileContent);
-      fileContent.close();
-
-      for (Entidad entidad : entidad) {
-        this.repositorioOrganismos.agregar(entidad);
-      }
-    } catch (IOException | CsvValidationException e) {
-      //e.printStackTrace();
-      //throw new RuntimeException(e);
-    }
-
-    context.redirect("/home");
-  }*/
-

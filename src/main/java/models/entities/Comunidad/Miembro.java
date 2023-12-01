@@ -1,17 +1,20 @@
-package models.entities.Comunidad;
+package models.entities.comunidad;
 
-import models.entities.Localizacion.Localizacion;
-import models.entities.Notificaciones.*;
-import models.entities.Servicio.PrestacionDeServicio;
+import models.entities.converter.LocalTimeAttributeConverter;
+import models.entities.localizacion.Localizacion;
+import models.entities.notificaciones.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import models.entities.Converter.MedioDeNotificacionConverter;
-import models.entities.Converter.EstrategiaDeAvisoConverter;
+import models.entities.converter.MedioDeNotificacionConverter;
+import models.entities.converter.EstrategiaDeAvisoConverter;
+import models.entities.roles.Rol;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.*;
 
@@ -60,17 +63,21 @@ public class Miembro {
   @ManyToMany(mappedBy = "miembros", cascade = {CascadeType.ALL})
   private List<Comunidad> comunidadesDeLasQueFormaParte;
 
+  @ElementCollection
+  @Convert(converter = LocalTimeAttributeConverter.class)
+  @Column(name = "horario", columnDefinition = "TIME")
+  private List<LocalTime> horariosDePreferencia = new ArrayList<LocalTime>() ;
 
+  @Column(name = "deleted")
+  private Boolean deleted;
 
-  //Dudoso
-  @Transient
-  private List<Rol> rolesPorPrestacion;
+  @ManyToOne
+  @JoinColumn(name = "rol_id", referencedColumnName = "id")
+  private Rol rol;
 
   public Miembro() {
-    this.rolesPorPrestacion = new ArrayList<>();
     this.comunidadesDeLasQueFormaParte = new ArrayList<>();
   }
-
 
   public void agregarComunidad(Comunidad comunidad) {
     this.comunidadesDeLasQueFormaParte.add(comunidad);
@@ -80,39 +87,12 @@ public class Miembro {
     this.comunidadesDeLasQueFormaParte.remove(comunidad);
   }
 
-  //Vamos a considerar que si un miembro esta interesado, necesariamente es afectado
-  public Boolean estaInteresadoEn(PrestacionDeServicio prestacion){
-    prestacion.agregarMiembroInteresado(this);
-    this.rolesPorPrestacion.add(new Rol(prestacion, true));
-
-    return true;
+  public void agregarHorarios(LocalTime ... horarios) {
+    Collections.addAll(horariosDePreferencia, horarios);
   }
 
-
-  public void noEstaInteresadoEn(PrestacionDeServicio prestacion) {
-
-    // Por como planteamos el disenio, cuando un miembro deja de estar interesado necesariamente pasa a ocupar el rol de observador
-    // Esta interesado <=> es afectado
-
-
-    // Pero con esta estrategia un miembro cuando entra a una comunidad no tiene ningun rol
-    // Recien lo va a tener cuando se muestre interesado en algo
-    // Entonces capaz deberiamos hacer que cuando un miembro entra a una comunidad, hacer que este sea observador para todas las prestaciones de esa comunidad
-    prestacion.eliminarMiembroInteresado(this);
-  }
-
-
-
-
-
-
-  public void enviarNotificacion(String mensaje) {
-      this.notificador.enviarNotificacion(this, mensaje);
-  }
-
-  public void setLocalizacion(Localizacion localizacion){
-    this.localizacion = localizacion;
-    //TODO CHEQUEAR SI HAY QUE MANDAR SUGERENCIA. TODAVIA NO SABEMOS BIEN COMO HACERLO
+  public void agregarHorario(LocalTime horario) {
+    this.horariosDePreferencia.add(horario);
   }
 
   public String getNotificadorAsString() {

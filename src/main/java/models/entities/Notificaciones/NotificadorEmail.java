@@ -1,6 +1,6 @@
-package models.entities.Notificaciones;
+package models.entities.notificaciones;
 
-import models.entities.Comunidad.Miembro;
+import models.entities.comunidad.Miembro;
 
 public class NotificadorEmail implements MedioDeNotificacion {
 
@@ -9,10 +9,11 @@ public class NotificadorEmail implements MedioDeNotificacion {
   public NotificadorEmail(AdapterEmail adapter) {
     this.adapter = adapter;
   }
+
   @Override
-  public boolean enviarNotificacion(Miembro miembro, String mensaje){
+  public boolean enviarNotificacion(Miembro miembro, Notificacion notificacion){
     try{
-      adapter.enviarEmail(miembro, mensaje);
+      adapter.enviarEmail(miembro, notificacion);
       return true;
     }
     catch (Exception e) {

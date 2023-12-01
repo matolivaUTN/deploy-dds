@@ -1,9 +1,9 @@
-package models.entities.Notificaciones;
+package models.entities.notificaciones;
 
-import models.entities.Comunidad.Miembro;
+import models.entities.comunidad.Miembro;
 
 public interface MedioDeNotificacion {
 
-   boolean enviarNotificacion(Miembro miembro, String mensaje);
+   boolean enviarNotificacion(Miembro miembro, Notificacion notificacion);
 
 }

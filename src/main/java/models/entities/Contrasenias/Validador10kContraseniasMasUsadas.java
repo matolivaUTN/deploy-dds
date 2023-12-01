@@ -1,4 +1,4 @@
-package models.entities.Contrasenias;
+package models.entities.contrasenias;
 
 import com.unicodelabs.jdp.core.DumbPassword;
 import com.unicodelabs.jdp.core.exceptions.IsNullException;

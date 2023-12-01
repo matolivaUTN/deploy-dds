@@ -1,4 +1,4 @@
-package models.entities.Rankings;
+package models.entities.rankings;
 
 public class FactoryCriterio {
     public static CriterioRanking criterio(String nombre) {

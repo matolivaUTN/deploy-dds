@@ -1,11 +1,11 @@
 package org.example;
 
-import models.entities.Comunidad.Comunidad;
-import models.entities.Comunidad.Miembro;
-import models.entities.Incidente.Incidente;
+import models.entities.comunidad.Comunidad;
+import models.entities.comunidad.Miembro;
+import models.entities.incidente.Incidente;
 
 
-import models.entities.Servicio.PrestacionDeServicio;
+import models.entities.servicio.PrestacionDeServicio;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

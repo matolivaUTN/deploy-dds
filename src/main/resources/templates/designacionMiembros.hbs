@@ -1,0 +1,35 @@
+{{#partial "titulo-css" }}
+    <title>Desigación de Miembro</title>
+    <link rel="stylesheet" href="/css/styles_creacionEntidades.css">
+{{/partial}}
+
+
+{{#partial "contenido" }}
+    <div class="container">
+
+        <h1 class="center-label">Designación de Miembro</h1>
+        <form id="comunidadForm" method="POST" action="/miembro/designar">
+            <div class="input-container">
+                <label for="miembro-designado">Miembro designado</label>
+                <select id="miembro-designado" name="miembro-designado" class="custom-select">
+
+                    <option value="" disabled selected>Seleccione al miembro que desea designar para su empresa</option>
+
+                    {{#each miembros}}
+
+                        <option value="{{this.idMiembro}}">{{this.username}}</option>
+
+                    {{/each}}
+
+                </select>
+            </div>
+
+            <button type="submit">Designar</button>
+
+        </form>
+
+    </div>
+
+{{/partial}}
+
+{{> templates/navbar }}

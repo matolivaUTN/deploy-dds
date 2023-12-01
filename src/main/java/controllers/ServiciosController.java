@@ -3,20 +3,18 @@ package controllers;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
-import models.entities.Comunidad.Comunidad;
-import models.entities.Comunidad.Miembro;
-import models.entities.Incidente.EstadoPorComunidad;
-import models.entities.Servicio.FactoryServicio;
-import models.entities.Servicio.PrestacionDeServicio;
-import models.entities.Servicio.Servicio;
+import models.entities.comunidad.Miembro;
+import models.entities.servicio.FactoryServicio;
+import models.entities.servicio.PrestacionDeServicio;
+import models.entities.servicio.Servicio;
 import models.entities.ServicioPublico.Establecimiento;
 import models.repositories.*;
-import models.entities.Incidente.Incidente;
+import models.entities.incidente.Incidente;
 
 
 import java.util.*;
 
-public class ServiciosController implements WithSimplePersistenceUnit {
+public class ServiciosController extends Controller  {
 
     private RepositorioMiembros repositorioMiembros;
     private RepositorioEstablecimientos repositorioEstablecimientos;
@@ -24,12 +22,11 @@ public class ServiciosController implements WithSimplePersistenceUnit {
     private RepositorioServicios repositorioServicios;
 
     public ServiciosController(RepositorioEstablecimientos repositorioEstablecimientos, RepositorioPrestacionesDeServicios repositorioPrestacionesDeServicios, RepositorioMiembros repositorioMiembros, RepositorioServicios repositorioServicios) {
-        //this.repositorioComunidades = repositorioComunidades;
+
         this.repositorioMiembros = repositorioMiembros;
         this.repositorioEstablecimientos = repositorioEstablecimientos;
         this.repositorioPrestacionesDeServicios = repositorioPrestacionesDeServicios;
         this.repositorioServicios = repositorioServicios;
-
     }
 
     public void create(Context context) {
@@ -44,13 +41,11 @@ public class ServiciosController implements WithSimplePersistenceUnit {
 
         Map<String, Object> model = new HashMap<>();
         model.put("establecimientos", establecimientos);
-
+        cargarRolesAModel(context, model);
         context.render("creacionServicios.hbs", model);
     }
 
-
     public void save(Context context) {
-
         // Guardado de una prestacion de servicio en la base de datos
 
         // Tenemos el tipo de servicio y el establecimiento en donde se presta
@@ -65,9 +60,9 @@ public class ServiciosController implements WithSimplePersistenceUnit {
 
         Map<String, Object> model = new HashMap<>();
         model.put("creacion_servicio", "creacion_servicio");
+        cargarRolesAModel(context, model);
         context.render("confirmacion.hbs", model);
     }
-
 
     public void listadoServicios(Context context) {
 
@@ -91,8 +86,9 @@ public class ServiciosController implements WithSimplePersistenceUnit {
         // Renderizamos la vista
         Map<String, Object> model = new HashMap<>();
         model.put("prestaciones", prestacionesNoInteresantes);
-        context.render("listadoServicios.hbs", model);
 
+        cargarRolesAModel(context, model);
+        context.render("listadoServicios.hbs", model);
     }
 
     public void serviciosDeInteres(Context context) {
@@ -121,8 +117,9 @@ public class ServiciosController implements WithSimplePersistenceUnit {
 
         // Le ponemos true para que muestre solo de las que forma parte
         model.put("estaInteresado", true);
-        context.render("listadoServicios.hbs", model);
 
+        cargarRolesAModel(context, model);
+        context.render("listadoServicios.hbs", model);
     }
 
     public void marcarInteres(Context context) {
@@ -144,12 +141,12 @@ public class ServiciosController implements WithSimplePersistenceUnit {
         this.repositorioPrestacionesDeServicios.actualizar(prestacion);
 
 
-
-
         Map<String, Object> model = new HashMap<>();
         model.put("follow_servicio", "follow_servicio");
 
         model.put("prestacion", prestacion);
+
+        cargarRolesAModel(context, model);
         context.render("confirmacion.hbs", model);
     }
 
@@ -166,7 +163,6 @@ public class ServiciosController implements WithSimplePersistenceUnit {
         PrestacionDeServicio prestacion = this.repositorioPrestacionesDeServicios.buscarPorId(prestacionId);
 
 
-
         // Actualizamos las tablas de comunidad y de miembro
         prestacion.eliminarMiembroInteresado(miembro);
 
@@ -177,17 +173,14 @@ public class ServiciosController implements WithSimplePersistenceUnit {
         Map<String, Object> model = new HashMap<>();
         model.put("unfollow_servicio", "unfollow_servicio");
         model.put("prestacion", prestacion);
+
+        cargarRolesAModel(context, model);
         context.render("confirmacion.hbs", model);
     }
-
 
     public void show(Context context) {
 
     }
-
-
-
-
 
 /*    public void edit(Context context) {
         // Buscamos la comunidad en la DB
@@ -200,10 +193,7 @@ public class ServiciosController implements WithSimplePersistenceUnit {
         context.render("registroComunidad.hbs", model);
     }*/
 
-
-
     private void asignarParametros(PrestacionDeServicio prestacion, Context context) {
-
         if(!Objects.equals(context.formParam("signUpForm"), "")) {
 
             // Aca instanciamos un servicio en base al string y los atributos recibidos en el form
@@ -211,13 +201,13 @@ public class ServiciosController implements WithSimplePersistenceUnit {
             String tipoServicio = context.formParam("tipo-servicio");
 
             Establecimiento establecimiento = this.repositorioEstablecimientos.buscarPorId(Long.parseLong(context.formParam("establecimiento")));
+            establecimiento.agregarPrestacion(prestacion);
+            // TODO: fijarse si hay que actualizar el establecimiento en la BD
 
             Servicio servicio = FactoryServicio.servicio(tipoServicio, context, establecimiento);
 
             // Agregamos el servicio creado a la tabla de servicios
             this.repositorioServicios.agregar(servicio);
-
-
 
             prestacion.setServicio(servicio);
             prestacion.setEstablecimiento(establecimiento);
@@ -229,6 +219,7 @@ public class ServiciosController implements WithSimplePersistenceUnit {
             prestacion.setMiembrosInteresados(new ArrayList<Miembro>());    // Pusimos los miembros interesados aca porque nos facilita el tema de las notificaciones
             prestacion.setIncidentes(new ArrayList<Incidente>());
 
+            prestacion.setDeleted(false);
         }
     }
 }

@@ -1,17 +1,12 @@
-package models.entities.Comunidad;
+package models.entities.comunidad;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import models.entities.Incidente.EstadoPorComunidad;
-import models.entities.Incidente.Incidente;
-import models.entities.Servicio.PrestacionDeServicio;
-import models.entities.Servicio.Servicio;
+import models.entities.servicio.PrestacionDeServicio;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Comunidad {
+
   @Id
   @GeneratedValue
   private Long idComunidad;
@@ -37,8 +33,12 @@ public class Comunidad {
   @Column(name = "estaHabilitada")
   private Integer estaHabilitada;
 
+  @Column(name = "deleted")
+  private Boolean deleted;
+
+
+
   //TODO
-  //@OneToMany(mappedBy = "comunidad")
   @Transient
   private List<PrestacionDeServicio> prestaciones = new ArrayList<>();
 
@@ -58,14 +58,8 @@ public class Comunidad {
   )
   private List<Miembro> admins;
 
-  //@OneToMany(mappedBy = "comunidad")
-  //private List<Incidente> incidentes;
 
-  public Comunidad() {
-
-
-  }
-
+  public Comunidad() {}
   public Comunidad(String nombre, String descripcion) {
     this.nombre = nombre;
     this.descripcion = descripcion;
@@ -86,18 +80,14 @@ public class Comunidad {
     return this.miembros.contains(miembro);
   }
 
-  public List<Miembro> filtrarMiembrosNoInteresados(Incidente incidente){
-    return this.miembros.stream().filter(miembro -> !miembro.estaInteresadoEn(incidente.getPrestacionAfectada())).collect(Collectors.toList());
-  }
-
   public Boolean esAdmin(Miembro miembro){
     return admins.contains(miembro);
   }
 
+  // Solo se usa para tests wtf
   public void agregarPrestacion(PrestacionDeServicio prestacion){
     this.prestaciones.add(prestacion);
   }
-
 
   public void agregarAdmin(Miembro miembro) {
     this.admins.add(miembro);

@@ -15,7 +15,6 @@
 
                 <option value="" disabled selected>Seleccione el ranking que desea visualizar</option>
 
-                <!-- Aca mostramos los rankings (ver como los traemos aca) -->
                 {{#each criterios}}
                     <option value="{{this}}">{{this}}</option>
                 {{/each}}
@@ -26,19 +25,21 @@
     </div>
 </div>
 
-    <!-- Aca mostramos la informacion releante de los rankings -->
-    {{#if entidades}}
+    <!-- Aca mostramos la informacion relevante de los rankings -->
+    {{#if entidadesConPuntaje}}
         <div class="table-container">
             <table class="content-table">
                 <tr>
-                    <th>Nombre</th>
+                    <th>Entidad</th>
+                    <th>Puntaje</th>
                     <th>Descripcion</th>
                 </tr>
                 <tbody>
-                {{#each entidades}}
+                {{#each entidadesConPuntaje}}
                     <tr>
-                        <td>{{this.nombre}}</td>
-                        <td>{{this.descripcion}}</td>
+                        <td>{{this.entidad.nombre}}</td>
+                        <td>{{this.puntaje}}</td>
+                        <td>{{this.entidad.descripcion}}</td>
                     </tr>
                 {{/each}}
                 </tbody>

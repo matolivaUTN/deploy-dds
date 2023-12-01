@@ -1,24 +1,19 @@
-package models.entities.Incidente;
+package models.entities.incidente;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 import lombok.Setter;
-import models.entities.Comunidad.Comunidad;
-import models.entities.Servicio.PrestacionDeServicio;
+import models.entities.servicio.PrestacionDeServicio;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
-import models.entities.Comunidad.Miembro;
-import models.entities.Servicio2.LocalDateTimeAdapter;
+import models.entities.comunidad.Miembro;
 
 @Entity
 @Table(name = "incidente")
@@ -32,15 +27,16 @@ public class Incidente {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name = "fechaAlta", columnDefinition = "DATE")
-    private LocalDateTime tiempoInicial;
+    @Column(name = "fechaAlta", columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private LocalDateTime fechaDeApertura;
 
-    @OneToMany(mappedBy = "incidente")
-    private List<EstadoPorComunidad> estados;
+    @Column(name = "fechaDeCierre", columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private LocalDateTime fechaDeCierre;
+
+
 
     @Column(name = "observaciones")
     private String observaciones;
-
 
     // Prestacion de servicio tiene una lista de incidentes pero realmente no la usamos para nada (no existen consultas de incidentes x prestacion)
     @ManyToOne
@@ -51,42 +47,33 @@ public class Incidente {
     @JoinColumn(name = "idMiembro", referencedColumnName = "idMiembro")
     private Miembro miembroCreador;
 
-    public Incidente(String observaciones, PrestacionDeServicio prestacion) {
-        this.tiempoInicial = LocalDateTime.now();
-        this.observaciones = observaciones;
-        this.estados = new ArrayList<EstadoPorComunidad>();
-        this.prestacionAfectada = prestacion;
+    @ManyToOne
+    @JoinColumn(name = "idMiembroCerrador")
+    private Miembro cerrador;
 
-    }
+    @Column(name = "estaAbierto")
+    private Boolean estaAbierto;
+
+    @Column(name = "deleted")
+    private Boolean deleted;
 
 
     public Incidente() {}
 
-    public void cerrar(Miembro miembro) { //Esto estaria mejor hacer con una Exception.
+    public Incidente(String unasObservaciones, PrestacionDeServicio prestacion) {
+        observaciones = unasObservaciones;
+        prestacionAfectada = prestacion;
 
-        estados.forEach(unEstado -> {
-            Comunidad unaComunidad = unEstado.getComunidad();
-            if(miembro.getComunidadesDeLasQueFormaParte().contains(unaComunidad)) {
-                unEstado.setEstaAierto(false);
-                unEstado.setFechaDeCierre(LocalDateTime.now());
-            }
-        });
     }
 
-    public EstadoPorComunidad estadoDeComunidad(Comunidad comunidad){
-        EstadoPorComunidad estadoBuscado = null;
-
-        for (EstadoPorComunidad estado : this.estados) {
-            if (estado.getComunidad() == comunidad) {
-                estadoBuscado = estado;
-                break; // Terminar el bucle una vez que se encuentra el estado
-            }
-        }
-
-        return estadoBuscado;
+    public void cerrar(Miembro miembroCerrador) {
+        cerrador = miembroCerrador;
+        estaAbierto = false;
+        fechaDeCierre = LocalDateTime.now();
     }
 
-    public void agregarEstado(EstadoPorComunidad estadoPorComunidad) {
-        this.estados.add(estadoPorComunidad);
+    public float tiempoDeCierre() {
+        LocalDateTime fechaCierrePosta = fechaDeCierre == null ? LocalDateTime.now() : fechaDeCierre;
+        return Duration.between(fechaDeApertura, fechaCierrePosta).toMinutes();
     }
 }

@@ -1,4 +1,4 @@
-package models.entities.Rankings;
+package models.entities.rankings;
 
 import com.opencsv.CSVWriter;
 

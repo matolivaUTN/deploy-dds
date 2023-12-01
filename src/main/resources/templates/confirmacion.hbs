@@ -18,6 +18,11 @@
             <button onclick="window.location.href='/home'">OK</button>
         {{/if}}
 
+        {{#if enmpresa_designar}}
+            <h2 class="texto">Miembro designado con éxito!</h2>
+            <button onclick="window.location.href='/home'">OK</button>
+        {{/if}}
+
 
         <!-- ENTIDADES -->
 
@@ -25,6 +30,13 @@
             <h2 class="texto">Entidad creada con éxito!</h2>
             <button onclick="window.location.href='/home'">OK</button>
         {{/if}}
+
+        {{#if edicion_entidad}}
+            <h2 class="texto">Entidad editada con éxito!</h2>
+            <button onclick="window.location.href='/entidades'">OK</button>
+        {{/if}}
+
+
 
 
         <!-- ESTABLECIMIENTOS -->

@@ -1,7 +1,7 @@
-package models.entities.Servicio;
+package models.entities.servicio;
 
-import models.entities.Comunidad.Miembro;
-import models.entities.Incidente.Incidente;
+import models.entities.comunidad.Miembro;
+import models.entities.incidente.Incidente;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -40,54 +40,36 @@ public class PrestacionDeServicio {
     @OneToMany(mappedBy = "prestacionAfectada")
     private List<Incidente> incidentes;
 
-
     @ManyToOne
     @JoinColumn(name = "idEstablecimiento", referencedColumnName = "idEstablecimiento")
     private Establecimiento establecimiento;
 
-
     @Column(name = "esta_disponible")
     private Boolean estaDisponible;
 
+    @Column(name = "deleted")
+    private Boolean deleted;
 
 
 
+    public PrestacionDeServicio() {}
     public PrestacionDeServicio(Servicio servicio, Boolean estaDisponible) {
         this.servicio = servicio;
         this.miembrosInteresados = new ArrayList<>();
         this.incidentes = new ArrayList<>();
     }
 
-    public PrestacionDeServicio() {}
-
     public int cantidadDeIncidentesReportadosEnLaSemana() {
-        int cantidad = 0;
-        List<Incidente> incidentesAbiertos = new ArrayList<>();
-
-        //for(Incidente incidente : incidentes) {
-        //    if(incidente.getTiempoFinal() != null) {
-        //        cantidad++;
-        //    }
-        //    else {
-        //        incidentesAbiertos.add(incidente);
-        //    }
-        //}
-
-        Incidente incidenteRemovido;
-        while(!incidentesAbiertos.isEmpty()) {
-            incidenteRemovido = incidentesAbiertos.remove(0);
-
-            if(!this.yaSeContemplaAlIncidente(incidenteRemovido, incidentesAbiertos)) {
-                cantidad++;
-            }
-        }
-
-        return cantidad;
+        // TODO: no contempla que sean en la semana
+        // TODO: no contempla el siguiente requerimiento:
+        /* Una vez que un incidente sobre una prestación es reportado por algún usuario, independientemente de la comunidad de la que forma parte, no se consideran, para el presente ranking, ningún incidente que se genere sobre dicha prestación en un plazo de 24 horas siempre y cuando el mismo continúe abierto.  */
+        // Esto quiere decir que si se abrieron varios incidentes, solo deben contarse si no fueron hechos en el mismo día, si es que sigue abierto.
+        return incidentes.size();
     }
 
     private boolean yaSeContemplaAlIncidente(Incidente incidenteRemovido, List<Incidente> incidentesAbiertos) {
-        LocalDateTime t0 = incidenteRemovido.getTiempoInicial();
-        return incidentesAbiertos.stream().anyMatch(entidad -> this.pasaronMenosDe24h(t0, entidad.getTiempoInicial()));
+        LocalDateTime t0 = incidenteRemovido.getFechaDeApertura();
+        return incidentesAbiertos.stream().anyMatch(entidad -> this.pasaronMenosDe24h(t0, entidad.getFechaDeApertura()));
     }
 
     private boolean pasaronMenosDe24h(LocalDateTime unTiempoInicial, LocalDateTime otroTiempoInicial) {

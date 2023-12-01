@@ -4,9 +4,8 @@ import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import java.util.Collections;
 import java.util.Comparator;
-import models.entities.Comunidad.Comunidad;
+
 import models.entities.georef.entities.Departamento;
-import models.entities.georef.entities.Municipio;
 import models.entities.georef.entities.Provincia;
 
 import javax.persistence.*;

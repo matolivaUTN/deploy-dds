@@ -4,15 +4,13 @@ import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import java.util.Collections;
 import java.util.Comparator;
-import models.entities.Comunidad.Comunidad;
-import models.entities.Incidente.Incidente;
+
 import models.entities.georef.entities.Municipio;
 import models.entities.georef.entities.Provincia;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class RepositorioMunicipios implements WithSimplePersistenceUnit {

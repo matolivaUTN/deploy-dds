@@ -1,9 +1,7 @@
 package models.repositories;
 
-import models.entities.Comunidad.Comunidad;
-import models.entities.Comunidad.Miembro;
+import models.entities.comunidad.Comunidad;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
-import models.entities.Localizacion.Localizacion;
 
 import javax.persistence.*;
 
@@ -48,7 +46,6 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit {
         tx.commit();
     }
 
-
     public Comunidad buscarPorId(long id) {
         return this.entityManager.find(Comunidad.class, id);
     }
@@ -56,7 +53,7 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit {
     public Comunidad buscarPorNombre(String nombre) {
         try {
             Comunidad unaComunidad = (Comunidad) this.entityManager
-                    .createQuery("from " + Comunidad.class.getName() + " where nombre = :nombre and estaHabilitada = 1")
+                    .createQuery("from " + Comunidad.class.getName() + " where nombre = :nombre and estaHabilitada = 1 and deleted = false ")
                     .setParameter("nombre", nombre)
                     .getSingleResult();
 
@@ -68,34 +65,6 @@ public class RepositorioComunidades implements WithSimplePersistenceUnit {
     }
 
     public List<Comunidad> buscarTodos() {
-        return this.entityManager.createQuery("from " + Comunidad.class.getName()).getResultList();
+        return this.entityManager.createQuery("from " + Comunidad.class.getName() + " where deleted = false ").getResultList();
     }
-
-
-
-
-    /*public List<Miembro> miembrosDeComunidad(long comunidadId) {
-        String jpql = "SELECT m FROM Miembro m WHERE m.comunidad = :comunidadId";
-        TypedQuery<Miembro> query = this.entityManager.createQuery(jpql, Miembro.class);
-        query.setParameter("comunidadId", comunidadId);
-        return query.getResultList();
-    }*/
-
-
-
-
-/*    public List<Comunidad> comunidadesDeLasQueFormaParte(long miembroId) {
-        try {
-            List<Comunidad> comunidadesMiembro = this.entityManager
-                    .createQuery("from " + Comunidad.class.getName() + " where nombre = :nombre")
-                    .setParameter("nombre", nombre)
-                    .getSingleResult();
-
-            return comunidadesMiembro;
-        }
-        catch (NoResultException e) {
-            return null;
-        }*/
-
-
 }

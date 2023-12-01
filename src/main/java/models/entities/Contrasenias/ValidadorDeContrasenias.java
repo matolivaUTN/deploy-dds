@@ -1,4 +1,4 @@
-package models.entities.Contrasenias;
+package models.entities.contrasenias;
 
 import java.util.List;
 

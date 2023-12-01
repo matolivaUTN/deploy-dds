@@ -1,6 +1,6 @@
-package models.entities.Notificaciones;
+package models.entities.notificaciones;
 
-import models.entities.Comunidad.Miembro;
+import models.entities.comunidad.Miembro;
 
 
 public class NotificadorWhatsapp implements MedioDeNotificacion {
@@ -12,9 +12,9 @@ public class NotificadorWhatsapp implements MedioDeNotificacion {
   public NotificadorWhatsapp(){}
 
   @Override
-  public boolean enviarNotificacion(Miembro miembro, String mensaje) {
+  public boolean enviarNotificacion(Miembro miembro, Notificacion notificacion) {
     try{
-      adapter.enviarWhatsapp(miembro, mensaje);
+      adapter.enviarWhatsapp(miembro, notificacion);
       return true;
     }
     catch(Exception e){

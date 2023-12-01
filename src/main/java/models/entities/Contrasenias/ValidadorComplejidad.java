@@ -1,4 +1,4 @@
-package models.entities.Contrasenias;
+package models.entities.contrasenias;
 
 public class ValidadorComplejidad implements Validador {
     public Boolean esValida(String _usuario, String contrasenia) {

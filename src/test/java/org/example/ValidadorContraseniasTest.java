@@ -1,11 +1,11 @@
 package org.example;
 
-import models.entities.Contrasenias.Validador10kContraseniasMasUsadas;
-import models.entities.Contrasenias.ValidadorComplejidad;
-import models.entities.Contrasenias.ValidadorCredencialPorDefecto;
-import models.entities.Contrasenias.ValidadorDeContrasenias;
+import models.entities.contrasenias.Validador10kContraseniasMasUsadas;
+import models.entities.contrasenias.ValidadorComplejidad;
+import models.entities.contrasenias.ValidadorCredencialPorDefecto;
+import models.entities.contrasenias.ValidadorDeContrasenias;
 
-import models.entities.Contrasenias.ValidadorLongitud;
+import models.entities.contrasenias.ValidadorLongitud;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Assertions;

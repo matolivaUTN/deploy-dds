@@ -1,10 +1,7 @@
-package models.entities.Notificaciones;
+package models.entities.notificaciones;
 
-import models.entities.Comunidad.Miembro;
-import models.entities.Incidente.Incidente;
-
-import javax.persistence.*;
-
+import models.entities.comunidad.Miembro;
+import models.entities.incidente.Incidente;
 
 
 public interface EstrategiaDeAviso {

@@ -1,25 +1,18 @@
 package controllers;
 
 import io.javalin.http.Context;
-import io.javalin.http.HttpStatus;
-import models.entities.Comunidad.Comunidad;
-import models.entities.Comunidad.Miembro;
-import models.entities.Contrasenias.*;
-import models.entities.Incidente.EstadoPorComunidad;
-import models.entities.Incidente.Incidente;
-import models.entities.Rankings.ArmadorDeInformes;
-import models.entities.Rankings.CriterioRanking;
-import models.entities.Rankings.FactoryCriterio;
-import models.entities.Rankings.Ranking;
+import models.entities.rankings.CriterioRanking;
+import models.entities.rankings.FactoryCriterio;
+import models.entities.rankings.PuntajeEntidad;
+import models.entities.rankings.Ranking;
 import models.entities.ServicioPublico.Entidad;
 import models.repositories.RepositorioEntidades;
 import models.repositories.RepositorioIncidentes;
-import models.repositories.RepositorioMiembros;
 import server.utils.ICrudViewsHandler;
 
 import java.util.*;
 
-public class RankingsController implements ICrudViewsHandler {
+public class RankingsController extends Controller implements ICrudViewsHandler {
     private RepositorioIncidentes repositorioIncidentes;
     private RepositorioEntidades repositorioEntidades;
 
@@ -30,10 +23,8 @@ public class RankingsController implements ICrudViewsHandler {
 
     @Override
     public void index(Context context) {
-
+        // TODO
     }
-
-
 
     @Override
     public void show(Context context) {
@@ -45,9 +36,9 @@ public class RankingsController implements ICrudViewsHandler {
         Map<String, Object> model = new HashMap<>();
         model.put("criterios", criterios);
 
+        cargarRolesAModel(context, model);
         context.render("rankings.hbs", model);
     }
-
 
     public void rankingSeleccionado(Context context) {
         String rankingElegido = context.queryParam("ranking-incidente");
@@ -59,25 +50,23 @@ public class RankingsController implements ICrudViewsHandler {
 
         List<Entidad> entidades = this.repositorioEntidades.buscarTodos();
 
-        List<Entidad> entidadesOrdenadas = ranking.obtener(entidades);
-
-
-
-
+        List<PuntajeEntidad> entidadesOrdenadas = ranking.obtener(entidades);
 
 
         List<String> criterios = new ArrayList<>();
-        criterios.add("Mayor cantidad de incidentes reportados en la semana");
         criterios.add("Mayor promedio de tiempo de cierre de incidentes");
+        criterios.add("Mayor cantidad de incidentes reportados en la semana");
 
         Map<String, Object> model = new HashMap<>();
-        model.put("entidades", entidadesOrdenadas);
         model.put("criterios", criterios);
+        model.put("entidadesConPuntaje", entidadesOrdenadas);
 
+        cargarRolesAModel(context, model);
         context.render("rankings.hbs", model);
     }
 
 
+    // TODO: persistir rankings para el armado de informes
 
     @Override
     public void create(Context context) {
@@ -86,7 +75,6 @@ public class RankingsController implements ICrudViewsHandler {
 
     @Override
     public void save(Context context) {
-
 
     }
 
@@ -104,16 +92,4 @@ public class RankingsController implements ICrudViewsHandler {
     public void delete(Context context) {
 
     }
-
-
-
-    private void asignarParametros(Miembro miembro, Context context) {
-        // Con un formParam levantamos los parámetros de un formulario (tenemos que especificar el nombre del form)
-        if(!Objects.equals(context.formParam("signUpForm"), "")) {
-
-
-        }
-    }
-
-
 }

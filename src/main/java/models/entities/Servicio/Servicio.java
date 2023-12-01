@@ -1,4 +1,4 @@
-package models.entities.Servicio;
+package models.entities.servicio;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -13,8 +13,6 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.ServicioPublico.Establecimiento;
-import models.entities.ServicioPublico.Prestadora;
-import models.entities.ServicioPublico.Entidad;
 
 @Getter
 @Setter
@@ -29,34 +27,18 @@ public abstract class Servicio {
   private Long idServicio;
 
   @Column(name = "nombre")
-  String nombre;
+  protected String nombre;
 
+  @Column(name = "deleted")
+  private Boolean deleted;
 
   // Un servicio pertenece a un establecimiento, ese establecimiento pertenece a una entidad y esa entidad a una prestadora
   @ManyToOne
   @JoinColumn(name = "idEstablecimiento")
   private Establecimiento establecimiento;
 
-
-  // Podriamos guardarnos como columna la entidad y la prestadora del servicio pero mejor hacemos una consulta que haga JOIN
-
-
+  public Servicio() {}
   public Servicio(String nombre) {
     this.nombre = nombre;
-  }
-
-  public Servicio() {
-
-  }
-
-
-  public float cantidadIncidentes() {
-    // Implementación
-    return 0;
-  }
-
-  public float totalIncidentes() {
-    // Implementación
-    return 0;
   }
 }

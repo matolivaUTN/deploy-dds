@@ -1,7 +1,7 @@
 package models.repositories;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
-import models.entities.Incidente.Incidente;
+import models.entities.incidente.Incidente;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -32,8 +32,8 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit {
         return this.entityManager.find(Incidente.class, id);
     }
 
-    public List buscarTodos() {
-        return this.entityManager.createQuery("from " + Incidente.class.getName()).getResultList();
+    public List<Incidente> buscarTodos() {
+        return this.entityManager.createQuery("from " + Incidente.class.getName(), Incidente.class).getResultList();
     }
 
     public List<Incidente> obtenerHistorialDeIncidentesDeMiembro(Integer idMiembro) {

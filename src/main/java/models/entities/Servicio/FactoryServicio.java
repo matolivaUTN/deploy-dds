@@ -1,11 +1,7 @@
-package models.entities.Servicio;
+package models.entities.servicio;
 
-import controllers.*;
 import io.javalin.http.Context;
 import models.entities.ServicioPublico.Establecimiento;
-import models.repositories.*;
-
-import javax.persistence.EntityManager;
 
 
 public class FactoryServicio {
@@ -17,12 +13,12 @@ public class FactoryServicio {
         switch (nombre) {
             case "Banio": {
 
-
                 // Instanciamos una clase de tipo Banio y la devolvemos
                 String genero = context.formParam("genero");
                 servicio = new Banio(nombreServicio, genero, establecimiento);
                 break;
             }
+
             case "MedioDeElevacion": {
 
                 // Instanciamos una clase de tipo MedioDeElevacion y la devolvemos

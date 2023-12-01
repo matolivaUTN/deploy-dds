@@ -18,15 +18,28 @@
         <li>
             <a href="/home">Inicio</a>
         </li>
+
+        {{#if (eq rol "ADMINISTRADOR")}}
         <li>
             <a href="#">Carga de datos</a>
             <div class="dropdown-menu">
                 <a href="/carga-prestadoras-organismos">Entidades prestadoras y Organismos de control</a>
                 <a href="/entidades/crear">Crear entidad</a>
                 <a href="/establecimientos/crear">Crear establecimiento</a>
-                <a href="/servicios/crear">Crear servicio</a>
+                <a href="/servicios/crear">Crear prestación de servicio</a>
             </div>
         </li>
+
+            <li>
+                <a href="#">Administración</a>
+                <div class="dropdown-menu">
+                    <a href="/entidades">Entidades prestadoras</a>
+                </div>
+            </li>
+        {{/if}}
+
+
+        {{#if (eq rol "MIEMBRO")}}
         <li>
             <a href="#">Incidentes</a>
             <div class="dropdown-menu">
@@ -36,13 +49,20 @@
                 <a href="/rankings">Rankings</a>
             </div>
         </li>
-        <li>
-            <a href="/servicios">Servicios</a>
-            <div class="dropdown-menu">
-                <a href="/servicios">Listado de servicios</a>
-                <a href="/servicios/mis-servicios">Mis servicios de interés</a>
-            </div>
-        </li>
+        {{/if}}
+
+        {{#if (or (eq rol "ADMINISTRADOR") (eq rol "MIEMBRO"))}}
+            <li>
+                <a href="/servicios">Servicios</a>
+                <div class="dropdown-menu">
+                    <a href="/servicios">Listado de servicios</a>
+                    <a href="/servicios/mis-servicios">Mis servicios de interés</a>
+                </div>
+            </li>
+        {{/if}}
+
+
+        {{#if (eq rol "MIEMBRO")}}
         <li>
             <a href="#">Comunidades</a>
             <div class="dropdown-menu">
@@ -51,6 +71,14 @@
                 <a href="/comunidades/mis-comunidades">Mis comunidades</a>
             </div>
         </li>
+        {{/if}}
+
+        {{#if (eq rol "EMPRESA")}}
+            <li>
+                <a href="/miembro/designar">Designar miembro</a>
+            </li>
+        {{/if}}
+
         <li>
             <img src="/imagenes/user.png" alt="logo-img" style="width: 30px; height: 30px">
             <a href="#"></a>
@@ -61,6 +89,15 @@
 
             </div>
         </li>
+
+        {{#if (eq rol "MIEMBRO")}}
+        <li>
+            <a href="#" id="editar-notificaciones">
+                <img src="/imagenes/bell.png" alt="logo-img" style="width: 30px; height: 30px">
+            </a>
+        </li>
+        {{/if}}
+
         <li>
             <!-- Botón de modo oscuro -->
             <div class="mode-toggle" id="modo-oscuro"></div>
@@ -87,6 +124,20 @@
 
         // Construir la URL dinámicamente
         var url = "/miembro/editar/" + idMiembro;
+
+        // Redirigir al usuario a la URL construida
+        window.location.href = url;
+    });
+
+    document.getElementById("editar-notificaciones").addEventListener("click", function() {
+        // Obtener el ID del miembro desde el atributo de datos
+        var idMiembro = findCookieByName("id_miembro");
+
+
+        console.log(idMiembro);
+
+        // Construir la URL dinámicamente
+        var url = "/miembro/editar-notificaciones/" + idMiembro;
 
         // Redirigir al usuario a la URL construida
         window.location.href = url;

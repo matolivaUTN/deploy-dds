@@ -1,10 +1,10 @@
-package models.entities.Converter;
+package models.entities.converter;
 
-import models.entities.Notificaciones.AdapterAngusMail;
-import models.entities.Notificaciones.AdapterTwilio;
-import models.entities.Notificaciones.NotificadorEmail;
-import models.entities.Notificaciones.NotificadorWhatsapp;
-import models.entities.Notificaciones.MedioDeNotificacion;
+import models.entities.notificaciones.AdapterAngusMail;
+import models.entities.notificaciones.AdapterTwilio;
+import models.entities.notificaciones.NotificadorEmail;
+import models.entities.notificaciones.NotificadorWhatsapp;
+import models.entities.notificaciones.MedioDeNotificacion;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

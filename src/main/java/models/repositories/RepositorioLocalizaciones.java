@@ -1,12 +1,10 @@
 package models.repositories;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
-import models.entities.Localizacion.Localizacion;
+import models.entities.localizacion.Localizacion;
 import models.entities.georef.entities.Departamento;
 import models.entities.georef.entities.Municipio;
 import models.entities.georef.entities.Provincia;
-import net.bytebuddy.asm.Advice;
-import org.hibernate.engine.loading.internal.LoadContexts;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -68,11 +66,10 @@ public class RepositorioLocalizaciones implements WithSimplePersistenceUnit {
     public Localizacion buscarPorCombinacion(Provincia provincia, Municipio municipio, Departamento departamento) {
         try {
             Query query =  this.entityManager
-                    .createQuery("from " + Localizacion.class.getName() + " where idprovincia = :provincia" +
-                            (municipio != null ? " and idmunicipio = :municipio" : "") +
-                            (departamento != null ? " and iddepartamento = :departamento" : ""))
+                    .createQuery("from " + Localizacion.class.getName() + " where idprovincia = :provincia " +
+                            " and idmunicipio " + (municipio != null ? "= :municipio" : "is null") +
+                            " and iddepartamento " + (departamento != null ? "= :departamento" : "is null"))
                     .setParameter("provincia", provincia);
-
             if (municipio != null) {
                 query.setParameter("municipio", municipio);
             }
@@ -86,7 +83,9 @@ public class RepositorioLocalizaciones implements WithSimplePersistenceUnit {
             return unaLocalizacion;
         }
         catch (NoResultException e) {
-            return null;
+            Localizacion localizacion = new Localizacion(provincia, departamento, municipio);
+            agregar(localizacion);
+            return localizacion;
         }
     }
 

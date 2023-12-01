@@ -1,23 +1,14 @@
-package models.entities.Notificaciones;
+package models.entities.notificaciones;
 
-import models.entities.Comunidad.Miembro;
-import models.entities.Incidente.Incidente;
-
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.time.LocalDateTime;
+import models.entities.comunidad.Miembro;
+import models.entities.incidente.Incidente;
 
 
 public class SinApuros implements EstrategiaDeAviso {
 
+
     @Override
-    public Notificacion avisar(Incidente incidente, Miembro miembro){
-        Notificacion notificacion = new Notificacion(incidente,miembro);
-        notificacion.setFecha(LocalDateTime.now());
-        notificacion.setFueLeida(false);
-        notificacion.setFueEnviada(false);
-        return  notificacion;
+    public Notificacion avisar(Incidente incidente, Miembro miembro) {
+        return null;
     }
 }

@@ -2,19 +2,17 @@ package server;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
+import handlebars.MyHelpers;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.HttpStatus;
 import io.javalin.rendering.JavalinRenderer;
 import server.handlers.AppHandlers;
 import server.middlewares.AuthMiddleware;
+import server.utils.PrettyProperties;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Consumer;
 
 
@@ -30,11 +28,14 @@ public class Server {
 
     public static void init(EntityManager entityManager) {
         if(app == null) {
+
+            PrettyProperties.getInstance();
             Integer port = Integer.parseInt(System.getProperty("port", "8080"));
             app = Javalin.create(config()).start(port);
             initTemplateEngine();
             AppHandlers.applyHandlers(app);
             Router.init(entityManager);
+
         }
     }
 
@@ -45,17 +46,15 @@ public class Server {
                 staticFiles.directory = "/public";
             });
             AuthMiddleware.apply(config);
-
-
         };
     }
-
 
     private static void initTemplateEngine() {
         JavalinRenderer.register(
                 (path, model, context) -> { // Función que renderiza el template
                     Handlebars handlebars = new Handlebars();
                     Template template = null;
+                    MyHelpers.registerHelpers(handlebars);
                     try {
                         template = handlebars.compile(
                                 "templates/" + path.replace(".hbs",""));

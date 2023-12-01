@@ -1,4 +1,4 @@
-package models.entities.Servicio;
+package models.entities.servicio;
 
 import lombok.Getter;
 import lombok.Setter;

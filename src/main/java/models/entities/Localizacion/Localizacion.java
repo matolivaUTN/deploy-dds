@@ -1,4 +1,4 @@
-package models.entities.Localizacion;
+package models.entities.localizacion;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -2,9 +2,9 @@ package models.entities.ServicioPublico;
 
 import javax.persistence.*;
 
-import models.entities.Comunidad.Miembro;
-import models.entities.Incidente.Incidente;
-import models.entities.Localizacion.Localizacion;
+import models.entities.comunidad.Miembro;
+import models.entities.incidente.Incidente;
+import models.entities.localizacion.Localizacion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class Entidad {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "idEntidad")
@@ -27,15 +28,12 @@ public class Entidad {
   @Column(name = "descripcion")
   private String descripcion;
 
-
   @OneToOne
   @JoinColumn(name = "idLocalizacion", referencedColumnName = "idLocalizacion")
-  private Localizacion ubicacion;
-
+  private Localizacion localizacion;
 
   @OneToMany(mappedBy = "entidad", cascade = {CascadeType.ALL})
   private List<Establecimiento> establecimientos = new ArrayList<>();
-
 
   @Transient
   private List<Miembro> miembrosInteresados = new ArrayList<>();
@@ -43,31 +41,33 @@ public class Entidad {
   @ManyToOne(cascade = {CascadeType.ALL})
   @JoinColumn(name = "idPrestadora", referencedColumnName = "idPrestadora")
   private Prestadora prestadora;
+
+
+  @Column(name = "deleted")
+  private Boolean deleted;
   
   public Entidad(){}
   public Entidad(String nombre){
     this.nombre = nombre;
   }
 
-  public void darDeBaja() {
-
-  }
 
   public float promedioDeTiempoDeCierreDeIncidentes() {
     float total = 0;
     float cantidad = 0;
 
     for(Establecimiento establecimiento : establecimientos) {
+      // TODO: no se contempla que sea en la semana
       List<Incidente> incidentes = establecimiento.incidentes();
 
-      //cantidad += (float) incidentes.size();
-      //for(Incidente incidente : incidentes) {
-      //  total += incidente.tiempoDeCierre();
-      //}
+      cantidad += (float) incidentes.size();
+      for(Incidente incidente : incidentes) {
+        total += incidente.tiempoDeCierre();
+        System.out.println("TOTAL POR AHORA: " + total);
+      }
     }
 
-    //return total / cantidad;
-    return 1;
+    return total / (cantidad == 0 ? 1 : cantidad);
   }
 
   public float cantidadDeIncidentesReportadosEnLaSemana() {

@@ -2,23 +2,17 @@ package controllers;
 
 import com.opencsv.exceptions.CsvValidationException;
 import io.javalin.http.Context;
-import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import io.javalin.http.HttpStatus;
-import models.entities.CSV.LectorCSV;
-import models.entities.Comunidad.Comunidad;
-import models.entities.Comunidad.Miembro;
-import models.entities.Incidente.EstadoPorComunidad;
-import models.entities.Localizacion.Localizacion;
+import models.entities.csv.LectorCSV;
+import models.entities.localizacion.Localizacion;
 import models.entities.ServicioPublico.Entidad;
 import models.entities.ServicioPublico.Organismo;
 import models.entities.ServicioPublico.Prestadora;
@@ -26,9 +20,8 @@ import models.entities.georef.entities.Departamento;
 import models.entities.georef.entities.Municipio;
 import models.entities.georef.entities.Provincia;
 import models.repositories.*;
-import server.utils.ICrudViewsHandler;
 
-public class EntidadesController {
+public class EntidadesController extends Controller {
   private RepositorioOrganismos repositorioOrganismos;
   private RepositorioEntidades repositorioEntidades;
   private RepositorioPrestadoras repositorioPrestadoras;
@@ -39,8 +32,9 @@ public class EntidadesController {
 
   private RepositorioLocalizaciones repositorioLocalizaciones;
 
+  private RepositorioRoles repositorioRoles;
 
-  public EntidadesController(RepositorioEntidades repositorioEntidades, RepositorioOrganismos repositorioOrganismos, RepositorioPrestadoras repositorioPrestadoras, RepositorioProvincias repositorioProvincias, RepositorioMunicipios repositorioMunicipios, RepositorioDepartamentos repositorioDepartamentos, RepositorioLocalizaciones repositorioLocalizaciones) {
+  public EntidadesController(RepositorioEntidades repositorioEntidades, RepositorioOrganismos repositorioOrganismos, RepositorioPrestadoras repositorioPrestadoras, RepositorioProvincias repositorioProvincias, RepositorioMunicipios repositorioMunicipios, RepositorioDepartamentos repositorioDepartamentos, RepositorioLocalizaciones repositorioLocalizaciones, RepositorioRoles repositorioRoles) {
     this.repositorioEntidades = repositorioEntidades;
     this.repositorioOrganismos = repositorioOrganismos;
     this.repositorioPrestadoras = repositorioPrestadoras;
@@ -48,7 +42,23 @@ public class EntidadesController {
     this.repositorioMunicipios = repositorioMunicipios;
     this.repositorioDepartamentos = repositorioDepartamentos;
     this.repositorioLocalizaciones = repositorioLocalizaciones;
+    this.repositorioRoles = repositorioRoles;
   }
+
+
+  public void index(Context context) {
+
+    // Listado de entidades
+    List<Entidad> entidades = this.repositorioEntidades.buscarTodos();
+
+    Map<String, Object> model = new HashMap<>();
+
+    model.put("entidades", entidades);
+    cargarRolesAModel(context, model);
+    context.render("listadoEntidades.hbs", model);
+  }
+
+
 
   public void create(Context context) {
     // Pantalla de creacion de entidades
@@ -63,6 +73,7 @@ public class EntidadesController {
     model.put("prestadoras", prestadoras);
     model.put("provincias", provincias);
 
+    cargarRolesAModel(context, model);
     context.render("creacionEntidades.hbs", model);
   }
 
@@ -83,6 +94,8 @@ public class EntidadesController {
 
     Map<String, Object> model = new HashMap<>();
     model.put("creacion_entidad", "creacion_entidad");
+
+    cargarRolesAModel(context, model);
     context.render("confirmacion.hbs", model);
   }
 
@@ -103,6 +116,8 @@ public class EntidadesController {
     model.put("prestadoras", prestadoras);
     model.put("provincias", provincias);
     model.put("entidad", entidad);
+
+    cargarRolesAModel(context, model);
     context.render("creacionEntidades.hbs", model);
   }
 
@@ -113,7 +128,6 @@ public class EntidadesController {
 
     entidad.setNombre(context.formParam("nombre"));
     entidad.setDescripcion(context.formParam("descripcion"));
-
 
     long idProvincia = Long.parseLong(context.formParam("provincia"));
     long idDepartamento = Long.parseLong(context.formParam("departamento") == null ? "-1" : context.formParam("departamento"));
@@ -138,17 +152,13 @@ public class EntidadesController {
 
     // En cualquier caso le asignamos la localizacion a la entidad
 
-
-    entidad.setUbicacion(localizacion);
-
-
+    entidad.setLocalizacion(localizacion);
 
     Long idPrestadora = Long.parseLong(context.formParam("prestadora"));
 
     Prestadora prestadora = this.repositorioPrestadoras.buscarPorId(idPrestadora);
 
     entidad.setPrestadora(prestadora);
-
 
 
     this.repositorioEntidades.actualizar(entidad);
@@ -168,18 +178,13 @@ public class EntidadesController {
     model.put("provincias", provincias);
     model.put("edit-success","edit-success");
 
-    context.render("creacionEntidades.hbs", model);
+    cargarRolesAModel(context, model);
 
-
-
-
+    model.put("edicion_entidad", "edicion_entidad");
+    context.render("confirmacion.hbs", model);
   }
 
-
-
-
   private void asignarParametros(Entidad entidad, Context context) {
-
     if(!Objects.equals(context.formParam("entidadesForm"), "")) {
 
       long idProvincia = Long.parseLong(context.formParam("provincia"));
@@ -206,7 +211,7 @@ public class EntidadesController {
       // En cualquier caso le asignamos la localizacion a la entidad
 
 
-      entidad.setUbicacion(localizacion);
+      entidad.setLocalizacion(localizacion);
       entidad.setNombre(context.formParam("nombre"));
       entidad.setDescripcion(context.formParam("descripcion"));
 
@@ -216,23 +221,16 @@ public class EntidadesController {
 
       entidad.setPrestadora(prestadora);
 
-
+      entidad.setDeleted(false);
     }
   }
-
-
-
-
-
-
-
-
 
   public void showCargaPrestadorasYOrganismos(Context context) {
     // Muestra la pantalla de carga masiva
 
     Map<String, Object> model = new HashMap<>();
     model.put("cargaDePrestadorasYOrganismos", true);
+    cargarRolesAModel(context, model);
     context.render("cargaMasiva.hbs", model);
   }
 
@@ -241,9 +239,10 @@ public class EntidadesController {
 
     Map<String, Object> model = new HashMap<>();
     model.put("cargaDePrestadorasYOrganismos", false);
+
+    cargarRolesAModel(context, model);
     context.render("cargaMasiva.hbs", model);
   }
-
 
   public void saveCargaPrestadorasYOrganismos(Context context) {
     // Obtiene el nombre del archivo seleccionado
@@ -257,7 +256,7 @@ public class EntidadesController {
 
     // Procesa el contenido del archivo
     try {
-      organismos = lector.leerCSVPrestadorasYOrganismos(fileContent);
+      organismos = lector.leerCSVPrestadorasYOrganismos(fileContent, repositorioRoles);
       fileContent.close();
 
       for (Organismo organismo : organismos) {
@@ -270,11 +269,8 @@ public class EntidadesController {
 
     Map<String, Object> model = new HashMap<>();
     model.put("carga_prestadoras_organismos", "carga_prestadoras_organismos");
+
+    cargarRolesAModel(context, model);
     context.render("confirmacion.hbs", model);
-
   }
-
 }
-
-
-

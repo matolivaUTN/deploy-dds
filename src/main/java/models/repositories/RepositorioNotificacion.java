@@ -1,6 +1,6 @@
 package models.repositories;
 
-import models.entities.Notificaciones.Notificacion;
+import models.entities.notificaciones.Notificacion;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import javax.persistence.EntityManager;
@@ -28,7 +28,14 @@ public class RepositorioNotificacion implements WithSimplePersistenceUnit {
         tx.commit();
     }
 
-    public Notificacion buscarPorId(Integer id) {
+    public void actualizar(Notificacion unaNotificacion) {
+        EntityTransaction tx = this.entityManager.getTransaction();
+        tx.begin();
+        this.entityManager.merge(unaNotificacion);
+        tx.commit();
+    }
+
+    public Notificacion buscarPorId(long id) {
         return this.entityManager.find(Notificacion.class, id);
     }
 

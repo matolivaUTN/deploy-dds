@@ -1,0 +1,29 @@
+{{#partial "titulo-css" }}
+    <title>Sugerencia de revisión de incidente</title>
+    <link rel="stylesheet" href="/css/styles_registroComunidad.css">
+{{/partial}}
+
+
+{{#partial "contenido" }}
+<div class="container">
+    <h1 class="center-label">Sugerencia de revisión de incidente</h1>
+    <form id="comunidadForm" method="POST" action="/incidentes/cerrar">
+
+        <h3>Hemos detectado que te encuentras cerca del incidente {{incidente.descripcion}}</h3>
+        <h3>¿Confirmas que la prestación sigue fuera de servicio?</h3>
+
+        <input type="hidden" name="incidente" value="{{incidente.idIncidente}}">
+
+
+        <button type="submit">Ya funciona con normalidad</button>
+
+    </form>
+
+    <button onclick="window.location.href='/home'">Sigue fuera de servicio</button>
+
+</div>
+
+{{/partial}}
+
+
+{{> templates/navbar }}

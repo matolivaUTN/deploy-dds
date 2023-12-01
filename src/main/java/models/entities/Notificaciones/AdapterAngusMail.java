@@ -1,14 +1,15 @@
-package models.entities.Notificaciones;
+package models.entities.notificaciones;
 
-import models.entities.Comunidad.Miembro;
+import models.entities.comunidad.Miembro;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-public class AdapterAngusMail implements AdapterEmail{
+public class AdapterAngusMail implements AdapterEmail {
+
   @Override
-  public boolean enviarEmail(Miembro miembro, String mensaje){
+  public boolean enviarEmail(Miembro miembro, Notificacion notificacion){
     final String username = "grupo14diseno@outlook.com";
     final String password = "grupo142023";
 
@@ -27,9 +28,9 @@ public class AdapterAngusMail implements AdapterEmail{
     try {
       Message message = new MimeMessage(session);
       message.setFrom(new InternetAddress("grupo14diseno@outlook.com"));
-      message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("grupo14diseno@outlook.com"));
-      message.setSubject("Correo de prueba");
-      message.setText(mensaje);
+      message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(miembro.getEmail()));
+      message.setSubject(notificacion.getAsunto());
+      message.setText(notificacion.getContenido());
 
       Transport.send(message);
       System.out.println("Correo electrónico enviado correctamente.");

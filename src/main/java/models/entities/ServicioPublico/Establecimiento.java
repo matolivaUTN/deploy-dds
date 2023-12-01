@@ -2,22 +2,20 @@ package models.entities.ServicioPublico;
 
 import javax.persistence.*;
 
-import models.entities.Localizacion.Localizacion;
-import models.entities.Incidente.Incidente;
+import models.entities.localizacion.Localizacion;
+import models.entities.incidente.Incidente;
 import java.util.List;
 import java.util.ArrayList;
-import models.entities.Servicio.PrestacionDeServicio;
+import models.entities.servicio.PrestacionDeServicio;
 import lombok.Setter;
 import lombok.Getter;
-
-//Fijarse si la estación debe conocer a las líneas a las que pertenece
-
 
 @Entity
 @Table(name = "establecimiento")
 @Setter
 @Getter
 public class Establecimiento {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idEstablecimiento")
@@ -27,11 +25,18 @@ public class Establecimiento {
     private String nombre;
 
     @OneToMany(mappedBy = "establecimiento", cascade = {CascadeType.ALL})
-    private List<PrestacionDeServicio> prestaciones = new ArrayList<>();
+    private List<PrestacionDeServicio> prestaciones;
 
     @ManyToOne(cascade = {CascadeType.ALL}) // Agregar esta anotación
     @JoinColumn(name = "idEntidad", referencedColumnName = "idEntidad")
     private Entidad entidad;
+
+    @OneToOne
+    @JoinColumn(name = "idLocalizacion", referencedColumnName = "idLocalizacion")
+    private Localizacion localizacion;
+
+    @Column(name = "deleted")
+    private Boolean deleted;
 
     public Establecimiento(){}
 

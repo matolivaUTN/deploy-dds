@@ -9,9 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import models.entities.Comunidad.Miembro;
+import models.entities.comunidad.Miembro;
 import lombok.Getter;
 import lombok.Setter;
+import models.entities.roles.Rol;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,30 +30,32 @@ public class Prestadora {
     @Column(name = "nombre")
     private String nombre;
 
+    @Column(name = "password")
+    private String password;
+
     @ManyToOne
     @JoinColumn(name = "idMiembroDesignado", referencedColumnName = "idMiembro")
     private Miembro designado;
 
     @ManyToOne
+    @JoinColumn(name = "organismo", referencedColumnName = "idOrganismo")
     private Organismo organismo;
 
     @OneToMany(mappedBy = "prestadora")
     private List<Entidad> entidades = new ArrayList<>();
 
+    @Column(name = "deleted")
+    private Boolean deleted;
+
+    @ManyToOne
+    @JoinColumn(name = "rol_id", referencedColumnName = "id")
+    private Rol rol;
 
     public Prestadora(){}
-
-    public Prestadora(String nuevaPrestadora) {
+    public Prestadora(String nuevaPrestadora, String newPassword) {
         nombre = nuevaPrestadora;
+        password = newPassword;
         entidades = new ArrayList<>();
-    }
-
-    public void designar(Miembro miembro) {
-
-    }
-    public void enviarInformacion() {
-
+        deleted = false;
     }
 }
-
-

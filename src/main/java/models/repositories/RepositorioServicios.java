@@ -1,9 +1,8 @@
 package models.repositories;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
-import models.entities.Comunidad.Miembro;
-import models.entities.Servicio.PrestacionDeServicio;
-import models.entities.Servicio.Servicio;
+import models.entities.servicio.PrestacionDeServicio;
+import models.entities.servicio.Servicio;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;

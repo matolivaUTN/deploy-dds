@@ -8,54 +8,86 @@
 
 <div class="container">
     <h1 class="center-label">Consulta de incidentes</h1>
-    <div class="input-container">
-        <form id="comunidadIncidenteForm" method="GET" action="/incidentes-de-comunidad">
-            <label for="comunidad-incidente"><b>Comunidad</b></label>
-            <select id="incidente-comunidad" name="incidente-comunidad" class="custom-select" required>
+
+        <div class="input-container">
+            <label for="opcion">¿Qué incidentes deseas ver?</label>
+            <select id="opcion" name="opcion" class="custom-select" required>
+
+                <option value="" disabled selected>Seleccione una opción</option>
+                <option value="servicios-interes">Incidentes vinculados a mis servicios de interés</option>
+                <option value="servicios-comunidad">Incidentes de comunidad</option>
+
+            </select>
+        </div>
+
+
+        <div class="input-container" id="comunidades-container">
+
+            <label for="comunidad-incidente">Comunidad</label>
+            <select id="comunidad-incidente" name="comunidad-incidente" class="custom-select" required>
 
                 <option value="" disabled selected>Seleccione la comunidad de la que desea consultar los incidentes</option>
-
                 {{#each comunidades}}
                     <option value="{{this.idComunidad}}">{{this.nombre}}</option>
                 {{/each}}
-            </select>
 
-            <button type="submit">Seleccionar</button>
-        </form>
-    </div>
+            </select>
+        </div>
+
+        <div class="input-container" id="filtros">
+
+            <div class="radio-group">
+                <label for="filtros">Filtros:</label>
+                <input type="radio" id="incidentes-abiertos" name="tipo-incidente" value="incidentes-abiertos">
+                <label for="incidentes-abiertos">Abierto</label>
+
+                <input type="radio" id="incidentes-cerrados" name="tipo-incidente" value="incidentes-cerrados">
+                <label for="incidentes-cerrados">Cerrado</label>
+
+                <input type="radio" id="incidentes-todos" name="tipo-incidente" value="incidentes-todos" checked>
+                <label for="incidentes-todos">Todos</label>
+            </div>
+
+        </div>
+
+        <button id="boton">Seleccionar</button>
+</div>
+
+<div class="table-container">
+
+
 </div>
 
 
-    {{#if hayQueMostrarIncidentes}}
-        <div class="table-container">
-            <table class="content-table">
-                <tr>
-                    <th>Descripcion</th>
-                    <th>Observaciones</th>
-                    <th>Prestación afectada</th>
-                    <th>Fecha de alta</th>
-                    <th>Fecha de cierre</th>
-                    <th>Miembro creador</th>
-                    <th>Miembro cerrador</th>
-                    <th>Estado</th>
-                </tr>
-                <tbody>
-                {{#each incidentesConEstado}}
-                    <tr>
-                        <td>{{this.incidente.descripcion}}</td>
-                        <td>{{this.incidente.observaciones}}</td>
-                        <td>{{this.getIncidente.getPrestacionAfectada.getNombre}}</td>  <!--TODO: FALTA ESTO-->
-                        <td>{{this.incidente.getTiempoInicial.toLocalDate}}</td>
-                        <td>{{#if this.estado.getFechaDeCierre.toLocalDate}}{{this.estado.getFechaDeCierre.toLocalDate}}{{else}}-{{/if}}</td>
-                        <td>{{this.incidente.miembroCreador.getNombre}}</td>
-                        <td>{{#if this.estado.getCerrador.getNombre}}{{this.estado.getCerrador.getNombre}}{{else}}-{{/if}}</td>
-                        <td>{{#if this.estado.estaAbierto}}Abierto{{else}}Cerrado{{/if}}</td>
-                    </tr>
-                {{/each}}
-                </tbody>
-            </table>
-        </div>
-    {{/if}}
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/script_listadoIncidentes.js"></script>
+<script>
+    const opcionDropdown = document.getElementById("opcion");
+    const comunidadesContainer = document.getElementById("comunidades-container");
+    const filtrosContainer = document.getElementById("filtros");
+    const boton = document.getElementById("boton");
+    const comunidadIncidenteSelect = document.getElementById("comunidad-incidente");
+
+
+    opcionDropdown.addEventListener("change", function () {
+
+        filtrosContainer.style.display = "block";
+        boton.style.display = "block";
+
+        const selectedOption = opcionDropdown.value;
+
+        if (selectedOption === "servicios-comunidad") {
+            comunidadesContainer.style.display = "block";
+        }
+        else {
+            comunidadesContainer.style.display = "none";
+            comunidadIncidenteSelect.value = ""; // Clear the selected value
+        }
+    });
+</script>
 {{/partial}}
 
 
