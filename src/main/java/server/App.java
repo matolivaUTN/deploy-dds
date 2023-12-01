@@ -20,9 +20,10 @@ public class App {
         new PersistidorGeoref().start(entityManager());
 
         // Si estamos en dev mode persistimos los roles (esto del dev mode se cambia en el archivo config.properties
-        if(Boolean.parseBoolean(PrettyProperties.getInstance().propertyFromName("dev_mode"))) {
-           PersistidorRoles persistidorRoles = new PersistidorRoles(entityManager());
+	PersistidorRoles persistidorRoles = new PersistidorRoles(entityManager());
            persistidorRoles.start();
+        if(Boolean.parseBoolean(PrettyProperties.getInstance().propertyFromName("dev_mode"))) {
+           
         }
 
         // Instanciamos todos los Cron Task
